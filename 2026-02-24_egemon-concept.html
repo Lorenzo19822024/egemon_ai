@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>egemon.ai — L'AI che lavora per la tua impresa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #060810;
+      --bg2:      #0c0f1c;
+      --surface:  #10141f;
+      --surface2: #141824;
+      --border:   rgba(255,255,255,0.09);
+      --accent:   #5b52f0;
+      --accent2:  #9b8eff;
+      --green:    #22c55e;
+      --gold:     #eab308;
+      --text:     #eef2f7;
+      --soft:     #b8c8d8;
+      --muted:    #8a9db5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.3rem; font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent2); }
+
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--soft); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #fff !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #6b63f5 !important; }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5rem;
+    }
+
+    section { padding: 7rem 0; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 9rem; padding-bottom: 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-bg-glow {
+      position: absolute; top: -10%; right: -15%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle at center, rgba(91,82,240,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-bg-glow2 {
+      position: absolute; bottom: 0; left: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle at center, rgba(91,82,240,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-kicker {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 2rem;
+    }
+    .hero-kicker::before {
+      content: '';
+      display: block; width: 24px; height: 1px;
+      background: var(--accent2);
+    }
+
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      margin-bottom: 2rem;
+      max-width: 780px;
+      color: var(--text);
+    }
+
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--soft);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+      font-weight: 400;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff;
+      padding: 0.9rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; transition: all .2s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: #6b63f5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(91,82,240,0.35);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--soft);
+      padding: 0.9rem 2rem; border-radius: 10px;
+      font-weight: 500; font-size: 0.9rem;
+      text-decoration: none; transition: all .2s;
+      border: 1px solid var(--border); cursor: pointer;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(155,142,255,0.4); }
+
+    .hero-proof {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 3.5rem; align-items: center;
+    }
+    .proof-item { }
+    .proof-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem; font-weight: 900;
+      color: var(--text); letter-spacing: -0.04em;
+    }
+    .proof-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* ── SECTION LABELS ── */
+    .s-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+    }
+
+    .s-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.035em;
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+
+    .s-sub {
+      font-size: 1.05rem; color: var(--soft);
+      line-height: 1.75; max-width: 580px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── PROBLEMA ── */
+    #problema { background: var(--bg2); }
+
+    .problema-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+
+    .stat-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+      margin-bottom: 1rem;
+    }
+    .stat-block:last-child { margin-bottom: 0; }
+
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.5rem; font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .stat-num.red { color: #f87171; }
+    .stat-num.amber { color: #fbbf24; }
+    .stat-num.green { color: #4ade80; }
+
+    .stat-desc { font-size: 0.875rem; color: var(--soft); line-height: 1.55; }
+
+    .pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin-top: 0;
+    }
+
+    .pillar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.25rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .pillar:hover {
+      border-color: rgba(91,82,240,0.45);
+      transform: translateY(-3px);
+    }
+
+    .pillar-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(91,82,240,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1.5rem;
+    }
+
+    .pillar-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.5rem;
+    }
+
+    .pillar-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 0.65rem; color: var(--text);
+    }
+
+    .pillar-desc { font-size: 0.875rem; color: var(--soft); line-height: 1.65; }
+
+    /* ── APPLICAZIONI ── */
+    #applicazioni { background: var(--bg2); }
+
+    .apps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+
+    .app-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: all .25s;
+    }
+    .app-card:hover { border-color: rgba(91,82,240,0.4); transform: translateY(-2px); }
+
+    .app-icon {
+      font-size: 1.75rem; margin-bottom: 1.25rem; display: block;
+    }
+
+    .app-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem; font-weight: 800;
+      letter-spacing: -0.025em; margin-bottom: 0.25rem;
+    }
+
+    .app-segment {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.9rem;
+    }
+
+    .app-desc { font-size: 0.875rem; color: var(--soft); line-height: 1.65; }
+
+    .app-badge {
+      display: inline-block; margin-top: 1.25rem;
+      padding: 0.2rem 0.7rem; border-radius: 6px;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .live { background: rgba(34,197,94,0.1); color: #4ade80; }
+    .dev  { background: rgba(234,179,8,0.1); color: #fbbf24; }
+
+    .team-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+    }
+
+    .team-head {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;
+    }
+
+    .team-avatar {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 900; color: #fff;
+      letter-spacing: -0.02em; flex-shrink: 0;
+    }
+
+    .team-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      letter-spacing: -0.025em; margin-bottom: 0.15rem;
+    }
+
+    .team-role {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--accent2);
+    }
+
+    .team-bio { font-size: 0.9rem; color: var(--soft); line-height: 1.75; }
+
+    /* ── CTA ── */
+    #cta {
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .cta-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.035em;
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .cta-sub { font-size: 1.1rem; color: var(--soft); margin-bottom: 2.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--muted);
+    }
+
+    /* ── CONCEPT BADGE ── */
+    .concept-badge {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+      background: rgba(234,179,8,0.12);
+      border: 1px solid rgba(234,179,8,0.3);
+      border-radius: 8px; padding: 0.5rem 0.9rem;
+      font-size: 0.68rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.07em; text-transform: uppercase;
+    }
+
+    /* ── DIVIDER ── */
+    hr.section-divider {
+      border: none; border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .hero-title { font-size: 2.4rem; }
+      .problema-grid, .team-intro { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pillars, .apps-grid { grid-template-columns: 1fr; }
+      .hero-proof { gap: 2rem; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="logo">egemon<span>.ai</span></div>
+  <div class="nav-links">
+    <a href="#problema">Il Mercato</a>
+    <a href="#approccio">Il Metodo</a>
+    <a href="#applicazioni">Soluzioni</a>
+    <a href="#team">Chi Siamo</a>
+    <a href="#cta" class="nav-cta">Inizia ora</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="container">
+
+    <div class="hero-kicker">AI applicata. Non sperimentata.</div>
+
+    <h1 class="hero-title">
+      L'AI che porta<br>
+      <em>risultati reali</em><br>
+      alla tua impresa.
+    </h1>
+
+    <p class="hero-sub">
+      Non strumenti da configurare. Non progetti pilota che non finiscono.
+      Trasformiamo l'intelligenza artificiale in vantaggio competitivo
+      concreto e misurabile — noi facciamo il lavoro.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">Parlaci dei tuoi obiettivi →</a>
+      <a href="#approccio" class="btn-ghost">Come lavoriamo</a>
+    </div>
+
+    <div class="hero-proof">
+      <div class="proof-item">
+        <div class="proof-num">3</div>
+        <div class="proof-label">Settori verticali coperti</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">100%</div>
+        <div class="proof-label">Soluzioni su misura, nessun template</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">0</div>
+        <div class="proof-label">Strumenti DIY da gestire</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── IL PROBLEMA ── -->
+<section id="problema">
+<div class="container">
+
+  <div class="problema-grid">
+    <div>
+      <div class="s-label">Il contesto</div>
+      <h2 class="s-title">L'AI è ovunque.<br>I risultati, raramente.</h2>
+      <p class="s-sub">
+        Il mercato è inondato di strumenti AI. Ogni settimana ne escono di nuovi,
+        ognuno con promesse diverse. Eppure la stragrande maggioranza delle imprese
+        sperimenta, spende e non ottiene un ritorno misurabile.
+      </p>
+      <p style="font-size:0.9rem; color:var(--soft); line-height:1.75;">
+        Il problema non è la tecnologia.<br>
+        È il modo in cui viene applicata — o piuttosto, non applicata.
+        Serve competenza verticale, metodo e qualcuno che si prenda
+        la responsabilità del risultato.
+      </p>
+    </div>
+
+    <div>
+      <div class="stat-block">
+        <div class="stat-num red">73%</div>
+        <p class="stat-desc">delle imprese italiane ha avviato progetti AI negli ultimi 2 anni. Meno di un quarto ha ottenuto un ROI misurabile entro 12 mesi.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num amber">6–14 mesi</div>
+        <p class="stat-desc">è il tempo medio sprecato in sperimentazione prima di capire che serve un approccio strutturato, non un altro tool da testare.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num green">egemon</div>
+        <p class="stat-desc">Analisi del contesto. Progettazione su misura. Esecuzione diretta. Risultati verificabili. Nessuna sperimentazione infinita.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ── APPROCCIO ── -->
+<section id="approccio">
+<div class="container">
+
+  <div class="s-label">Il metodo</div>
+  <h2 class="s-title">Noi non vendiamo strumenti.<br>Consegniamo risultati.</h2>
+  <p class="s-sub">
+    Ogni progetto parte da un'analisi reale del tuo contesto.
+    Niente template, niente pacchetti predefiniti.
+    Costruiamo su misura, eseguiamo, misuriamo.
+  </p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01 — Analisi</div>
+      <div class="pillar-title">Capire prima di agire</div>
+      <p class="pillar-desc">
+        Prima di proporre qualsiasi soluzione, studiamo il tuo business:
+        processi, dati, persone, obiettivi. Solo dopo sappiamo dove l'AI
+        può fare la differenza reale — e dove no.
+      </p>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">02 — Progettazione</div>
+      <div class="pillar-title">Su misura, non standard</div>
+      <p class="pillar-desc">
+        Ogni soluzione è costruita per il tuo caso specifico.
+        La tecnologia MMS proprietaria ci permette di adattare
+        i modelli AI al tuo dominio, al tuo linguaggio,
+        ai tuoi flussi operativi.
+      </p>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">03 — Esecuzione</div>
+      <div class="pillar-title">Ci prendiamo la responsabilità</div>
+      <p class="pillar-desc">
+        Non ti consegniamo un manuale. Implementiamo,
+        verifichiamo i risultati e li misuriamo con te.
+        Il successo del progetto è anche il nostro successo.
+      </p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ── APPLICAZIONI ── -->
+<section id="applicazioni">
+<div class="container">
+
+  <div class="s-label">Le soluzioni</div>
+  <h2 class="s-title">Dove applichiamo l'AI.<br>Con risultati verificabili.</h2>
+  <p class="s-sub">
+    Tre aree verticali dove la nostra tecnologia produce vantaggio competitivo
+    concreto. Non funzionalità generiche — impatto misurabile sul tuo contesto.
+  </p>
+
+  <div class="apps-grid">
+    <div class="app-card">
+      <span class="app-icon">🎓</span>
+      <div class="app-name">QWIKKEN Scholar</div>
+      <div class="app-segment">Formazione · Università</div>
+      <p class="app-desc">
+        L'apprendimento che si adatta a ogni studente.
+        Tutor AI, sintesi intelligenti, simulazioni d'esame e
+        percorsi personalizzati per università telematiche e
+        istituti di formazione. Risultato: riduzione dei tempi
+        di preparazione, aumento del tasso di superamento.
+      </p>
+      <span class="app-badge live">● Operativo</span>
+    </div>
+
+    <div class="app-card">
+      <span class="app-icon">📊</span>
+      <div class="app-name">QWIKKEN Credit</div>
+      <div class="app-segment">Finanza · Mediatori Creditizi</div>
+      <p class="app-desc">
+        AI applicata alla mediazione creditizia: normativa sempre
+        aggiornata, analisi pratiche assistite, gestione clienti
+        ottimizzata. Il professionista lavora meglio e più velocemente
+        senza doversi formare su ogni nuovo aggiornamento regolatorio.
+      </p>
+      <span class="app-badge dev">◐ In sviluppo</span>
+    </div>
+
+    <div class="app-card">
+      <span class="app-icon">🏢</span>
+      <div class="app-name">ImpresaFutura</div>
+      <div class="app-segment">Management · PMI</div>
+      <p class="app-desc">
+        Supporto decisionale e strategico per imprenditori e manager
+        di PMI. Analisi del contesto, pianificazione finanziaria,
+        diagnostica operativa — con AI che conosce il tuo settore
+        e si aggiorna con il mercato.
+      </p>
+      <span class="app-badge live">● Operativo</span>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team" style="background: var(--bg2);">
+<div class="container">
+
+  <div class="s-label">Chi siamo</div>
+  <h2 class="s-title">Esperienza manageriale.<br>Tecnologia proprietaria.</h2>
+  <p class="s-sub">
+    Due profili complementari costruiti su decenni di lavoro reale —
+    non su slideshow.
+  </p>
+
+  <div class="team-intro">
+    <div class="team-card">
+      <div class="team-head">
+        <div class="team-avatar">LB</div>
+        <div>
+          <div class="team-name">Lorenzo Bosio</div>
+          <div class="team-role">CEO & Founder — Synthetic Data srl</div>
+        </div>
+      </div>
+      <p class="team-bio">
+        50 anni di carriera IT ai vertici di multinazionali internazionali.
+        Ha guidato trasformazioni digitali su scala globale, gestito
+        ecosistemi tecnologici complessi e costruito organizzazioni
+        orientate ai risultati. Fondatore di Synthetic Data srl e
+        architetto dell'ecosistema QWIKKEN — progettato per portare
+        l'AI nei contesti dove fa davvero la differenza.
+      </p>
+    </div>
+
+    <div class="team-card">
+      <div class="team-head">
+        <div class="team-avatar">GG</div>
+        <div>
+          <div class="team-name">Graziano Guiducci</div>
+          <div class="team-role">Partner Tecnologico — Ricercatore AI</div>
+        </div>
+      </div>
+      <p class="team-bio">
+        20 anni di architetture software, oltre 5 anni di ricerca
+        focalizzata su AI e modelli semantici. Autore della tecnologia
+        MMS (Meta-Model Semantics) — il motore proprietario che permette
+        ai nostri sistemi di adattarsi a contesti specifici con una
+        precisione che i modelli generalisti non raggiungono.
+        La differenza tra un tool generico e una soluzione su misura.
+      </p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+<div class="container">
+
+  <h2 class="cta-title">
+    Pronti a trasformare l'AI<br>in un vantaggio reale?
+  </h2>
+  <p class="cta-sub">
+    Nessun demo infinito, nessun tool da configurare.<br>
+    Partiamo dai vostri obiettivi e costruiamo la soluzione giusta.
+  </p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci ora →</a>
+    <a href="https://cockpit.egemon.ai" class="btn-ghost">Accedi al Cockpit</a>
+  </div>
+
+</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; letter-spacing:-0.04em; font-size:1.1rem; color:var(--text);">egemon<span style="color:var(--accent2);">.ai</span></div>
+  <div>© 2026 Synthetic Data srl · Powered by MMS Technology</div>
+  <div>info@egemon.ai</div>
+</footer>
+
+<div class="concept-badge">⚠ Concept — 2026-02-24</div>
+
+</body>
+</html>
