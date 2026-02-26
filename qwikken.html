@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QWIKKEN Scholar — Il Cognitive Twin dello Studente | egemon.ai</title>
+  <meta name="description" content="QWIKKEN Scholar: il Cognitive Twin dello studente. Tutoring AI personalizzato, 13 moduli specializzati, adattamento al tuo profilo cognitivo. Operativo." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://egemon.ai/qwikken.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="assets/egemon-logo.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://egemon.ai/qwikken.html" />
+  <meta property="og:title" content="QWIKKEN Scholar — Il Cognitive Twin dello Studente" />
+  <meta property="og:description" content="Tutoring AI personalizzato per studenti universitari. 13 moduli, Cognitive Twin, Dual Mode. Operativo." />
+  <meta property="og:image" content="https://egemon.ai/assets/egemon-logo.png" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="egemon.ai" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="QWIKKEN Scholar — Cognitive Twin dello Studente" />
+  <meta name="twitter:description" content="Tutoring AI personalizzato. 13 moduli specializzati per ogni fase del percorso universitario." />
+  <meta name="twitter:image" content="https://egemon.ai/assets/egemon-logo.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -59,6 +82,22 @@
     .nav-links a { color: var(--soft); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
     .nav-links a.active { color: var(--accent2); }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 36px; height: 36px; position: relative;
+      flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--soft); border-radius: 2px;
+      transition: all .25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
     .nav-cta {
       background: var(--accent) !important; color: #fff !important;
       padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
@@ -296,14 +335,6 @@
     /* ── DIVIDER ── */
     hr.section-divider { border: none; border-top: 1px solid var(--border); }
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem; color: var(--muted);
-    }
-    .footer-logo { display: flex; align-items: center; gap: 0.5rem; }
     .footer-logo-text {
       font-family: 'Cinzel', serif;
       font-size: 1.1rem; font-weight: 700;
@@ -311,25 +342,62 @@
     }
     .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
 
-    .concept-badge {
-      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
-      background: rgba(234,179,8,0.12);
-      border: 1px solid rgba(234,179,8,0.3);
-      border-radius: 8px; padding: 0.5rem 0.9rem;
-      font-size: 0.68rem; font-weight: 700;
-      color: var(--gold); letter-spacing: 0.07em; text-transform: uppercase;
+    /* ── FOOTER FULL ── */
+    .footer-full {
+      padding: 4rem 5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+      flex-wrap: wrap; gap: 0.5rem;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: rgba(6,8,16,0.96); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.5rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+      .nav-links a:last-child { border-bottom: none; }
       .container { padding: 0 1.5rem; }
       .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .how-grid, .mod-grid { grid-template-columns: 1fr; }
       .mod-card.featured { grid-template-columns: 1fr; }
       .mod-card.featured .mod-icon { grid-row: auto; }
       .mod-card.featured .mod-desc { grid-column: 1; }
+      .footer-full { padding: 3rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -341,13 +409,16 @@
     <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon" />
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </a>
+  <button class="nav-toggle" aria-label="Menu" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
     <a href="index.html#metodo">Il Metodo</a>
     <a href="index.html#contesto">Il Contesto</a>
     <a href="qwikken.html" class="active">QWIKKEN</a>
     <a href="index.html#visione">Visione</a>
     <a href="index.html#team">Chi Siamo</a>
-    <a href="index.html#cta" class="nav-cta">Contattaci</a>
+    <a href="https://qwikken.egemon.ai/" target="_blank" class="nav-cta">Entra in Qwikken</a>
   </div>
 </nav>
 
@@ -753,7 +824,7 @@
     Pronto per dimostrare che il modello funziona.
   </p>
   <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-    <a href="mailto:info@egemon.ai" class="btn-primary">Richiedi accesso &rarr;</a>
+    <a href="https://qwikken.egemon.ai/" target="_blank" class="btn-primary">Entra in Qwikken &rarr;</a>
     <a href="index.html" class="btn-ghost">&larr; Torna a Egemon</a>
   </div>
 
@@ -761,16 +832,41 @@
 </section>
 
 <!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-logo">
-    <img src="assets/egemon-logo.png" alt="Egemon" style="width:22px; height:22px; border-radius:4px; object-fit:contain;" />
-    <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Cognitive Intelligence Platform.<br>Produttivit&agrave; eccezionale nell'impiego dell'AI.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">Synthetic Data srl &mdash; P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="index.html#metodo">Il Metodo</a>
+      <a href="index.html#contesto">Il Contesto</a>
+      <a href="qwikken.html">QWIKKEN Scholar</a>
+      <a href="index.html#visione">Visione</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Azienda</div>
+      <a href="index.html#team">Chi Siamo</a>
+      <a href="mailto:info@egemon.ai">Contatti</a>
+      <a href="https://cockpit.egemon.ai">Cockpit</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
   </div>
-  <div>&copy; 2026 Synthetic Data srl &middot; Powered by MMS Technology</div>
-  <div>info@egemon.ai</div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Synthetic Data srl &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
 </footer>
-
-<div class="concept-badge">&#9888; QWIKKEN Scholar &mdash; 2026-02-26</div>
 
 </body>
 </html>

@@ -4,6 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>egemon.ai — Cognitive Intelligence Platform</title>
+  <meta name="description" content="Egemon è la piattaforma AI cognitiva che consente al tuo personale di realizzare risultati eccezionali. Cognitive Twin, Dual Mode, Genomic Compliance." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://egemon.ai/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="assets/egemon-logo.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://egemon.ai/" />
+  <meta property="og:title" content="egemon.ai — Cognitive Intelligence Platform" />
+  <meta property="og:description" content="Produttività eccezionale nell'impiego dell'AI. Con le risorse che hai. Per chiunque." />
+  <meta property="og:image" content="https://egemon.ai/assets/egemon-logo.png" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="egemon.ai" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="egemon.ai — Cognitive Intelligence Platform" />
+  <meta name="twitter:description" content="Produttività eccezionale nell'impiego dell'AI. Con le risorse che hai. Per chiunque." />
+  <meta name="twitter:image" content="https://egemon.ai/assets/egemon-logo.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -71,6 +94,21 @@
       font-size: 0.875rem; font-weight: 500; transition: color .2s;
     }
     .nav-links a:hover { color: var(--text); }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 36px; height: 36px; position: relative;
+      flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--soft); border-radius: 2px;
+      transition: all .25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
     .nav-cta {
       background: var(--accent) !important;
@@ -505,17 +543,6 @@
     }
     .cta-sub { font-size: 1.1rem; color: var(--soft); margin-bottom: 2.5rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid var(--border);
-      font-size: 0.8rem; color: var(--muted);
-    }
-
-    .footer-logo {
-      display: flex; align-items: center; gap: 0.5rem;
-    }
     .footer-logo-text {
       font-family: 'Cinzel', serif;
       font-size: 1.1rem; font-weight: 700;
@@ -523,16 +550,6 @@
       text-transform: uppercase;
     }
     .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
-
-    /* ── CONCEPT BADGE ── */
-    .concept-badge {
-      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
-      background: rgba(234,179,8,0.12);
-      border: 1px solid rgba(234,179,8,0.3);
-      border-radius: 8px; padding: 0.5rem 0.9rem;
-      font-size: 0.68rem; font-weight: 700;
-      color: var(--gold); letter-spacing: 0.07em; text-transform: uppercase;
-    }
 
     /* ── BRAND FONT (EGEMON + QWIKKEN) ── */
     .brand-font {
@@ -547,9 +564,49 @@
       border: none; border-top: 1px solid var(--border);
     }
 
+    /* ── FOOTER FULL ── */
+    .footer-full {
+      padding: 4rem 5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none; position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0;
+        background: rgba(6,8,16,0.96); backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 1.5rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+      .nav-links a:last-child { border-bottom: none; }
       .container { padding: 0 1.5rem; }
       .hero-title { font-size: 2.4rem; }
       .hero-logo { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -563,6 +620,12 @@
       .app-card-featured .app-desc,
       .app-card-featured .app-badge { grid-column: 1; }
       .hero-proof { gap: 2rem; flex-wrap: wrap; }
+      .footer-full { padding: 3rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -574,6 +637,9 @@
     <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon" />
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </div>
+  <button class="nav-toggle" aria-label="Menu" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
     <a href="#metodo">Il Metodo</a>
     <a href="#contesto">Il Contesto</a>
@@ -957,16 +1023,41 @@
 </section>
 
 <!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-logo">
-    <img src="assets/egemon-logo.png" alt="Egemon" style="width:22px; height:22px; border-radius:4px; object-fit:contain;" />
-    <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Cognitive Intelligence Platform.<br>Produttivit&agrave; eccezionale nell'impiego dell'AI.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">Synthetic Data srl &mdash; P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="#metodo">Il Metodo</a>
+      <a href="#contesto">Il Contesto</a>
+      <a href="qwikken.html">QWIKKEN Scholar</a>
+      <a href="#visione">Visione</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Azienda</div>
+      <a href="#team">Chi Siamo</a>
+      <a href="mailto:info@egemon.ai">Contatti</a>
+      <a href="mailto:info@egemon.ai">Contatti</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
   </div>
-  <div>© 2026 Synthetic Data srl · Powered by MMS Technology</div>
-  <div>info@egemon.ai</div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 Synthetic Data srl &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
 </footer>
-
-<div class="concept-badge">⚠ Concept v4 — 2026-02-26</div>
 
 </body>
 </html>
