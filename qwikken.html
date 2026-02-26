@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QWIKKEN Scholar — Il Cognitive Twin dello Studente | egemon.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #060810;
+      --bg2:      #0c0f1c;
+      --surface:  #10141f;
+      --surface2: #141824;
+      --border:   rgba(255,255,255,0.09);
+      --accent:   #5b52f0;
+      --accent2:  #9b8eff;
+      --green:    #22c55e;
+      --gold:     #eab308;
+      --text:     #eef2f7;
+      --soft:     #b8c8d8;
+      --muted:    #8a9db5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--soft); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent2); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important; transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #6b63f5 !important; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 5rem; }
+    section { padding: 7rem 0; }
+
+    /* ── BRAND FONT ── */
+    .brand-font {
+      font-family: 'Cinzel', serif;
+      font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #fff;
+      padding: 0.9rem 2rem; border-radius: 10px;
+      font-weight: 700; font-size: 0.9rem;
+      text-decoration: none; transition: all .2s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(91,82,240,0.35); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--soft);
+      padding: 0.9rem 2rem; border-radius: 10px;
+      font-weight: 500; font-size: 0.9rem;
+      text-decoration: none; transition: all .2s;
+      border: 1px solid var(--border); cursor: pointer;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: rgba(155,142,255,0.4); }
+
+    /* ── SECTION LABELS ── */
+    .s-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.035em;
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .s-sub {
+      font-size: 1.05rem; color: var(--soft);
+      line-height: 1.75; max-width: 640px;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 85vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 9rem; padding-bottom: 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute; top: -10%; right: -15%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle at center, rgba(91,82,240,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-bg-glow2 {
+      position: absolute; bottom: -5%; left: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle at center, rgba(34,197,94,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-breadcrumb {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 2rem; opacity: 0.8;
+    }
+    .hero-breadcrumb a { color: var(--muted); text-decoration: none; transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--text); }
+
+    .hero-icon { font-size: 4rem; margin-bottom: 1.5rem; display: block; }
+
+    .hero-wordmark {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700; letter-spacing: 0.05em;
+      line-height: 1; color: var(--text); text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .hero-wordmark .scholar {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800; letter-spacing: -0.03em;
+      font-size: 0.85em; text-transform: none;
+    }
+
+    .hero-tagline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 800; line-height: 1.2;
+      letter-spacing: -0.03em; margin-bottom: 2rem; max-width: 650px;
+    }
+    .hero-tagline em {
+      font-style: normal;
+      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem; color: var(--soft);
+      max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.3rem 1rem; border-radius: 8px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(34,197,94,0.1); color: #4ade80;
+      margin-bottom: 2rem;
+    }
+
+    /* ── PROBLEM ── */
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .problem-text { font-size: 1rem; color: var(--soft); line-height: 1.8; }
+    .problem-text strong { color: var(--text); }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem; margin-bottom: 1rem;
+    }
+    .stat-card:last-child { margin-bottom: 0; }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem; font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.4rem;
+    }
+    .stat-desc { font-size: 0.875rem; color: var(--soft); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .how-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.25rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .how-card:hover { border-color: rgba(91,82,240,0.45); transform: translateY(-3px); }
+    .how-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(91,82,240,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .how-step {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.5rem;
+    }
+    .how-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 0.6rem; color: var(--text);
+    }
+    .how-desc { font-size: 0.875rem; color: var(--soft); line-height: 1.65; }
+
+    /* ── MODULES ── */
+    .mod-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .mod-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      transition: all .25s;
+    }
+    .mod-card:hover { border-color: rgba(91,82,240,0.4); transform: translateY(-2px); }
+
+    .mod-card.featured {
+      grid-column: 1 / -1;
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 1.5rem; padding: 2.5rem;
+      background: linear-gradient(135deg, var(--surface2) 0%, rgba(91,82,240,0.06) 100%);
+      border-color: rgba(91,82,240,0.25);
+    }
+    .mod-card.featured .mod-icon { grid-row: 1 / 3; font-size: 2.5rem; align-self: start; }
+    .mod-card.featured .mod-name { font-size: 1.4rem; }
+    .mod-card.featured .mod-desc { grid-column: 1 / -1; }
+
+    .mod-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+
+    .mod-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 0.25rem; color: var(--text);
+    }
+    .mod-category {
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.75rem;
+    }
+    .mod-desc { font-size: 0.85rem; color: var(--soft); line-height: 1.65; }
+    .mod-example {
+      font-size: 0.78rem; color: var(--accent2); line-height: 1.5;
+      margin-top: 0.75rem; font-style: italic;
+    }
+
+    /* ── DIFF BOX ── */
+    .diff-box {
+      background: var(--surface);
+      border: 1px solid rgba(91,82,240,0.25);
+      border-left: 3px solid var(--accent2);
+      border-radius: 12px; padding: 2.5rem;
+      max-width: 820px;
+    }
+    .diff-box-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 0.75rem;
+    }
+    .diff-box p { font-size: 0.95rem; color: var(--soft); line-height: 1.75; }
+    .diff-box strong { color: var(--text); }
+
+    /* ── DIVIDER ── */
+    hr.section-divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--muted);
+    }
+    .footer-logo { display: flex; align-items: center; gap: 0.5rem; }
+    .footer-logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+
+    .concept-badge {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+      background: rgba(234,179,8,0.12);
+      border: 1px solid rgba(234,179,8,0.3);
+      border-radius: 8px; padding: 0.5rem 0.9rem;
+      font-size: 0.68rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.07em; text-transform: uppercase;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .how-grid, .mod-grid { grid-template-columns: 1fr; }
+      .mod-card.featured { grid-template-columns: 1fr; }
+      .mod-card.featured .mod-icon { grid-row: auto; }
+      .mod-card.featured .mod-desc { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon" />
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html#metodo">Il Metodo</a>
+    <a href="index.html#contesto">Il Contesto</a>
+    <a href="qwikken.html" class="active">QWIKKEN</a>
+    <a href="index.html#visione">Visione</a>
+    <a href="index.html#team">Chi Siamo</a>
+    <a href="index.html#cta" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="container">
+
+    <div class="hero-breadcrumb">
+      <a href="index.html">Egemon</a> &nbsp;/&nbsp;
+      <a href="index.html#qwikken">QWIKKEN</a> &nbsp;/&nbsp; Scholar
+    </div>
+
+    <div class="hero-badge">&#9679; Operativo</div>
+
+    <div class="hero-icon">&#127891;</div>
+
+    <div class="hero-wordmark">QWIKKEN <span class="scholar">Scholar</span></div>
+
+    <div class="hero-tagline">
+      Il Cognitive Twin dello studente.<br>
+      <em>Tutoring di eccellenza per tutti.</em>
+    </div>
+
+    <p class="hero-sub">
+      Opera per assistere in ogni modo lo studente a superare le difficolt&agrave;
+      degli studi universitari.<br><br>
+      Assimila il programma del tuo ateneo, valuta il tuo profilo cognitivo,
+      si adatta progressivamente a come studi e riconfigura la conoscenza
+      per rendere tutto di pi&ugrave; facile comprensione.
+      Pi&ugrave; studi con lui, pi&ugrave; diventa preciso.
+    </p>
+
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <a href="#moduli" class="btn-primary">Scopri i moduli &darr;</a>
+      <a href="#come-funziona" class="btn-ghost">Come funziona</a>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── IL PROBLEMA ── -->
+<section id="problema">
+<div class="container">
+
+  <div class="problem-grid">
+    <div>
+      <div class="s-label">Il contesto</div>
+      <h2 class="s-title">Oltre 200.000 studenti.<br>Quasi nessuna guida personale.</h2>
+
+      <div class="problem-text">
+        <p style="margin-bottom:1.5rem;">
+          Le universit&agrave; telematiche crescono. I rapporti personali con i docenti
+          diventano sempre pi&ugrave; rari e difficoltosi. L'insegnamento &egrave; sempre
+          pi&ugrave; complesso, ma il supporto individuale &egrave; sempre pi&ugrave; scarso.
+        </p>
+        <p style="margin-bottom:1.5rem;">
+          I tutor privati non sono sufficienti. Le risorse online sono generiche.
+          I chatbot generalisti non conoscono il tuo programma, il tuo livello,
+          i tuoi punti deboli.
+        </p>
+        <p>
+          <strong>QWIKKEN Scholar democratizza l'accesso a un tutoring di eccellenza</strong>
+          &mdash; indipendentemente dal reddito, dalla distanza dai campus,
+          dal livello di partenza.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: #f87171;">200.000+</div>
+        <p class="stat-desc">Studenti universitari telematici in Italia che necessitano di una guida personale per superare le difficolt&agrave; di un insegnamento sempre pi&ugrave; complesso.</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: #fbbf24;">1 : molti</div>
+        <p class="stat-desc">Il rapporto docente-studente nelle telematiche rende impossibile il tutoring individuale. Il knowledge c'&egrave;, ma non arriva dove serve.</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color: #4ade80;">Cognitive Twin</div>
+        <p class="stat-desc">Scholar costruisce un gemello cognitivo per ogni studente. Si adatta, impara, cresce con te. Il tutoring diventa personale, continuo, accessibile.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── COME FUNZIONA ── -->
+<section id="come-funziona" style="background: var(--bg2);">
+<div class="container">
+
+  <div class="s-label">Come funziona</div>
+  <h2 class="s-title">Tre passaggi. Un sistema cognitivo completo.</h2>
+  <p class="s-sub">
+    Non &egrave; un chatbot con un prompt. &Egrave; un sistema che ti conosce,
+    si adatta e cresce con te ad ogni sessione di studio.
+  </p>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-icon">&#128218;</div>
+      <div class="how-step">Passo 01</div>
+      <div class="how-title">Carica il tuo materiale</div>
+      <p class="how-desc">
+        PDF delle slide, appunti, registrazioni di lezioni, foto della lavagna,
+        programma d'esame. Scholar assimila il knowledge del tuo ateneo e lo integra
+        nel sistema. Da quel momento, ogni modulo lavora sul <em>tuo</em> materiale specifico.
+      </p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-icon">&#129504;</div>
+      <div class="how-step">Passo 02</div>
+      <div class="how-title">Il Cognitive Twin impara</div>
+      <p class="how-desc">
+        Il sistema costruisce il tuo profilo: cosa sai, cosa non sai,
+        come apprendi meglio. Non riparte mai da zero. Ogni interazione
+        lo rende pi&ugrave; preciso e pi&ugrave; utile.
+      </p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-icon">&#9889;</div>
+      <div class="how-step">Passo 03</div>
+      <div class="how-title">Studia, verifica, produci</div>
+      <p class="how-desc">
+        Usa i moduli per insegnarti, rispondere ai tuoi quesiti e verificare
+        quanto hai appreso (Tutor, Socrates), per avere un'idea di quanto
+        &ldquo;rendi&rdquo; negli esami (Quiz, Simulazione Esame in persona),
+        e come produrre (Tesi). Il sistema <strong>forma e supporta</strong>
+        &mdash; non svolge mai il lavoro al posto tuo e non crea dipendenza.
+      </p>
+    </div>
+  </div>
+
+  <div class="diff-box" style="margin-top:3.5rem;">
+    <div class="diff-box-label">Non &egrave; un wrapper su un LLM</div>
+    <p>
+      Scholar integra nativamente <strong>Cognitive Twin</strong> (ti conosce e si adatta),
+      <strong>Dual Mode</strong> (ti forma mentre ti supporta) e
+      <strong>Genomic Compliance</strong> (rispetta il contesto accademico del tuo ateneo).
+      &Egrave; un sistema cognitivo completo &mdash; non un chatbot con una skin.
+    </p>
+  </div>
+
+</div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── I MODULI ── -->
+<section id="moduli">
+<div class="container">
+
+  <div class="s-label">13 moduli specializzati</div>
+  <h2 class="s-title">Tutto quello che serve. In un unico sistema.</h2>
+  <p class="s-sub">
+    Ogni modulo &egrave; progettato per una fase specifica del percorso accademico.
+    Tutti condividono il tuo Cognitive Twin e lavorano sul tuo materiale.
+  </p>
+
+  <!-- ── DOCUMENTAZIONE ── -->
+  <div class="s-label" style="margin-top:1rem; color:var(--text); font-size:0.75rem;">Documentazione</div>
+  <div class="mod-grid" style="margin-bottom:3rem;">
+
+    <div class="mod-card featured">
+      <div class="mod-icon">&#128218;</div>
+      <div>
+        <div class="mod-name">Personal Knowledge</div>
+        <div class="mod-category">Ingestion documentale</div>
+      </div>
+      <div class="mod-desc">
+        Modulo per la ingestion della documentazione (.MD, PDF, ecc.) dei corsi degli esami.
+        Il cuore della Knowledge Base personale: tutto il materiale caricato diventa
+        consultabile dall'AI in ogni modulo.
+      </div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#127908;</div>
+      <div class="mod-name">Lecture Weaver</div>
+      <div class="mod-category">Registrazione intelligente</div>
+      <p class="mod-desc">
+        Modulo per la cattura delle informazioni &ldquo;importanti&rdquo; estratte
+        automaticamente dalla registrazione della lezione del professore,
+        a complemento della documentazione scritta disponibile per il corso.
+        L'AI trascriver&agrave; e riassumer&agrave; i punti chiave automaticamente.
+      </p>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#127760;</div>
+      <div class="mod-name">Web Scout</div>
+      <div class="mod-category">Ricerca accademica filtrata</div>
+      <p class="mod-desc">
+        Motore di ricerca filtrato su fonti accademiche verificate.
+        Cerca definizioni complesse senza il rumore di fondo del web generico,
+        a completamento del valore di insegnamento disponibile nella
+        Personal Knowledge Library dello studente.
+      </p>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#128065;</div>
+      <div class="mod-name">Nexus Graph</div>
+      <div class="mod-category">Mappa concettuale</div>
+      <p class="mod-desc">
+        Gestione con database a grafo delle connessioni semantiche tra i concetti.
+        Vedi come gli argomenti si collegano tra loro e identifica
+        i percorsi logici per l'esame.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── APPRENDIMENTO ── -->
+  <div class="s-label" style="color:var(--text); font-size:0.75rem;">Apprendimento</div>
+  <div class="mod-grid" style="margin-bottom:3rem;">
+
+    <div class="mod-card featured">
+      <div class="mod-icon">&#128104;&#8205;&#127979;</div>
+      <div>
+        <div class="mod-name">Tutor</div>
+        <div class="mod-category">Insegnamento proattivo</div>
+      </div>
+      <div class="mod-desc">
+        Insegnante AI proattivo. Spiega i concetti in modo diretto, chiaro, adattato al tuo livello.
+        Quando non capisci una dimostrazione, un teorema o un passaggio &mdash; chiedi al Tutor.
+        Ti dar&agrave; una lezione frontale personalizzata, nella lingua che preferisci.
+        <div class="mod-example">"Spiegami il teorema di Bayes come se avessi 5 anni."</div>
+      </div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#128488;</div>
+      <div class="mod-name">Socrates AI</div>
+      <div class="mod-category">Metodo maieutico</div>
+      <p class="mod-desc">
+        Non d&agrave; risposte &mdash; fa domande. Il metodo socratico applicato allo studio:
+        ti guida verso la comprensione profonda attraverso il ragionamento.
+        Ideale per verificare se hai davvero capito i nessi logici.
+      </p>
+      <p class="mod-example">"Perch&eacute; pensi che la derivata seconda ci dica qualcosa sulla concavit&agrave;?"</p>
+    </div>
+
+  </div>
+
+  <!-- ── VERIFICA ── -->
+  <div class="s-label" style="color:var(--text); font-size:0.75rem;">Verifica</div>
+  <div class="mod-grid" style="margin-bottom:3rem;">
+
+    <div class="mod-card featured">
+      <div class="mod-icon">&#127918;</div>
+      <div>
+        <div class="mod-name">Test con Quiz</div>
+        <div class="mod-category">Quiz procedurale OCC</div>
+      </div>
+      <div class="mod-desc">
+        Genera quiz basati esclusivamente sui tuoi file. Ogni sessione crea domande nuove,
+        calibrate sul tuo livello, con feedback immediato su ogni risposta.
+        Non sono domande generiche &mdash; sono domande sul <em>tuo</em> programma d'esame.
+        <div class="mod-example">"Avvia una sessione di 20 domande su Diritto Commerciale, capitoli 3-5."</div>
+      </div>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#9878;</div>
+      <div class="mod-name">Simulazione Esame</div>
+      <div class="mod-category">Grade Mirror</div>
+      <p class="mod-desc">
+        Morpheus valuta la tua esposizione e prevede il voto.
+        Rispondi ad una domanda complessa come se fossi davanti al Professore
+        per scoprire se prenderesti 30 o 18. Feedback dettagliato su cosa migliorare.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── PRODUZIONE ── -->
+  <div class="s-label" style="color:var(--text); font-size:0.75rem;">Produzione &amp; Gestione</div>
+  <div class="mod-grid" style="margin-bottom:3rem;">
+
+    <div class="mod-card">
+      <div class="mod-icon">&#128467;</div>
+      <div class="mod-name">Tesi &mdash; Thesis Forge</div>
+      <div class="mod-category">Scrittura certificata</div>
+      <p class="mod-desc">
+        Ambiente di scrittura forense per la tesi. Ti assiste nella ricerca,
+        struttura, revisione e citazioni. Certifica l'autenticit&agrave; umana
+        del testo con certificato .genesis.
+      </p>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#127947;</div>
+      <div class="mod-name">Linguistic Gym</div>
+      <div class="mod-category">Palestra terminologica</div>
+      <p class="mod-desc">
+        Palestra per il lessico tecnico. Impara i termini specifici
+        della tua materia in lingua straniera. Esercizi mirati
+        sul vocabolario accademico del tuo dominio.
+      </p>
+    </div>
+
+    <div class="mod-card">
+      <div class="mod-icon">&#128267;</div>
+      <div class="mod-name">Life Planner</div>
+      <div class="mod-category">Gestione energia e studio</div>
+      <p class="mod-desc">
+        Monitora la tua energia e pianifica le sessioni di studio
+        in relazione alla tua capacit&agrave; di apprendimento delle singole materie.
+        Gestisce il calendario degli impegni scolastici e personali
+        per ottimizzare il rendimento.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ── EMERGENZA ── -->
+  <div class="s-label" style="color: #f87171; font-size:0.75rem;">Emergenza</div>
+  <div class="mod-grid">
+
+    <div class="mod-card" style="border-color: rgba(248,113,113,0.2);">
+      <div class="mod-icon">&#9888;</div>
+      <div class="mod-name" style="color: #f87171;">Panic Mode</div>
+      <div class="mod-category">Protocollo 80/20</div>
+      <p class="mod-desc">
+        Protocollo di emergenza. Applica il principio di Pareto: identifica
+        solo l'essenziale per passare l'esame. Da attivare 24 ore prima
+        quando il tempo &egrave; finito.
+      </p>
+      <p class="mod-example">"Esame domani. Dimmi solo quello che devo assolutamente sapere."</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── PER CHI ── -->
+<section id="per-chi" style="background: var(--bg2);">
+<div class="container">
+
+  <div class="s-label">Per chi &egrave;</div>
+  <h2 class="s-title">Progettato per lo studente reale.</h2>
+
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-icon">&#127891;</div>
+      <div class="how-title">Studenti telematici</div>
+      <p class="how-desc">
+        Chi studia a distanza e non ha accesso al tutoring personale.
+        Scholar porta il docente a casa tua &mdash; disponibile 24/7,
+        adattato al tuo programma specifico.
+      </p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-icon">&#128337;</div>
+      <div class="how-title">Studenti lavoratori</div>
+      <p class="how-desc">
+        Chi ha poco tempo e deve massimizzare ogni sessione di studio.
+        Il Cognitive Twin ricorda dove eri rimasto e ottimizza
+        il percorso sulle tue lacune reali.
+      </p>
+    </div>
+
+    <div class="how-card">
+      <div class="how-icon">&#127758;</div>
+      <div class="how-title">Studenti internazionali</div>
+      <p class="how-desc">
+        Lo studente pu&ograve; indicare l'uso di tre lingue diverse come
+        lingua madre, lingua dei testi, lingua dell'esame.
+        Il percorso di formazione &egrave; eseguibile nella lingua prescelta
+        dallo studente. Il knowledge dell'ateneo, reso accessibile
+        nella tua lingua madre.
+      </p>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── CTA ── -->
+<section id="cta" style="background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%); text-align: center;">
+<div class="container">
+
+  <h2 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(2rem, 4vw, 3rem); font-weight:800; letter-spacing:-0.035em; line-height:1.15; margin-bottom:1.25rem;">
+    <span class="brand-font" style="font-size:inherit;">QWIKKEN</span> Scholar<br>&egrave; operativo.
+  </h2>
+  <p style="font-size:1.1rem; color:var(--soft); margin-bottom:2.5rem; max-width:500px; margin-left:auto; margin-right:auto;">
+    Il primo prodotto della famiglia QWIKKEN.<br>
+    Pronto per dimostrare che il modello funziona.
+  </p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a href="mailto:info@egemon.ai" class="btn-primary">Richiedi accesso &rarr;</a>
+    <a href="index.html" class="btn-ghost">&larr; Torna a Egemon</a>
+  </div>
+
+</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" style="width:22px; height:22px; border-radius:4px; object-fit:contain;" />
+    <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+  </div>
+  <div>&copy; 2026 Synthetic Data srl &middot; Powered by MMS Technology</div>
+  <div>info@egemon.ai</div>
+</footer>
+
+<div class="concept-badge">&#9888; QWIKKEN Scholar &mdash; 2026-02-26</div>
+
+</body>
+</html>
