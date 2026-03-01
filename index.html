@@ -110,6 +110,15 @@
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
     .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+    .nav-mobile-actions { display: none; align-items: center; gap: 0.75rem; }
+    .nav-app-btn-mobile {
+      background: var(--accent); color: #fff !important;
+      padding: 0.45rem 1rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.8rem; text-decoration: none;
+      white-space: nowrap; transition: background .2s;
+    }
+    .nav-app-btn-mobile:hover { background: #6b63f5; }
+
     .nav-cta {
       background: var(--accent) !important;
       color: #fff !important;
@@ -596,6 +605,7 @@
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-toggle { display: flex; }
+      .nav-mobile-actions { display: flex; }
       .nav-links {
         display: none; position: absolute;
         top: 100%; left: 0; right: 0;
@@ -637,16 +647,20 @@
     <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon" />
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </div>
-  <button class="nav-toggle" aria-label="Menu" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#metodo">Il Metodo</a>
     <a href="#contesto">Il Contesto</a>
     <a href="qwikken.html" style="color: var(--accent2); font-weight: 600;">QWIKKEN</a>
     <a href="#visione">Visione</a>
     <a href="#team">Chi Siamo</a>
-    <a href="#cta" class="nav-cta">Contattaci</a>
+    <a href="mailto:info@egemon.ai">Contattaci</a>
+    <a href="https://qwikken.egemon.ai?welcome=true" target="_blank" class="nav-cta">Entra nell'APP &rarr;</a>
+  </div>
+  <div class="nav-mobile-actions">
+    <a href="https://qwikken.egemon.ai?welcome=true" target="_blank" class="nav-app-btn-mobile">Entra &rarr;</a>
+    <button class="nav-toggle" aria-label="Menu" onclick="var nl=document.getElementById('navLinks');nl.classList.toggle('open');this.classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -1044,7 +1058,6 @@
     <div class="footer-col">
       <div class="footer-col-title">Azienda</div>
       <a href="#team">Chi Siamo</a>
-      <a href="mailto:info@egemon.ai">Contatti</a>
       <a href="mailto:info@egemon.ai">Contatti</a>
     </div>
     <div class="footer-col">
