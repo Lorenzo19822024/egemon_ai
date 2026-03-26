@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Ciclo Cognitivo — PNG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#111; display:flex; flex-direction:column; align-items:center; padding:30px; font-family:Inter,sans-serif; color:#fff; }
+
+  #scene {
+    width: 1200px; height: 800px;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 50%, #0a0d1a 0%, #060810 45%, #020305 100%);
+    overflow: hidden;
+  }
+
+  /* Nebula / cosmic cloud layers — VISIBLE */
+  .nebula {
+    position:absolute; top:0; left:0; right:0; bottom:0; z-index:0;
+    background:
+      /* Main central nebula — strong */
+      radial-gradient(ellipse 65% 55% at 50% 48%, rgba(91,82,240,0.25) 0%, rgba(60,50,180,0.10) 40%, transparent 70%),
+      /* Purple nebula left */
+      radial-gradient(ellipse 35% 45% at 22% 50%, rgba(168,85,247,0.15) 0%, transparent 65%),
+      /* Blue nebula right */
+      radial-gradient(ellipse 30% 40% at 78% 38%, rgba(107,142,240,0.12) 0%, transparent 65%),
+      /* Warm accent bottom-left */
+      radial-gradient(ellipse 25% 25% at 38% 82%, rgba(234,179,8,0.08) 0%, transparent 65%),
+      /* Green accent bottom-right */
+      radial-gradient(ellipse 22% 22% at 65% 78%, rgba(34,197,94,0.07) 0%, transparent 65%);
+  }
+
+  /* Star field - dense */
+  .stars {
+    position:absolute; top:0; left:0; right:0; bottom:0; z-index:0;
+    background-image:
+      radial-gradient(1.2px 1.2px at 80px 60px, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 250px 700px, rgba(255,255,255,0.25), transparent),
+      radial-gradient(1.3px 1.3px at 1050px 120px, rgba(255,255,255,0.35), transparent),
+      radial-gradient(1px 1px at 1140px 620px, rgba(255,255,255,0.25), transparent),
+      radial-gradient(0.8px 0.8px at 40px 350px, rgba(255,255,255,0.2), transparent),
+      radial-gradient(1px 1px at 920px 40px, rgba(255,255,255,0.3), transparent),
+      radial-gradient(0.8px 0.8px at 180px 250px, rgba(200,190,255,0.25), transparent),
+      radial-gradient(1px 1px at 1080px 380px, rgba(140,170,255,0.2), transparent),
+      radial-gradient(1.5px 1.5px at 580px 20px, rgba(255,255,255,0.2), transparent),
+      radial-gradient(0.8px 0.8px at 380px 750px, rgba(255,255,255,0.2), transparent),
+      radial-gradient(0.6px 0.6px at 700px 770px, rgba(255,255,255,0.15), transparent),
+      radial-gradient(0.8px 0.8px at 450px 140px, rgba(200,200,255,0.18), transparent),
+      radial-gradient(1px 1px at 150px 580px, rgba(255,255,255,0.2), transparent),
+      radial-gradient(0.7px 0.7px at 850px 700px, rgba(255,255,255,0.18), transparent),
+      radial-gradient(1px 1px at 330px 450px, rgba(180,160,255,0.15), transparent),
+      radial-gradient(0.6px 0.6px at 1000px 500px, rgba(255,255,255,0.15), transparent),
+      radial-gradient(0.8px 0.8px at 550px 680px, rgba(255,255,255,0.12), transparent),
+      radial-gradient(1.2px 1.2px at 780px 100px, rgba(180,200,255,0.2), transparent);
+  }
+
+  /* Large elliptical glow behind the cycle — floating in space */
+  .space-glow {
+    position:absolute;
+    width:850px; height:600px;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    border-radius:50%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(100,90,240,0.18) 0%, rgba(70,60,200,0.08) 45%, transparent 72%);
+    box-shadow: 0 0 120px 40px rgba(91,82,240,0.06);
+    z-index:0;
+  }
+
+  /* Orbital ring — main */
+  .ring {
+    position:absolute;
+    width:580px; height:580px;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    border-radius:50%;
+    border: 2px solid rgba(155,142,255,0.18);
+    box-shadow: 0 0 25px rgba(155,142,255,0.10), 0 0 50px rgba(91,82,240,0.06), inset 0 0 25px rgba(155,142,255,0.04);
+    z-index:1;
+  }
+  /* Outer elliptical halo ring — tilted, VISIBLE */
+  .ring-halo {
+    position:absolute;
+    width:780px; height:400px;
+    top:48%; left:50%;
+    transform: translate(-50%,-50%) rotate(-6deg);
+    border-radius:50%;
+    border: 1.5px solid rgba(155,142,255,0.12);
+    box-shadow: 0 0 30px rgba(155,142,255,0.06), 0 0 60px rgba(91,82,240,0.04);
+    z-index:0;
+  }
+  /* Second halo — wider, different tilt */
+  .ring-halo2 {
+    position:absolute;
+    width:880px; height:340px;
+    top:52%; left:50%;
+    transform: translate(-50%,-50%) rotate(4deg);
+    border-radius:50%;
+    border: 1px solid rgba(155,142,255,0.07);
+    box-shadow: 0 0 20px rgba(91,82,240,0.03);
+    z-index:0;
+  }
+  .ring-inner {
+    position:absolute;
+    width:290px; height:290px;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    border-radius:50%;
+    border: 1px dashed rgba(91,82,240,0.05);
+    z-index:1;
+  }
+
+  /* Vignette — sfuma i bordi nel nero */
+  .vignette {
+    position:absolute; top:0; left:0; right:0; bottom:0;
+    background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 50%, rgba(3,4,8,0.6) 80%, rgba(3,4,8,0.95) 100%);
+    z-index:0;
+    pointer-events:none;
+  }
+
+  /* Arrows SVG */
+  .arrows-layer {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    z-index: 1;
+  }
+
+  /* Nodes — sfere grandi */
+  .node {
+    position:absolute;
+    width:140px; height:140px;
+    border-radius:50%;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    z-index:10;
+    transform: translate(-50%,-50%);
+    text-align:center;
+  }
+  .node-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    line-height: 1.15;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .node-sub {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #1a1a3a;
+    margin-top: 3px;
+  }
+
+  /* Node positions — pentagon su raggio ~340 dal centro (50%=400) */
+  /* N1 top: 400 + 340*sin(-90°) = 400-340 = 60 → 7.5% */
+  .n1 { top:13.75%; left:50%;
+    background: radial-gradient(circle at 38% 28%, #9b8eff 0%, #6b5ff0 55%, #3a2fa0 100%);
+    box-shadow: 0 0 40px rgba(155,142,255,0.5), 0 0 10px rgba(155,142,255,0.25);
+    border: 1.5px solid rgba(192,184,255,0.35);
+  }
+  .n2 { top:38.75%; left:73%;
+    background: radial-gradient(circle at 38% 28%, #8eaaff 0%, #5b7ef0 55%, #2a4fa0 100%);
+    box-shadow: 0 0 40px rgba(107,142,240,0.5), 0 0 10px rgba(107,142,240,0.25);
+    border: 1.5px solid rgba(142,170,255,0.35);
+  }
+  .n3 { top:79.4%; left:64.2%;
+    background: radial-gradient(circle at 38% 28%, #4ade80 0%, #22c55e 55%, #0d5c2a 100%);
+    box-shadow: 0 0 40px rgba(34,197,94,0.5), 0 0 10px rgba(34,197,94,0.25);
+    border: 1.5px solid rgba(74,222,128,0.35);
+  }
+  .n4 { top:79.4%; left:35.8%;
+    background: radial-gradient(circle at 38% 28%, #fcd34d 0%, #d4a00a 55%, #6b4f05 100%);
+    box-shadow: 0 0 40px rgba(234,179,8,0.5), 0 0 10px rgba(234,179,8,0.25);
+    border: 1.5px solid rgba(252,211,77,0.35);
+  }
+  .n5 { top:38.75%; left:27%;
+    background: radial-gradient(circle at 38% 28%, #d8b4fe 0%, #a855f7 55%, #4c1d95 100%);
+    box-shadow: 0 0 40px rgba(168,85,247,0.5), 0 0 10px rgba(168,85,247,0.25);
+    border: 1.5px solid rgba(216,180,254,0.35);
+  }
+
+  /* Center */
+  .center {
+    position:absolute;
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    z-index:5;
+  }
+  .center-overline {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e0dcff;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+    line-height: 1.2;
+  }
+  .center-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #e0dcff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .center-line {
+    width: 150px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(155,142,255,0.4), transparent);
+    margin: 0 auto 8px;
+  }
+  .center-sub {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8a9db5;
+    letter-spacing: 1.5px;
+  }
+
+  .controls { margin-top:24px; display:flex; gap:16px; }
+  button { padding:14px 36px; font-size:16px; font-weight:700; font-family:Inter,sans-serif; background:#5b52f0; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+  button:hover { background:#7b6ff0; }
+  #status { color:#8a9db5; font-size:14px; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<div id="scene">
+  <div class="nebula"></div>
+  <div class="stars"></div>
+  <div class="space-glow"></div>
+  <div class="ring-halo2"></div>
+  <div class="ring-halo"></div>
+  <div class="vignette"></div>
+  <div class="ring"></div>
+  <div class="ring-inner"></div>
+
+  <!-- Arrows -->
+  <svg class="arrows-layer" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="a1" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 1L11 5L0 9L2.5 5Z" fill="#6b8ef0"/></marker>
+      <marker id="a2" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 1L11 5L0 9L2.5 5Z" fill="#22c55e"/></marker>
+      <marker id="a3" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 1L11 5L0 9L2.5 5Z" fill="#eab308"/></marker>
+      <marker id="a4" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 1L11 5L0 9L2.5 5Z" fill="#c084fc"/></marker>
+      <marker id="a5" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 1L11 5L0 9L2.5 5Z" fill="#9b8eff"/></marker>
+      <linearGradient id="g12" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9b8eff"/><stop offset="100%" stop-color="#6b8ef0"/></linearGradient>
+      <linearGradient id="g23" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#6b8ef0"/><stop offset="100%" stop-color="#22c55e"/></linearGradient>
+      <linearGradient id="g34" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="#eab308"/></linearGradient>
+      <linearGradient id="g45" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#eab308"/><stop offset="100%" stop-color="#c084fc"/></linearGradient>
+      <linearGradient id="g51" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#9b8eff"/></linearGradient>
+    </defs>
+    <!-- Arrows: center (600,400), r=305 -->
+    <path d="M 655,125 A 305,305 0 0,1 895,275" fill="none" stroke="url(#g12)" stroke-width="3" opacity="0.7" marker-end="url(#a1)"/>
+    <path d="M 900,365 A 305,305 0 0,1 790,645" fill="none" stroke="url(#g23)" stroke-width="3" opacity="0.7" marker-end="url(#a2)"/>
+    <path d="M 720,670 A 305,305 0 0,1 480,670" fill="none" stroke="url(#g34)" stroke-width="3" opacity="0.7" marker-end="url(#a3)"/>
+    <path d="M 410,645 A 305,305 0 0,1 305,365" fill="none" stroke="url(#g45)" stroke-width="3" opacity="0.7" marker-end="url(#a4)"/>
+    <path d="M 310,275 A 305,305 0 0,1 545,125" fill="none" stroke="url(#g51)" stroke-width="3" opacity="0.7" marker-end="url(#a5)"/>
+  </svg>
+
+  <!-- Nodes -->
+  <div class="node n1">
+    <div class="node-title">CONOSCENZA</div>
+    <div class="node-sub">Knowledge Base</div>
+  </div>
+  <div class="node n2">
+    <div class="node-title">CONSAPE-<br>VOLEZZA</div>
+    <div class="node-sub">Context & Genome</div>
+  </div>
+  <div class="node n3">
+    <div class="node-title">ESECUZIONE</div>
+    <div class="node-sub">Quality Gate</div>
+  </div>
+  <div class="node n4">
+    <div class="node-title">FORMAZIONE</div>
+    <div class="node-sub">User Interaction</div>
+  </div>
+  <div class="node n5">
+    <div class="node-title">AUTOPOIESI</div>
+    <div class="node-sub">Evoluzione continua</div>
+  </div>
+
+  <!-- Center -->
+  <div class="center">
+    <div class="center-overline">Il Ciclo Cognitivo</div>
+    <div class="center-title">dell'Intelligenza<br>Eseguibile</div>
+    <div class="center-line"></div>
+    <div class="center-sub">5 Principi Assiomatici</div>
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="exportPNG(2)">SCARICA PNG (2x)</button>
+  <button onclick="exportPNG(3)">SCARICA PNG (3x HD)</button>
+</div>
+<p id="status">Pronto.</p>
+
+<script>
+function exportPNG(scale) {
+  document.getElementById('status').textContent = 'Generazione in corso...';
+  html2canvas(document.getElementById('scene'), {
+    scale: scale,
+    backgroundColor: '#060810',
+    useCORS: true,
+    logging: false,
+  }).then(canvas => {
+    const a = document.createElement('a');
+    a.download = 'ciclo-cognitivo-intelligenza-eseguibile.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+    document.getElementById('status').textContent =
+      'Scaricato! (' + canvas.width + 'x' + canvas.height + ' px)';
+  });
+}
+</script>
+
+</body>
+</html>

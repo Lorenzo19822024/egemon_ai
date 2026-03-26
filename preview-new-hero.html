@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGEMON — New Hero Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1c;
+      --surface: #10141f;
+      --border: rgba(255,255,255,0.09);
+      --accent: #5b52f0;
+      --accent2: #9b8eff;
+      --green: #22c55e;
+      --gold: #eab308;
+      --text: #eef2f7;
+      --soft: #b8c8d8;
+      --muted: #8a9db5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    /* ── ANIMATIONS ── */
+
+    /* 1. Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 4. Animated gradient on headline */
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 7. Particle starfield */
+    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    /* 2. Glow pulse on component numbers */
+    @keyframes glowPulse {
+      0%,100% { text-shadow: 0 0 8px rgba(155,142,255,0.3); }
+      50% { text-shadow: 0 0 20px rgba(155,142,255,0.6), 0 0 40px rgba(91,82,240,0.3); }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV (simplified) */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important; transition: background .2s !important;
+    }
+
+    /* HERO */
+    #hero {
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 7rem; padding-bottom: 4rem;
+      position: relative; overflow: hidden;
+    }
+
+    /* Hero cosmic background */
+    .hero-cosmos {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      background:
+        /* Nebula principale — viola intenso */
+        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(91,82,240,0.25) 0%, transparent 60%),
+        /* Nebula secondaria — blu */
+        radial-gradient(ellipse 45% 55% at 20% 60%, rgba(59,130,246,0.12) 0%, transparent 55%),
+        /* Accento caldo in basso */
+        radial-gradient(ellipse 35% 30% at 60% 85%, rgba(168,85,247,0.10) 0%, transparent 55%),
+        /* Glow centrale diffuso */
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.08) 0%, transparent 70%),
+        /* Micro nebula verde/teal */
+        radial-gradient(ellipse 20% 25% at 85% 70%, rgba(34,197,94,0.05) 0%, transparent 60%);
+    }
+    /* Star layer */
+    .hero-stars {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      background-image:
+        radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 25% 8%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(2px 2px at 45% 5%, rgba(200,190,255,0.5), transparent),
+        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2.5px 2.5px at 80% 20%, rgba(155,142,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 92% 8%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 70% 32%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(2px 2px at 5% 55%, rgba(155,142,255,0.4), transparent),
+        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 75% 52%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.35), transparent),
+        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1.5px 1.5px at 55% 72%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 12% 78%, rgba(192,132,252,0.35), transparent),
+        radial-gradient(1px 1px at 40% 82%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1.5px 1.5px at 65% 88%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(2px 2px at 82% 75%, rgba(155,142,255,0.3), transparent),
+        radial-gradient(1px 1px at 20% 92%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(1.5px 1.5px at 48% 95%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(2.5px 2.5px at 90% 90%, rgba(200,190,255,0.4), transparent),
+        radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.15), transparent);
+    }
+    /* Vignette */
+    .hero-vignette {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 70% 65% at 50% 50%, transparent 40%, rgba(6,8,16,0.7) 100%);
+    }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+
+    /* Hero: testo full width sopra, poi grid con definizione + immagine */
+    .hero-grid {
+      display: block;
+    }
+    .hero-left { min-width: 0; }
+    .hero-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Cycle diagram */
+    .cycle-wrap {
+      width: 480px; height: 480px;
+      position: relative;
+    }
+    .cycle-ring {
+      position:absolute;
+      width:380px; height:380px;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      border-radius:50%;
+      border: 2px solid rgba(155,142,255,0.18);
+      box-shadow: 0 0 25px rgba(155,142,255,0.08), inset 0 0 25px rgba(155,142,255,0.03);
+    }
+    .cycle-halo {
+      display: none;
+    }
+    .cycle-glow {
+      position:absolute;
+      width:420px; height:420px;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      border-radius:50%;
+      background: radial-gradient(ellipse at 50% 50%, rgba(91,82,240,0.15) 0%, transparent 70%);
+    }
+    .cycle-node {
+      position:absolute;
+      width:100px; height:100px;
+      border-radius:50%;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      transform: translate(-50%,-50%);
+      text-align:center;
+      z-index:10;
+    }
+    .cycle-node-title {
+      font-size: 11px; font-weight: 700; color: #fff;
+      letter-spacing: 0.8px; line-height: 1.15;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .cycle-node-sub {
+      font-size: 8.5px; font-weight: 500; color: #1a1a3a; margin-top: 2px;
+    }
+    .cn1 { top:10%; left:50%;
+      background: radial-gradient(circle at 38% 28%, #9b8eff, #6b5ff0 55%, #3a2fa0);
+      box-shadow: 0 0 25px rgba(155,142,255,0.5);
+      border: 1px solid rgba(192,184,255,0.35);
+    }
+    .cn2 { top:37%; left:88%;
+      background: radial-gradient(circle at 38% 28%, #8eaaff, #5b7ef0 55%, #2a4fa0);
+      box-shadow: 0 0 25px rgba(107,142,240,0.5);
+      border: 1px solid rgba(142,170,255,0.35);
+    }
+    .cn3 { top:82%; left:73%;
+      background: radial-gradient(circle at 38% 28%, #4ade80, #22c55e 55%, #0d5c2a);
+      box-shadow: 0 0 25px rgba(34,197,94,0.5);
+      border: 1px solid rgba(74,222,128,0.35);
+    }
+    .cn4 { top:82%; left:27%;
+      background: radial-gradient(circle at 38% 28%, #fcd34d, #d4a00a 55%, #6b4f05);
+      box-shadow: 0 0 25px rgba(234,179,8,0.5);
+      border: 1px solid rgba(252,211,77,0.35);
+    }
+    .cn5 { top:37%; left:12%;
+      background: radial-gradient(circle at 38% 28%, #d8b4fe, #a855f7 55%, #4c1d95);
+      box-shadow: 0 0 25px rgba(168,85,247,0.5);
+      border: 1px solid rgba(216,180,254,0.35);
+    }
+    .cycle-center {
+      position:absolute;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      text-align:center;
+      z-index:5;
+    }
+    .cycle-center-title {
+      font-size: 16px; font-weight: 700; color: #e0dcff; line-height: 1.2;
+    }
+    .cycle-center-sub {
+      font-size: 9px; font-weight: 400; color: #8a9db5;
+      letter-spacing: 1px; margin-top: 6px;
+    }
+
+    /* Arrows SVG overlay */
+    .cycle-arrows {
+      position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;
+    }
+
+    /* Logo area */
+    .hero-logo { display: flex; align-items: center; gap: 2rem; margin-bottom: 1rem; }
+    .hero-logo-icon {
+      width: 90px; height: 90px; border-radius: 20px; object-fit: contain; flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(91,82,240,0.25);
+    }
+    .hero-wordmark {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3.8rem, 7.5vw, 6rem);
+      font-weight: 700; letter-spacing: 0.06em; line-height: 1;
+      color: var(--text); text-transform: uppercase;
+    }
+    .hero-wordmark .ai {
+      color: var(--accent2); font-weight: 400; font-style: italic;
+      font-size: 0.5em; letter-spacing: -0.02em; text-transform: lowercase;
+    }
+
+    .hero-tagline {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent2);
+      margin-bottom: 2.5rem; opacity: 0.8;
+      padding-left: 112px;
+    }
+
+    /* NEW: Main headline */
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
+      margin-bottom: 1.8rem; max-width: 780px; color: var(--text);
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 33%, #c084fc 66%, #9b8eff 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    /* Claim — key message, emphasized */
+    .hero-claim {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--text);
+      max-width: 900px;
+      line-height: 1.5;
+      margin-bottom: 1.8rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+
+    /* Definition block — impactful */
+    .hero-def {
+      font-size: 1.35rem; color: var(--text); max-width: 100%;
+      line-height: 1.7; margin-bottom: 2.5rem; font-weight: 400;
+    }
+
+    /* Subtitle / value prop */
+    .hero-sub {
+      font-size: 1.15rem; color: var(--text); max-width: 600px;
+      line-height: 1.75; margin-bottom: 3rem; font-weight: 400;
+    }
+
+    /* CTAs */
+    .hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 4rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--accent); color: #fff; padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+      box-shadow: 0 4px 16px rgba(91,82,240,0.3);
+    }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(91,82,240,0.4); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 500; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--text); }
+
+    /* Social proof */
+    .hero-proof {
+      display: flex; gap: 3.5rem; flex-wrap: wrap;
+    }
+    .proof-item { position: relative; padding-left: 1rem; border-left: 2px solid var(--accent); }
+    .proof-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem; margin-bottom: 0.2rem; color: var(--accent2); }
+    .proof-label { font-size: 0.82rem; color: var(--muted); max-width: 200px; line-height: 1.5; }
+
+    /* Watermark */
+    .preview-badge {
+      position: fixed; bottom: 20px; right: 20px;
+      background: rgba(91,82,240,0.15); border: 1px solid rgba(91,82,240,0.3);
+      padding: 8px 16px; border-radius: 8px;
+      font-size: 12px; color: var(--accent2); letter-spacing: 1px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#ciclo">Il Ciclo Cognitivo</a>
+    <a href="#piattaforma">La Piattaforma</a>
+    <a href="#factory">Le Soluzioni</a>
+    <a href="ciclo-cognitivo.html">Approfondisci il Ciclo</a>
+    <a href="soluzioni.html">Dettaglio Soluzioni</a>
+    <a href="#" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-cosmos"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-vignette"></div>
+  <div class="container">
+
+
+    <div class="hero-grid">
+      <!-- Top: headline + claim full width -->
+      <h1 class="hero-title">
+        Artefatti di<br>
+        <em>Intelligenza Eseguibile.</em>
+      </h1>
+
+      <p class="hero-claim">
+        Con l'AI Cognitiva la qualit&agrave; del risultato dipende<br>
+        dalla qualit&agrave; del processo, non dalla competenza individuale.
+      </p>
+
+      <p class="hero-def">
+        Un Artefatto di Intelligenza Eseguibile &egrave; il prodotto della piattaforma
+        EGEMON, che impiega l'AI Cognitiva come tecnologia fondante per consentire
+        all'esperto di dominio di generare in totale autonomia soluzioni operative
+        autosufficienti &mdash; pronte all'uso immediato da parte del personale esistente,
+        senza necessit&agrave; di formazione preventiva.
+        <br><br>
+        Ogni artefatto viene costruito applicando rigorosamente i 5 Principi del Ciclo
+        Cognitivo e sostituisce il tradizionale programma applicativo.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Scopri come &rarr;</a>
+        <a href="#" class="btn-ghost">Entra nella piattaforma &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE 2: IL CICLO COGNITIVO ══════════ -->
+<section id="ciclo" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="ciclo-grid">
+      <div class="ciclo-text">
+        <div class="s-label">I 5 Principi</div>
+        <h2 class="s-title">Il Ciclo Cognitivo<br>dell'Intelligenza Eseguibile</h2>
+        <p class="s-desc">
+          Raggiungere una qualit&agrave; indipendente dalla competenza individuale
+          richiede che la conoscenza venga diffusa agli esecutori del processo
+          in una forma utilizzabile da ciascuno di essi, in qualsiasi circostanza
+          di luogo e di tempo.
+        </p>
+        <p class="s-desc">
+          L'ottimizzazione di questa diffusione si fonda sull'aderenza ai 5 Principi
+          del Ciclo Cognitivo: un flusso continuo e inscindibile dove ogni principio
+          alimenta il successivo.
+        </p>
+      </div>
+      <div class="ciclo-image">
+        <img src="assets/ciclo-cognitivo-intelligenza-eseguibile (9).png" alt="Il Ciclo Cognitivo dell'Intelligenza Eseguibile" class="ciclo-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section 2: Ciclo Cognitivo */
+  .ciclo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .s-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
+  }
+  .s-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.4rem; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 1.5rem; color: var(--text);
+  }
+  .s-desc {
+    font-size: 1.35rem; color: var(--text); line-height: 1.7;
+    margin-bottom: 1.4rem; max-width: 100%;
+  }
+
+  /* Ciclo image — blend with section bg */
+  .ciclo-img {
+    width: 100%;
+    max-width: 620px;
+    height: auto;
+    display: block;
+    mix-blend-mode: lighten;
+  }
+  .ciclo-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<!-- ══════════ SEZIONE 3: LA PIATTAFORMA ══════════ -->
+<section id="piattaforma" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">La Piattaforma</div>
+    <h2 class="s-title">EGEMON trasforma la conoscenza<br>in intelligenza operativa.</h2>
+    <p class="s-desc" style="max-width:100%;">
+      La piattaforma orchestra l'intero ciclo di vita di un Artefatto: dall'acquisizione
+      della conoscenza dell'esperto di dominio fino al deploy di una soluzione
+      che opera in totale autonomia. L'AI Cognitiva gestisce la complessit&agrave;
+      tecnologica e operativa &mdash; chi la usa non la percepisce.
+    </p>
+
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-card-icon" style="color: var(--accent2);">01</div>
+        <h3 class="platform-card-title">Knowledge Acquisition</h3>
+        <p class="platform-card-desc">L'esperto di dominio lavora in linguaggio naturale.
+          Nessuna competenza tecnologica richiesta. La piattaforma destruttura
+          e organizza la conoscenza automaticamente.</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-card-icon" style="color: var(--accent2);">02</div>
+        <h3 class="platform-card-title">Cognitive Processing</h3>
+        <p class="platform-card-desc">Il motore MMS applica i 5 Principi, costruisce
+          il Genoma di compliance e genera l'artefatto con la struttura del
+          Cognitive Twin integrata.</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-card-icon" style="color: var(--accent2);">03</div>
+        <h3 class="platform-card-title">Deploy &amp; Autopoiesi</h3>
+        <p class="platform-card-desc">L'artefatto viene deployato ed &egrave; immediatamente
+          operativo. Si adatta nel tempo, apprende dal contesto e migliora
+          autonomamente la propria efficacia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE 4: I 5 COMPONENTI ══════════ -->
+<section id="componenti" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">I 5 Componenti</div>
+    <h2 class="s-title">Togli un componente e non hai un Artefatto.<br>Hai un problema.</h2>
+    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
+      Ogni Artefatto di Intelligenza Eseguibile possiede tutti e 5 i componenti,
+      sempre, in ciclo. &Egrave; il bollino di qualit&agrave; EGEMON: nessun artefatto
+      esce dalla piattaforma incompleto.
+    </p>
+
+    <div class="componenti-grid">
+      <div class="comp-card">
+        <div class="comp-num">01</div>
+        <h3 class="comp-title">CONOSCENZA</h3>
+        <div class="comp-sub">Knowledge Base</div>
+        <p class="comp-desc">&Egrave; il <strong>cosa sa fare</strong> l'artefatto. Conosce ogni regola,
+          ogni eccezione, ogni soglia, ogni criterio di valutazione del dominio.
+          <br><em>Senza Conoscenza: chiacchiera ma non produce.</em></p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">02</div>
+        <h3 class="comp-title">CONSAPEVOLEZZA</h3>
+        <div class="comp-sub">Context &amp; Genome Awareness</div>
+        <p class="comp-desc">Applica la conoscenza a <strong>questo utente, in questa organizzazione,
+          in questo momento</strong>, con questi vincoli. Si adatta al principiante e all'esperto.
+          <br><em>Senza Consapevolezza: fa la cosa giusta nel contesto sbagliato.</em></p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">03</div>
+        <h3 class="comp-title">ESECUZIONE</h3>
+        <div class="comp-sub">Quality Gate</div>
+        <p class="comp-desc">&Egrave; il <strong>come produce</strong>. Ogni output passa un Quality Gate
+          a 5 livelli: Conformit&agrave;, Coerenza, Completezza, Vulnerabilit&agrave;, Eccellenza.
+          <br><em>Senza Quality Gate: output inaffidabili, falsa sicurezza.</em></p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">04</div>
+        <h3 class="comp-title">FORMAZIONE</h3>
+        <div class="comp-sub">Dual Mode</div>
+        <p class="comp-desc">Ogni atto &egrave; simultaneamente <strong>esecuzione e formazione</strong>.
+          Produce l'artefatto e spiega perch&eacute;. Applica la regola e insegna il principio.
+          <br><em>Senza Formazione: l'utente esegue senza capire. Dipendenza totale.</em></p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-num">05</div>
+        <h3 class="comp-title">AUTOPOIESI</h3>
+        <div class="comp-sub">Evoluzione Continua</div>
+        <p class="comp-desc">&Egrave; il <strong>come matura</strong>. Chiude il ciclo riportando a Conoscenza.
+          Il valore cresce nel tempo &mdash; automaticamente.
+          <br><em>Senza Autopoiesi: funziona il primo anno, obsoleto il secondo.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE 5: LA FACTORY ══════════ -->
+<section id="factory" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">La Factory</div>
+    <h2 class="s-title">Tre modi per ottenere<br>un Artefatto di Intelligenza Eseguibile.</h2>
+    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
+      Ogni artefatto nasce nella EGEMON Factory. A qualsiasi livello,
+      tutti e 5 i componenti sono sempre presenti. La piattaforma &egrave; domain-agnostic:
+      qualsiasi dominio con conoscenza strutturabile diventa un artefatto.
+    </p>
+
+    <div class="factory-grid">
+      <div class="factory-card">
+        <div class="factory-badge" style="background:rgba(34,197,94,0.15); color:var(--green);">CHIAVI IN MANO</div>
+        <h3 class="factory-title">Soluzione Completa</h3>
+        <p class="factory-desc">Artefatto pronto all'uso. Conoscenza completa e validata,
+          Genoma preconfigurato, Quality Gate operativo, percorsi formativi integrati,
+          autopoiesi gestita da EGEMON.</p>
+        <div class="factory-detail">Colleghi i tuoi dati e sei operativo.</div>
+      </div>
+      <div class="factory-card">
+        <div class="factory-badge" style="background:rgba(234,179,8,0.15); color:var(--gold);">PERSONALIZZABILE</div>
+        <h3 class="factory-title">Mockup</h3>
+        <p class="factory-desc">Struttura progettata, da personalizzare. Conoscenza da adattare,
+          Genoma base da calibrare, Quality Gate da tarare, template formativi
+          da contestualizzare.</p>
+        <div class="factory-detail">Colleghi i tuoi dati e personalizzi.</div>
+      </div>
+      <div class="factory-card">
+        <div class="factory-badge" style="background:rgba(155,142,255,0.15); color:var(--accent2);">AUTONOMIA TOTALE</div>
+        <h3 class="factory-title">Workstation</h3>
+        <p class="factory-desc">Lo strumento per costruire i tuoi artefatti. La conoscenza
+          la costruisci tu, il Genoma lo progetti tu, il Quality Gate lo configuri tu.
+          La responsabilit&agrave; dell'evoluzione &egrave; tua.</p>
+        <div class="factory-detail">Colleghi i tuoi dati e costruisci.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE 6: COSA NON È ══════════ -->
+<section id="non-e" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">Chiarezza</div>
+    <h2 class="s-title">Cosa un Artefatto di Intelligenza Eseguibile<br>NON &egrave;.</h2>
+
+    <div class="none-grid">
+      <div class="none-item">
+        <div class="none-no">Non &egrave; un chatbot.</div>
+        <div class="none-why">Un chatbot risponde a domande. Un artefatto risolve problemi.</div>
+      </div>
+      <div class="none-item">
+        <div class="none-no">Non &egrave; un software con AI.</div>
+        <div class="none-why">Il software esegue procedure. L'artefatto conosce il dominio, si adatta, forma, evolve.</div>
+      </div>
+      <div class="none-item">
+        <div class="none-no">Non &egrave; un assistente virtuale.</div>
+        <div class="none-why">L'assistente aspetta istruzioni. L'artefatto guida proattivamente.</div>
+      </div>
+      <div class="none-item">
+        <div class="none-no">Non &egrave; un sostituto delle persone.</div>
+        <div class="none-why">L'artefatto valorizza le persone. Le rende pi&ugrave; brave, non le rimpiazza.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE 7: CTA ══════════ -->
+<section id="cta" style="padding: 5rem 0; background: var(--bg2); text-align: center;">
+  <div class="container">
+    <h2 class="s-title" style="margin-bottom: 1rem;">Pronti a trasformare la conoscenza<br>in intelligenza operativa?</h2>
+    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
+      Partner tecnologici, investitori, vertici aziendali &mdash;
+      parliamo di come EGEMON pu&ograve; operare nel vostro dominio.
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@egemon.ai" class="btn-primary">Scrivici &rarr;</a>
+      <a href="#" class="btn-ghost">Accedi alla piattaforma &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Platform cards */
+  .platform-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 3rem;
+  }
+  .platform-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .platform-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .platform-card-icon {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2rem; font-weight: 800; margin-bottom: 1rem;
+  }
+  .platform-card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text);
+  }
+  .platform-card-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
+
+  /* 5 Componenti */
+  .componenti-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 1.2rem;
+  }
+  .comp-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    transition: transform .2s;
+  }
+  .comp-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .comp-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.6rem;
+    animation: glowPulse 3s ease infinite;
+  }
+  .comp-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem;
+  }
+  .comp-sub {
+    font-size: 0.75rem; color: var(--muted); margin-bottom: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .comp-desc { font-size: 0.88rem; color: var(--text); line-height: 1.6; }
+  .comp-desc em { color: var(--muted); font-style: italic; }
+  .comp-desc strong { color: var(--text); }
+
+  /* Factory */
+  .factory-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .factory-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+    transition: transform .2s;
+  }
+  .factory-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .factory-badge {
+    display: inline-block; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.1em; padding: 0.25rem 0.7rem; border-radius: 6px;
+    margin-bottom: 1rem; text-transform: uppercase;
+  }
+  .factory-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+  }
+  .factory-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; margin-bottom: 1rem; }
+  .factory-detail {
+    font-size: 0.85rem; font-weight: 600; color: var(--accent2);
+    padding-top: 0.8rem; border-top: 1px solid var(--border);
+  }
+
+  /* Cosa NON è */
+  .none-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .none-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.8rem;
+  }
+  .none-no {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;
+  }
+  .none-why { font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+
+</style>
+
+<div class="preview-badge">PREVIEW — SITO COMPLETO</div>
+
+<!-- Particle starfield in Hero -->
+<style>
+  .particles {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .p1 { width:4px; height:4px; top:12%; left:8%; animation: twinkle 4s ease infinite, float1 6s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+  .p2 { width:3px; height:3px; top:25%; left:85%; animation: twinkle 5s ease infinite 0.5s, float2 7s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  .p3 { width:5px; height:5px; top:60%; left:92%; animation: twinkle 3.5s ease infinite 1s, float1 8s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+  .p4 { width:3px; height:3px; top:75%; left:5%; animation: twinkle 6s ease infinite 0.3s, float2 5s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  .p5 { width:4px; height:4px; top:8%; left:45%; animation: twinkle 4.5s ease infinite 1.5s, float1 9s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+  .p6 { width:3px; height:3px; top:40%; left:95%; animation: twinkle 5.5s ease infinite 2s; box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+  .p7 { width:5px; height:5px; top:88%; left:70%; animation: twinkle 3s ease infinite 0.8s, float2 6s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+  .p8 { width:3px; height:3px; top:55%; left:15%; animation: twinkle 7s ease infinite 1.2s, float1 7s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  .p9 { width:3px; height:3px; top:18%; left:72%; animation: twinkle 4s ease infinite 2.5s; box-shadow: 0 0 5px rgba(255,255,255,0.3); }
+  .p10 { width:4px; height:4px; top:45%; left:35%; animation: twinkle 5s ease infinite 0.7s, float2 8s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+  .p11 { width:3px; height:3px; top:70%; left:55%; animation: twinkle 6s ease infinite 1.8s, float1 5s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
+  .p12 { width:4px; height:4px; top:30%; left:22%; animation: twinkle 3.5s ease infinite 3s; background: rgba(192,132,252,0.8); box-shadow: 0 0 8px rgba(192,132,252,0.6); }
+</style>
+
+<script>
+// Inject particles into Hero
+const hero = document.getElementById('hero');
+const particlesDiv = document.createElement('div');
+particlesDiv.className = 'particles';
+for (let i = 1; i <= 12; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle p' + i;
+  particlesDiv.appendChild(p);
+}
+hero.insertBefore(particlesDiv, hero.firstChild);
+
+// Reveal on scroll — add 'reveal' class to all sections except hero
+document.querySelectorAll('section:not(#hero) .container > *').forEach(el => {
+  el.classList.add('reveal');
+});
+
+// Also reveal cards individually for stagger effect
+document.querySelectorAll('.platform-card, .comp-card, .factory-card, .none-item').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 5) * 0.1 + 's';
+});
+
+// Intersection Observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
