@@ -385,37 +385,99 @@
   <div class="hero-vignette"></div>
   <div class="container">
 
-
     <div class="hero-grid">
-      <!-- Top: headline + claim full width -->
       <h1 class="hero-title">
-        Artefatti di<br>
-        <em>Intelligenza Eseguibile.</em>
+        Il know-how degli esperti trasformato<br>
+        in <em>soluzioni AI operative.</em>
       </h1>
 
       <p class="hero-claim">
-        Con l'AI Cognitiva la qualit&agrave; del risultato dipende<br>
-        dalla qualit&agrave; del processo, non dalla competenza individuale.
+        Pronte all'uso, senza specifica formazione.
       </p>
 
       <p class="hero-def">
-        Un Artefatto di Intelligenza Eseguibile &egrave; il prodotto della piattaforma
-        EGEMON, che impiega l'AI Cognitiva come tecnologia fondante per consentire
-        all'esperto di dominio di generare in totale autonomia soluzioni operative
-        autosufficienti &mdash; pronte all'uso immediato da parte del personale esistente,
-        senza necessit&agrave; di formazione preventiva.
-        <br><br>
-        Ogni artefatto viene costruito applicando rigorosamente i 5 Principi del Ciclo
-        Cognitivo e sostituisce il tradizionale programma applicativo.
+        Le chiamiamo <strong>K-Art</strong> &mdash; Knowledge Artefact.
+        Sostituiscono i tradizionali &ldquo;programmi applicativi&rdquo;.<br><br>
+        Ogni K-Art &egrave; un esperto digitale che conosce il dominio, si adatta a chi lo usa,
+        garantisce la conformit&agrave;, esegue le procedure assegnate,
+        forma le persone mentre operano e migliora continuamente.<br>
+        Non sostituisce nessuno. Rende tutti pi&ugrave; efficaci.
       </p>
 
       <div class="hero-actions">
-        <a href="#" class="btn-primary">Scopri come &rarr;</a>
-        <a href="#" class="btn-ghost">Entra nella piattaforma &rarr;</a>
+        <a href="#scenari" class="btn-primary">Cosa facciamo &rarr;</a>
+        <a href="#factory" class="btn-ghost">Come lo ottieni &rarr;</a>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ══════════ SEZIONE 2: SCENARI — Per chi, cosa risolviamo ══════════ -->
+<section id="scenari" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">Cosa facciamo</div>
+    <h2 class="s-title">Problemi reali.<br>Risultati concreti.</h2>
+    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
+      Ogni K-Art nasce da un dominio specifico. Ecco dove stiamo gi&agrave; operando.
+    </p>
+
+    <div class="scenari-grid">
+      <div class="scenario-card">
+        <div class="scenario-icon">&#x1F4B3;</div>
+        <h3 class="scenario-title">Mediazione Creditizia</h3>
+        <p class="scenario-problem">Il mediatore impiega ore per analizzare pratiche, verificare requisiti e produrre documentazione conforme.</p>
+        <p class="scenario-result">Il K-Art analizza, verifica e genera &mdash; in minuti. Conforme dal primo output.</p>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">&#x1F4CA;</div>
+        <h3 class="scenario-title">Crisi d'Impresa</h3>
+        <p class="scenario-problem">Il commercialista deve monitorare indicatori ex art.&nbsp;2086, calcolare DSCR prospettici e produrre report per il tribunale.</p>
+        <p class="scenario-result">Il K-Art monitora, calcola scenari e genera report &mdash; pronti per il deposito.</p>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">&#x1F393;</div>
+        <h3 class="scenario-title">Formazione Universitaria</h3>
+        <p class="scenario-problem">200.000 studenti telematici senza tutor personale, senza contatto diretto con i docenti.</p>
+        <p class="scenario-result">Il K-Art conosce il piano di studi, prepara agli esami, guida la tesi &mdash; sempre disponibile.</p>
+      </div>
+      <div class="scenario-card scenario-card-cta">
+        <div class="scenario-icon">&#x1F310;</div>
+        <h3 class="scenario-title">Il tuo dominio</h3>
+        <p class="scenario-problem">Qualsiasi settore ad alta intensit&agrave; cognitiva: sanit&agrave;, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
+        <p class="scenario-result"><a href="mailto:info@egemon.ai" style="color:var(--accent2); text-decoration:none; font-weight:600;">Parliamone &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scenari-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .scenario-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .scenario-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .scenario-card-cta {
+    border: 1px dashed rgba(155,142,255,0.3);
+    background: rgba(91,82,240,0.05);
+  }
+  .scenario-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .scenario-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+  }
+  .scenario-problem {
+    font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;
+  }
+  .scenario-result {
+    font-size: 0.95rem; color: var(--text); line-height: 1.6; font-weight: 500;
+    padding-top: 0.8rem; border-top: 1px solid var(--border);
+  }
+</style>
 
 <!-- ══════════ SEZIONE 2: IL CICLO COGNITIVO ══════════ -->
 <section id="ciclo" style="padding: 5rem 0; background: var(--bg2);">
@@ -794,7 +856,7 @@ document.querySelectorAll('section:not(#hero) .container > *').forEach(el => {
 });
 
 // Also reveal cards individually for stagger effect
-document.querySelectorAll('.platform-card, .comp-card, .factory-card, .none-item').forEach((el, i) => {
+document.querySelectorAll('.scenario-card, .platform-card, .comp-card, .factory-card, .none-item').forEach((el, i) => {
   el.classList.add('reveal');
   el.style.transitionDelay = (i % 5) * 0.1 + 's';
 });
