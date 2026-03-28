@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Cambia<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -50,6 +50,17 @@
     @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
     @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @keyframes starDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(40px, -25px) scale(1.02); }
+      50% { transform: translate(-20px, -50px) scale(0.98); }
+      75% { transform: translate(-40px, 15px) scale(1.01); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes nebulaPulse {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
 
     /* 2. Glow pulse on component numbers */
     @keyframes glowPulse {
@@ -93,8 +104,9 @@
 
     /* HERO */
     #hero {
+      min-height: 100vh;
       display: flex; flex-direction: column; justify-content: center;
-      padding-top: 7rem; padding-bottom: 4rem;
+      padding-top: 6rem; padding-bottom: 2rem;
       position: relative; overflow: hidden;
     }
 
@@ -102,53 +114,75 @@
     .hero-cosmos {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none; z-index: 0;
+      animation: nebulaPulse 8s ease-in-out infinite;
       background:
         /* Nebula principale — viola intenso */
-        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(91,82,240,0.25) 0%, transparent 60%),
-        /* Nebula secondaria — blu */
-        radial-gradient(ellipse 45% 55% at 20% 60%, rgba(59,130,246,0.12) 0%, transparent 55%),
-        /* Accento caldo in basso */
-        radial-gradient(ellipse 35% 30% at 60% 85%, rgba(168,85,247,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(91,82,240,0.40) 0%, transparent 60%),
+        /* Nebula secondaria — blu profondo */
+        radial-gradient(ellipse 50% 60% at 20% 60%, rgba(59,130,246,0.22) 0%, transparent 55%),
+        /* Nebula rosa/magenta */
+        radial-gradient(ellipse 40% 35% at 60% 85%, rgba(168,85,247,0.20) 0%, transparent 55%),
         /* Glow centrale diffuso */
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.08) 0%, transparent 70%),
-        /* Micro nebula verde/teal */
-        radial-gradient(ellipse 20% 25% at 85% 70%, rgba(34,197,94,0.05) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.15) 0%, transparent 70%),
+        /* Nebula teal/ciano */
+        radial-gradient(ellipse 25% 30% at 85% 70%, rgba(34,197,170,0.12) 0%, transparent 60%),
+        /* Nebula rosa lontana */
+        radial-gradient(ellipse 30% 25% at 10% 20%, rgba(236,72,153,0.10) 0%, transparent 55%),
+        /* Glow dorato basso */
+        radial-gradient(ellipse 35% 20% at 40% 95%, rgba(234,179,8,0.08) 0%, transparent 50%);
     }
     /* Star layer */
     .hero-stars {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
       pointer-events: none; z-index: 0;
+      animation: starDrift 20s ease-in-out infinite;
       background-image:
-        radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 25% 8%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(2px 2px at 45% 5%, rgba(200,190,255,0.5), transparent),
-        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(2.5px 2.5px at 80% 20%, rgba(155,142,255,0.6), transparent),
-        radial-gradient(1.5px 1.5px at 92% 8%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 70% 32%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.2), transparent),
-        radial-gradient(2px 2px at 5% 55%, rgba(155,142,255,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 75% 52%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.35), transparent),
-        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.2), transparent),
-        radial-gradient(1.5px 1.5px at 55% 72%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(2px 2px at 12% 78%, rgba(192,132,252,0.35), transparent),
-        radial-gradient(1px 1px at 40% 82%, rgba(255,255,255,0.2), transparent),
-        radial-gradient(1.5px 1.5px at 65% 88%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(2px 2px at 82% 75%, rgba(155,142,255,0.3), transparent),
-        radial-gradient(1px 1px at 20% 92%, rgba(255,255,255,0.2), transparent),
-        radial-gradient(1.5px 1.5px at 48% 95%, rgba(255,255,255,0.25), transparent),
-        radial-gradient(2.5px 2.5px at 90% 90%, rgba(200,190,255,0.4), transparent),
-        radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.15), transparent);
+        /* Stelle brillanti — grandi */
+        radial-gradient(3px 3px at 10% 15%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(3px 3px at 80% 20%, rgba(155,142,255,1), transparent),
+        radial-gradient(3.5px 3.5px at 90% 90%, rgba(200,190,255,0.85), transparent),
+        radial-gradient(3px 3px at 45% 5%, rgba(200,190,255,0.9), transparent),
+        radial-gradient(3px 3px at 5% 55%, rgba(155,142,255,0.8), transparent),
+        /* Stelle medie */
+        radial-gradient(2px 2px at 25% 8%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.75), transparent),
+        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.7), transparent),
+        radial-gradient(2px 2px at 82% 75%, rgba(155,142,255,0.65), transparent),
+        radial-gradient(2px 2px at 12% 78%, rgba(192,132,252,0.7), transparent),
+        radial-gradient(2px 2px at 55% 42%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 68% 15%, rgba(200,190,255,0.65), transparent),
+        radial-gradient(2px 2px at 42% 68%, rgba(155,142,255,0.6), transparent),
+        /* Stelle piccole — polvere cosmica */
+        radial-gradient(1.5px 1.5px at 92% 8%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 70% 32%, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 55% 72%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 65% 88%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 48% 95%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(1.5px 1.5px at 18% 52%, rgba(192,132,252,0.5), transparent),
+        radial-gradient(1.5px 1.5px at 78% 48%, rgba(255,255,255,0.45), transparent),
+        radial-gradient(1.5px 1.5px at 33% 85%, rgba(200,190,255,0.5), transparent),
+        /* Micro stelle — profondità */
+        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 75% 52%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 40% 82%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 20% 92%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 62% 58%, rgba(155,142,255,0.35), transparent),
+        radial-gradient(1px 1px at 25% 72%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 85% 35%, rgba(200,190,255,0.3), transparent),
+        radial-gradient(1px 1px at 52% 22%, rgba(255,255,255,0.3), transparent),
+        radial-gradient(1px 1px at 3% 88%, rgba(192,132,252,0.3), transparent),
+        radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.3), transparent);
     }
     /* Vignette */
     .hero-vignette {
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none; z-index: 0;
-      background: radial-gradient(ellipse 70% 65% at 50% 50%, transparent 40%, rgba(6,8,16,0.7) 100%);
+      background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(6,8,16,0.6) 100%);
     }
 
     .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
@@ -283,12 +317,12 @@
       padding-left: 112px;
     }
 
-    /* NEW: Main headline */
+    /* Main headline */
     .hero-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-size: clamp(3rem, 5.5vw, 4.8rem);
       font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
-      margin-bottom: 1.8rem; max-width: 780px; color: var(--text);
+      margin-bottom: 2.5rem; max-width: 900px; color: var(--text);
     }
     .hero-title em {
       font-style: normal;
@@ -299,17 +333,21 @@
       animation: gradientShift 6s ease infinite;
     }
 
-    /* Claim — key message, emphasized */
+    /* Claim */
     .hero-claim {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.55rem;
-      font-weight: 600;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 500;
+      color: var(--soft);
+      max-width: 1000px;
+      line-height: 1.55;
+      margin-bottom: 2rem;
+      border-left: none;
+      padding-left: 0;
+    }
+    .hero-claim em {
+      font-style: normal;
       color: var(--text);
-      max-width: 900px;
-      line-height: 1.5;
-      margin-bottom: 1.8rem;
-      border-left: 3px solid var(--accent);
-      padding-left: 1.2rem;
     }
 
     /* Definition block — impactful */
@@ -369,12 +407,10 @@
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </div>
   <div class="nav-links">
-    <a href="#ciclo">Il Ciclo Cognitivo</a>
+    <a href="#scenari">Soluzioni</a>
+    <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
     <a href="#piattaforma">La Piattaforma</a>
-    <a href="#factory">Le Soluzioni</a>
-    <a href="ciclo-cognitivo.html">Approfondisci il Ciclo</a>
-    <a href="soluzioni.html">Dettaglio Soluzioni</a>
-    <a href="#" class="nav-cta">Contattaci</a>
+    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
   </div>
 </nav>
 
@@ -387,26 +423,23 @@
 
     <div class="hero-grid">
       <h1 class="hero-title">
-        Il know-how degli esperti trasformato<br>
-        in <em>soluzioni AI operative.</em>
+        EGEMON, la piattaforma di <em>AI Cognitiva</em>
       </h1>
 
       <p class="hero-claim">
-        Pronte all'uso, senza specifica formazione.
+        Trasformiamo il Know-How degli esperti di dominio in <span class="term" data-tooltip="Knowledge Artefact &mdash; un artefatto di AI Cognitiva che sostituisce il tradizionale &laquo;programma applicativo&raquo;. Un K-Art incapsula il know-how di un esperto e lo rende operativo per chiunque. Non &egrave; un chatbot: &egrave; un esperto digitale che conosce il dominio, si adatta a chi lo usa, garantisce la conformit&agrave;, esegue le procedure assegnate, forma le persone mentre operano e migliora continuamente. Non sostituisce nessuno. Rende tutti pi&ugrave; efficaci.">K-Art</span>,
+        i potenti artefatti dell'AI immediatamente utilizzabili ovunque.<br>
+        Senza formazione.
       </p>
 
-      <p class="hero-def">
-        Le chiamiamo <strong>K-Art</strong> &mdash; Knowledge Artefact.
-        Sostituiscono i tradizionali &ldquo;programmi applicativi&rdquo;.<br><br>
-        Ogni K-Art &egrave; un esperto digitale che conosce il dominio, si adatta a chi lo usa,
-        garantisce la conformit&agrave;, esegue le procedure assegnate,
-        forma le persone mentre operano e migliora continuamente.<br>
-        Non sostituisce nessuno. Rende tutti pi&ugrave; efficaci.
+      <p class="hero-claim">
+        L'approccio <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span> garantisce un'interazione continua tra esecuzione e formazione.
       </p>
 
       <div class="hero-actions">
-        <a href="#scenari" class="btn-primary">Cosa facciamo &rarr;</a>
+        <a href="#kart" class="btn-primary">Cosa facciamo &rarr;</a>
         <a href="#factory" class="btn-ghost">Come lo ottieni &rarr;</a>
+        <a href="#scenari" class="btn-primary">Le Soluzioni &rarr;</a>
       </div>
     </div>
   </div>
@@ -415,36 +448,49 @@
 <!-- ══════════ SEZIONE 2: SCENARI — Per chi, cosa risolviamo ══════════ -->
 <section id="scenari" style="padding: 5rem 0; background: var(--bg2);">
   <div class="container">
-    <div class="s-label">Cosa facciamo</div>
-    <h2 class="s-title">Problemi reali.<br>Risultati concreti.</h2>
+    <div class="s-label">I primi K-Art</div>
+    <h2 class="s-title">La stessa promessa.<br>Domini diversi.</h2>
     <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni K-Art nasce da un dominio specifico. Ecco dove stiamo gi&agrave; operando.
+      Ogni K-Art nasce da un dominio specifico. L'esperto trasferisce il suo know-how,
+      il K-Art lo rende accessibile a tutti gli operatori del settore.
     </p>
-
     <div class="scenari-grid">
       <div class="scenario-card">
         <div class="scenario-icon">&#x1F4B3;</div>
-        <h3 class="scenario-title">Mediazione Creditizia</h3>
-        <p class="scenario-problem">Il mediatore impiega ore per analizzare pratiche, verificare requisiti e produrre documentazione conforme.</p>
-        <p class="scenario-result">Il K-Art analizza, verifica e genera &mdash; in minuti. Conforme dal primo output.</p>
+        <h3 class="scenario-title">Pratiche di Mediazione</h3>
+        <p class="scenario-highlight">K-Art Credit eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
+        <p class="scenario-result">Il K-Art Credit analizza la tipologia della pratica, stabilisce i documenti necessari, verifica che siano corretti, supervisiona le attivit&agrave; di completamento e fornisce un Quality Score a beneficio dell'Istituto prescelto.</p>
+        <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
       </div>
       <div class="scenario-card">
         <div class="scenario-icon">&#x1F4CA;</div>
         <h3 class="scenario-title">Crisi d'Impresa</h3>
-        <p class="scenario-problem">Il commercialista deve monitorare indicatori ex art.&nbsp;2086, calcolare DSCR prospettici e produrre report per il tribunale.</p>
-        <p class="scenario-result">Il K-Art monitora, calcola scenari e genera report &mdash; pronti per il deposito.</p>
+        <p class="scenario-highlight">K-Art Radar supporta integralmente la gestione di tutti gli adempimenti relativi al Codice della Crisi d'Impresa e dell'Insolvenza (CCII), introdotto dal D.Lgs. 14/2019. Non richiede alcuna formazione preventiva per la redazione e per l'uso.</p>
+        <p class="scenario-problem">Il K-Art Radar monitora, calcola scenari e genera report con chiari commenti sull'analisi delle cause di eventuali situazioni di criticit&agrave;.</p>
+        <p class="scenario-result">&Egrave; la premessa per un'evoluzione verso la consulenza professionale da parte dello Studio a supporto di tali situazioni, tramite l'uso di K-Art specializzati (Controllo di Gestione, Tesoreria predittiva, ecc.) disponibili o sviluppabili ad hoc.</p>
+        <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
       </div>
       <div class="scenario-card">
         <div class="scenario-icon">&#x1F393;</div>
         <h3 class="scenario-title">Formazione Universitaria</h3>
-        <p class="scenario-problem">200.000 studenti telematici senza tutor personale, senza contatto diretto con i docenti.</p>
-        <p class="scenario-result">Il K-Art conosce il piano di studi, prepara agli esami, guida la tesi &mdash; sempre disponibile.</p>
+        <p class="scenario-highlight">QWIKKEN &egrave; il K-Art sviluppato per supportare le centinaia di migliaia di studenti universitari che non hanno la possibilit&agrave; di avere un contatto diretto e costante con un docente per ognuno dei loro esami.</p>
+        <p class="scenario-problem">Il K-Art conosce il piano di studi, gestisce ogni tipo di documentazione disponibile sull'esame, insegna allo studente la materia adattandosi alle sue capacit&agrave; di apprendimento, risponde ai suoi quesiti e gli fornisce una &laquo;prova di esame&raquo; con relativa valutazione.</p>
+        <p class="scenario-result">Assiste nella redazione della tesi e nella successiva creazione di K-Art di &laquo;stage virtuale&raquo; redatti dalle Imprese per migliorare l'accessibilit&agrave; dei neo laureati al loro mondo del lavoro.</p>
+        <a href="https://qwikken.egemon.ai?welcome=true" target="_blank" class="scenario-readmore">Accedi a QWIKKEN &rarr;</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-icon">&#x1F3D7;</div>
+        <h3 class="scenario-title">Attestazioni SOA</h3>
+        <p class="scenario-highlight">K-Art SOA supporta l'intero processo di qualificazione delle imprese di costruzione, dalla raccolta documentale alla verifica dei requisiti fino all'emissione dell'attestazione. Senza formazione specifica per l'operatore.</p>
+        <p class="scenario-problem">Il K-Art SOA analizza la documentazione dell'impresa, verifica la conformit&agrave; ai requisiti delle categorie richieste, segnala anomalie e incompletezze, e guida l'operatore fino al completamento della pratica con un Quality Score di affidabilit&agrave;.</p>
+        <p class="scenario-highlight">&Egrave; disponibile anche la versione dedicata alla erogazione di servizi specializzati per l'impresa stessa: gestione gare, compliance cantieri, monitoraggio scadenze e personalizzazione per ogni esigenza.</p>
+        <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
       </div>
       <div class="scenario-card scenario-card-cta">
         <div class="scenario-icon">&#x1F310;</div>
         <h3 class="scenario-title">Il tuo dominio</h3>
         <p class="scenario-problem">Qualsiasi settore ad alta intensit&agrave; cognitiva: sanit&agrave;, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
-        <p class="scenario-result"><a href="mailto:info@egemon.ai" style="color:var(--accent2); text-decoration:none; font-weight:600;">Parliamone &rarr;</a></p>
+        <p class="scenario-result"><a href="mailto:info@egemon.ai" style="color:var(--accent2); text-decoration:none; font-weight:600;">Contattaci &rarr;</a></p>
       </div>
     </div>
   </div>
@@ -470,32 +516,135 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
   }
-  .scenario-problem {
+  .scenario-highlight {
+    font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 0.8rem; font-weight: 500;
+  }
+  .scenario-problem, .scenario-result {
     font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;
   }
   .scenario-result {
-    font-size: 0.95rem; color: var(--text); line-height: 1.6; font-weight: 500;
     padding-top: 0.8rem; border-top: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .scenario-readmore {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .2s;
+  }
+  .scenario-readmore:hover {
+    background: #6b63f5;
+    transform: translateY(-1px);
   }
 </style>
 
-<!-- ══════════ SEZIONE 2: IL CICLO COGNITIVO ══════════ -->
+<!-- ══════════ SEZIONE: COSA SONO I K-ART ══════════ -->
+<section id="kart" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il nostro prodotto</div>
+    <h2 class="s-title">Cosa sono i K-Art</h2>
+    <p class="s-desc" style="max-width:100%; margin-bottom: 2.5rem;">
+      <strong>K-Art</strong> sta per <strong>Knowledge Artefact</strong> &mdash;
+      un artefatto di <span class="term" data-tooltip="AI che comprende il dominio, si adatta all'utente e garantisce conformit&agrave; &mdash; non &egrave; un chatbot generico.">AI Cognitiva</span>
+      che incapsula il know-how di un esperto e lo rende operativo per chiunque.
+    </p>
+    <p class="kart-manifesto">La democratizzazione della conoscenza e l'empowerment del personale.</p>
+
+    <div class="kart-grid">
+      <div class="kart-block">
+        <div class="kart-num">01</div>
+        <h3 class="kart-title">Nasce dalla conoscenza reale</h3>
+        <p class="kart-desc">Un esperto di dominio trasferisce il proprio sapere attraverso
+          <span class="term" data-tooltip="La workstation EGEMON per destrutturare la conoscenza di dominio in unit&agrave; atomiche (BLURB) e configurare il Genoma di compliance.">EGEMON Forge</span>:
+          regole, eccezioni, soglie, criteri di valutazione. La piattaforma destruttura
+          e organizza tutto automaticamente in
+          <span class="term" data-tooltip="Building Logic Unit Resource Block &mdash; l'unit&agrave; atomica di conoscenza: contiene Rules (regole operative), Scores (pesi e soglie per cliente) e Data (fonti dati e validazione).">BLURB</span>,
+          le unit&agrave; atomiche di conoscenza.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">02</div>
+        <h3 class="kart-title">Opera come l'esperto</h3>
+        <p class="kart-desc">Il K-Art non &egrave; un assistente generico. Conosce ogni regola del dominio,
+          si adatta a chi lo usa &mdash; dal principiante all'esperto &mdash; e garantisce la conformit&agrave;
+          attraverso il
+          <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span>,
+          il DNA di compliance integrato in ogni output.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">03</div>
+        <h3 class="kart-title">Forma mentre esegue</h3>
+        <p class="kart-desc">&Egrave; il principio
+          <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span>:
+          ogni azione &egrave; simultaneamente esecuzione e formazione.
+          Il K-Art produce il risultato e spiega perch&eacute;.
+          L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">04</div>
+        <h3 class="kart-title">Migliora nel tempo</h3>
+        <p class="kart-desc">Ogni interazione arricchisce la base di conoscenza.
+          Il K-Art evolve, si affina, anticipa i pattern ricorrenti.
+          &Egrave; l'<span class="term" data-tooltip="Capacit&agrave; del K-Art di evolvere autonomamente: ogni interazione arricchisce la Knowledge Base, chiudendo il ciclo Conoscenza &rarr; Esecuzione &rarr; Apprendimento.">Autopoiesi</span>
+          &mdash; il valore cresce automaticamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .kart-manifesto {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 40%, #c084fc 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 3rem;
+  }
+  .kart-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .kart-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .kart-block:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .kart-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.8rem;
+  }
+  .kart-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+  }
+  .kart-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
+</style>
+
+<!-- ══════════ SEZIONE: IL CICLO COGNITIVO ══════════ -->
 <section id="ciclo" style="padding: 5rem 0; background: var(--bg2);">
   <div class="container">
     <div class="ciclo-grid">
       <div class="ciclo-text">
-        <div class="s-label">I 5 Principi</div>
+        <div class="s-label">Il Principio</div>
         <h2 class="s-title">Il Ciclo Cognitivo<br>dell'Intelligenza Eseguibile</h2>
         <p class="s-desc">
-          Raggiungere una qualit&agrave; indipendente dalla competenza individuale
-          richiede che la conoscenza venga diffusa agli esecutori del processo
-          in una forma utilizzabile da ciascuno di essi, in qualsiasi circostanza
-          di luogo e di tempo.
+          Democratizzare la conoscenza significa renderla utilizzabile
+          da chiunque, <span style="color: var(--accent2); font-weight: 600;">indipendentemente dalla competenza individuale.</span>
         </p>
         <p class="s-desc">
-          L'ottimizzazione di questa diffusione si fonda sull'aderenza ai 5 Principi
-          del Ciclo Cognitivo: un flusso continuo e inscindibile dove ogni principio
-          alimenta il successivo.
+          Questo richiede che il sapere dell'esperto venga trasferito
+          agli operatori in una forma che ciascuno possa usare,
+          in qualsiasi circostanza. I 5 Principi del Ciclo Cognitivo
+          governano questa trasformazione: un flusso continuo dove
+          ogni principio alimenta il successivo.
         </p>
       </div>
       <div class="ciclo-image">
@@ -546,12 +695,12 @@
 <section id="piattaforma" style="padding: 5rem 0; background: var(--bg);">
   <div class="container">
     <div class="s-label">La Piattaforma</div>
-    <h2 class="s-title">EGEMON trasforma la conoscenza<br>in intelligenza operativa.</h2>
+    <h2 class="s-title">Dall'esperto a tutti.<br>Automaticamente.</h2>
     <p class="s-desc" style="max-width:100%;">
-      La piattaforma orchestra l'intero ciclo di vita di un Artefatto: dall'acquisizione
-      della conoscenza dell'esperto di dominio fino al deploy di una soluzione
-      che opera in totale autonomia. L'AI Cognitiva gestisce la complessit&agrave;
-      tecnologica e operativa &mdash; chi la usa non la percepisce.
+      EGEMON orchestra l'intero ciclo: dall'acquisizione della conoscenza
+      dell'esperto di dominio fino alla distribuzione di un K-Art che opera
+      in totale autonomia. <span style="color: var(--accent2); font-weight: 600;">Chi lo usa non percepisce la complessit&agrave;
+      &mdash; percepisce solo il risultato.</span>
     </p>
 
     <div class="platform-grid">
@@ -565,16 +714,16 @@
       <div class="platform-card">
         <div class="platform-card-icon" style="color: var(--accent2);">02</div>
         <h3 class="platform-card-title">Cognitive Processing</h3>
-        <p class="platform-card-desc">Il motore MMS applica i 5 Principi, costruisce
-          il Genoma di compliance e genera l'artefatto con la struttura del
-          Cognitive Twin integrata.</p>
+        <p class="platform-card-desc">Il motore <span class="term" data-tooltip="Meta-Model Semantics &mdash; il kernel neuro-simbolico proprietario di EGEMON. Compila artefatti cognitivi just-in-time: analizza l'intent, assembla solo gli strumenti necessari, esegue e distrugge. Zero contaminazione tra contesti.">MMS</span> applica i 5 Principi, costruisce
+          il <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span> di compliance e genera il K-Art con la struttura del
+          <span class="term" data-tooltip="L'interfaccia all'intelligenza eseguibile: un partner cognitivo che incarna l'expertise dell'organizzazione, si adatta all'utente e opera in 6 modalit&agrave; (Socratico, Tutor, Esaminatore, Sparring, Data, Quality Gate).">Cognitive Twin</span> integrata.</p>
       </div>
       <div class="platform-card">
         <div class="platform-card-icon" style="color: var(--accent2);">03</div>
-        <h3 class="platform-card-title">Deploy &amp; Autopoiesi</h3>
-        <p class="platform-card-desc">L'artefatto viene deployato ed &egrave; immediatamente
-          operativo. Si adatta nel tempo, apprende dal contesto e migliora
-          autonomamente la propria efficacia.</p>
+        <h3 class="platform-card-title">Distribuzione</h3>
+        <p class="platform-card-desc">Il K-Art &egrave; immediatamente accessibile
+          a tutti gli operatori. Si adatta nel tempo, apprende dal contesto
+          e migliora autonomamente la propria efficacia.</p>
       </div>
     </div>
   </div>
@@ -584,11 +733,10 @@
 <section id="componenti" style="padding: 5rem 0; background: var(--bg2);">
   <div class="container">
     <div class="s-label">I 5 Componenti</div>
-    <h2 class="s-title">Togli un componente e non hai un Artefatto.<br>Hai un problema.</h2>
+    <h2 class="s-title">Togli un componente e non hai un K-Art.<br>Hai un problema.</h2>
     <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni Artefatto di Intelligenza Eseguibile possiede tutti e 5 i componenti,
-      sempre, in ciclo. &Egrave; il bollino di qualit&agrave; EGEMON: nessun artefatto
-      esce dalla piattaforma incompleto.
+      Ogni K-Art possiede tutti e 5 i componenti, sempre, in ciclo.
+      &Egrave; la garanzia EGEMON: nessun artefatto esce dalla piattaforma incompleto.
     </p>
 
     <div class="componenti-grid">
@@ -596,7 +744,7 @@
         <div class="comp-num">01</div>
         <h3 class="comp-title">CONOSCENZA</h3>
         <div class="comp-sub">Knowledge Base</div>
-        <p class="comp-desc">&Egrave; il <strong>cosa sa fare</strong> l'artefatto. Conosce ogni regola,
+        <p class="comp-desc">&Egrave; il <strong>cosa sa fare</strong> il K-Art. Conosce ogni regola,
           ogni eccezione, ogni soglia, ogni criterio di valutazione del dominio.
           <br><em>Senza Conoscenza: chiacchiera ma non produce.</em></p>
       </div>
@@ -612,7 +760,7 @@
         <div class="comp-num">03</div>
         <h3 class="comp-title">ESECUZIONE</h3>
         <div class="comp-sub">Quality Gate</div>
-        <p class="comp-desc">&Egrave; il <strong>come produce</strong>. Ogni output passa un Quality Gate
+        <p class="comp-desc">&Egrave; il <strong>come produce</strong>. Ogni output passa un <span class="term" data-tooltip="Verifica a 5 livelli prima di ogni output: Conformit&agrave; (rispetta le regole), Coerenza (logica interna), Completezza (nulla manca), Vulnerabilit&agrave; (rischi identificati), Eccellenza (best practice).">Quality Gate</span>
           a 5 livelli: Conformit&agrave;, Coerenza, Completezza, Vulnerabilit&agrave;, Eccellenza.
           <br><em>Senza Quality Gate: output inaffidabili, falsa sicurezza.</em></p>
       </div>
@@ -621,7 +769,7 @@
         <h3 class="comp-title">FORMAZIONE</h3>
         <div class="comp-sub">Dual Mode</div>
         <p class="comp-desc">Ogni atto &egrave; simultaneamente <strong>esecuzione e formazione</strong>.
-          Produce l'artefatto e spiega perch&eacute;. Applica la regola e insegna il principio.
+          Produce il risultato e spiega perch&eacute;. Applica la regola e insegna il principio.
           <br><em>Senza Formazione: l'utente esegue senza capire. Dipendenza totale.</em></p>
       </div>
       <div class="comp-card">
@@ -640,18 +788,18 @@
 <section id="factory" style="padding: 5rem 0; background: var(--bg);">
   <div class="container">
     <div class="s-label">La Factory</div>
-    <h2 class="s-title">Tre modi per ottenere<br>un Artefatto di Intelligenza Eseguibile.</h2>
+    <h2 class="s-title">Tre modi per democratizzare<br>la conoscenza del tuo dominio.</h2>
     <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni artefatto nasce nella EGEMON Factory. A qualsiasi livello,
-      tutti e 5 i componenti sono sempre presenti. La piattaforma &egrave; domain-agnostic:
-      qualsiasi dominio con conoscenza strutturabile diventa un artefatto.
+      Ogni K-Art nasce nella EGEMON Factory. A qualsiasi livello,
+      tutti e 5 i componenti sono sempre presenti. Qualsiasi dominio
+      con conoscenza strutturabile diventa un K-Art.
     </p>
 
     <div class="factory-grid">
       <div class="factory-card">
         <div class="factory-badge" style="background:rgba(34,197,94,0.15); color:var(--green);">CHIAVI IN MANO</div>
         <h3 class="factory-title">Soluzione Completa</h3>
-        <p class="factory-desc">Artefatto pronto all'uso. Conoscenza completa e validata,
+        <p class="factory-desc">K-Art pronto all'uso. Conoscenza completa e validata,
           Genoma preconfigurato, Quality Gate operativo, percorsi formativi integrati,
           autopoiesi gestita da EGEMON.</p>
         <div class="factory-detail">Colleghi i tuoi dati e sei operativo.</div>
@@ -667,7 +815,7 @@
       <div class="factory-card">
         <div class="factory-badge" style="background:rgba(155,142,255,0.15); color:var(--accent2);">AUTONOMIA TOTALE</div>
         <h3 class="factory-title">Workstation</h3>
-        <p class="factory-desc">Lo strumento per costruire i tuoi artefatti. La conoscenza
+        <p class="factory-desc">Lo strumento per costruire i tuoi K-Art. La conoscenza
           la costruisci tu, il Genoma lo progetti tu, il Quality Gate lo configuri tu.
           La responsabilit&agrave; dell'evoluzione &egrave; tua.</p>
         <div class="factory-detail">Colleghi i tuoi dati e costruisci.</div>
@@ -680,24 +828,24 @@
 <section id="non-e" style="padding: 5rem 0; background: var(--bg2);">
   <div class="container">
     <div class="s-label">Chiarezza</div>
-    <h2 class="s-title">Cosa un Artefatto di Intelligenza Eseguibile<br>NON &egrave;.</h2>
+    <h2 class="s-title">Cosa un K-Art<br>NON &nbsp; &nbsp; &egrave;.</h2>
 
     <div class="none-grid">
       <div class="none-item">
         <div class="none-no">Non &egrave; un chatbot.</div>
-        <div class="none-why">Un chatbot risponde a domande. Un artefatto risolve problemi.</div>
+        <div class="none-why">Un chatbot risponde a domande. Un K-Art risolve problemi.</div>
       </div>
       <div class="none-item">
         <div class="none-no">Non &egrave; un software con AI.</div>
-        <div class="none-why">Il software esegue procedure. L'artefatto conosce il dominio, si adatta, forma, evolve.</div>
+        <div class="none-why">Il software esegue procedure. Il K-Art conosce il dominio, si adatta, forma, evolve.</div>
       </div>
       <div class="none-item">
         <div class="none-no">Non &egrave; un assistente virtuale.</div>
-        <div class="none-why">L'assistente aspetta istruzioni. L'artefatto guida proattivamente.</div>
+        <div class="none-why">L'assistente aspetta istruzioni. Il K-Art guida proattivamente.</div>
       </div>
       <div class="none-item">
         <div class="none-no">Non &egrave; un sostituto delle persone.</div>
-        <div class="none-why">L'artefatto valorizza le persone. Le rende pi&ugrave; brave, non le rimpiazza.</div>
+        <div class="none-why">Il K-Art valorizza le persone. Le rende pi&ugrave; brave, non le rimpiazza.</div>
       </div>
     </div>
   </div>
@@ -706,13 +854,14 @@
 <!-- ══════════ SEZIONE 7: CTA ══════════ -->
 <section id="cta" style="padding: 5rem 0; background: var(--bg2); text-align: center;">
   <div class="container">
-    <h2 class="s-title" style="margin-bottom: 1rem;">Pronti a trasformare la conoscenza<br>in intelligenza operativa?</h2>
+    <h2 class="s-title" style="margin-bottom: 1rem;">Pronti a rendere accessibile<br>la conoscenza del vostro dominio?</h2>
     <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
-      Partner tecnologici, investitori, vertici aziendali &mdash;
-      parliamo di come EGEMON pu&ograve; operare nel vostro dominio.
+      Partner tecnologici, esperti di dominio, vertici aziendali &mdash;
+      parliamo di come EGEMON pu&ograve; trasformare il vostro know-how
+      in intelligenza operativa per tutti.
     </p>
     <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
-      <a href="mailto:info@egemon.ai" class="btn-primary">Scrivici &rarr;</a>
+      <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci &rarr;</a>
       <a href="#" class="btn-ghost">Accedi alla piattaforma &rarr;</a>
     </div>
   </div>
@@ -811,7 +960,78 @@
 
 </style>
 
-<div class="preview-badge">PREVIEW — SITO COMPLETO</div>
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="#kart">Cosa sono i K-Art</a>
+      <a href="#ciclo">Il Ciclo Cognitivo</a>
+      <a href="#piattaforma">La Piattaforma</a>
+      <a href="#factory">La Factory</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Soluzioni</div>
+      <a href="#scenari">I primi K-Art</a>
+      <a href="mailto:info@egemon.ai">Contattaci</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
+</footer>
+
+<style>
+  .footer-logo-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.04em; color: var(--text);
+    text-transform: uppercase;
+  }
+  .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+  .footer-full {
+    padding: 4rem 5rem 2rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+  .footer-col-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text); margin-bottom: 1rem;
+  }
+  .footer-col a {
+    display: block; font-size: 0.85rem; color: var(--muted);
+    text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+  }
+  .footer-col a:hover { color: var(--accent2); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1.5rem; border-top: 1px solid var(--border);
+    font-size: 0.75rem; color: var(--muted);
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+</style>
 
 <!-- Particle starfield in Hero -->
 <style>
@@ -871,6 +1091,198 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Also reveal kart-block cards
+document.querySelectorAll('.kart-block').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 4) * 0.1 + 's';
+  observer.observe(el);
+});
+</script>
+
+<!-- Tooltip system -->
+<style>
+  .term {
+    color: var(--accent2);
+    border-bottom: 1px dotted var(--accent2);
+    cursor: help;
+    position: relative;
+  }
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.5;
+    width: 380px;
+    box-shadow: 0 8px 30px rgba(91,82,240,0.3);
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--accent);
+  }
+  .term:hover .tooltip,
+  .term.active .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+// Create tooltips from data-tooltip attributes
+document.querySelectorAll('.term[data-tooltip]').forEach(term => {
+  const tip = document.createElement('span');
+  tip.className = 'tooltip';
+  tip.innerHTML = term.getAttribute('data-tooltip');
+  term.appendChild(tip);
+});
+
+// Mobile: toggle on tap
+document.querySelectorAll('.term').forEach(term => {
+  term.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.querySelectorAll('.term.active').forEach(t => {
+      if (t !== term) t.classList.remove('active');
+    });
+    term.classList.toggle('active');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.term.active').forEach(t => t.classList.remove('active'));
+});
+</script>
+
+<!-- Reserved Info Modal -->
+<div id="reserved-modal" class="reserved-overlay" onclick="closeReserved(event)">
+  <div class="reserved-card" onclick="event.stopPropagation()">
+    <div class="reserved-accent"></div>
+    <div class="reserved-body">
+      <div class="reserved-icon">&#x1F512;</div>
+      <h3 class="reserved-title">Informazioni Riservate</h3>
+      <p class="reserved-text">
+        Le informazioni relative ai K-Art che non dispongono di una propria
+        pagina nel sito sono considerate <strong>riservate</strong> e vengono fornite
+        su specifica richiesta.
+      </p>
+      <p class="reserved-text">
+        L'accesso &egrave; disponibile a seguito di una breve intervista online
+        con un nostro rappresentante.
+      </p>
+      <div class="reserved-actions">
+        <a href="mailto:info@egemon.ai" class="btn-primary">Richiedi un incontro &rarr;</a>
+        <button onclick="closeReserved(event)" class="reserved-close-btn">Chiudi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .reserved-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(6,8,16,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .reserved-overlay.open {
+    display: flex;
+    opacity: 1;
+  }
+  .reserved-card {
+    background: var(--surface);
+    border: 1px solid rgba(155,142,255,0.25);
+    border-radius: 16px;
+    max-width: 520px;
+    width: 90%;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(91,82,240,0.3);
+  }
+  .reserved-accent {
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), #c084fc);
+  }
+  .reserved-body {
+    padding: 2.5rem;
+    text-align: center;
+  }
+  .reserved-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .reserved-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .reserved-text {
+    font-size: 1rem;
+    color: var(--soft);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .reserved-text strong {
+    color: var(--text);
+  }
+  .reserved-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .reserved-close-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reserved-close-btn:hover {
+    border-color: var(--accent2);
+    color: var(--text);
+  }
+</style>
+
+<script>
+function openReserved(e) {
+  e.preventDefault();
+  const modal = document.getElementById('reserved-modal');
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => modal.classList.add('open'));
+}
+function closeReserved(e) {
+  e.preventDefault();
+  const modal = document.getElementById('reserved-modal');
+  modal.classList.remove('open');
+  setTimeout(() => modal.style.display = 'none', 300);
+}
 </script>
 
 </body>

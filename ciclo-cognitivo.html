@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGEMON — Il Ciclo Cognitivo dell'Intelligenza Eseguibile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1c;
+      --surface: #10141f;
+      --border: rgba(255,255,255,0.09);
+      --accent: #5b52f0;
+      --accent2: #9b8eff;
+      --green: #22c55e;
+      --gold: #eab308;
+      --text: #eef2f7;
+      --soft: #b8c8d8;
+      --muted: #8a9db5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-links a.active { color: var(--accent2); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important; transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #6b63f5 !important; }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+
+    .s-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.4rem; font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem; color: var(--text);
+    }
+    .s-desc {
+      font-size: 1.2rem; color: var(--soft); line-height: 1.7;
+      margin-bottom: 1.4rem; max-width: 100%;
+    }
+
+    /* HERO — page hero, compact */
+    .page-hero {
+      padding-top: 8rem; padding-bottom: 4rem;
+      background: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .page-hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
+      margin-bottom: 1.5rem; color: var(--text);
+    }
+    .page-hero-title em {
+      font-style: normal;
+      color: var(--accent2);
+    }
+    .page-hero-sub {
+      font-size: 1.3rem; color: var(--soft); line-height: 1.6;
+      max-width: 800px;
+    }
+
+    /* Ciclo image section */
+    .ciclo-section {
+      padding: 5rem 0;
+      background: var(--bg2);
+    }
+    .ciclo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .ciclo-img {
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      display: block;
+      mix-blend-mode: lighten;
+    }
+    .ciclo-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Principi cards */
+    .principi-section {
+      padding: 5rem 0;
+      background: var(--bg);
+    }
+    .principi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .principio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .principio-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(91,82,240,0.2);
+      border-color: var(--accent);
+    }
+    .principio-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 800; margin-bottom: 0.6rem;
+    }
+    .principio-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+    }
+    .principio-desc {
+      font-size: 0.95rem; color: var(--soft); line-height: 1.65;
+    }
+    .principio-desc strong { color: var(--text); }
+
+    /* CTA */
+    .cta-section {
+      padding: 5rem 0;
+      background: var(--bg2);
+      text-align: center;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--accent); color: #fff; padding: 0.9rem 2.2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+      box-shadow: 0 4px 16px rgba(91,82,240,0.3);
+    }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); color: var(--text); padding: 0.9rem 2.2rem;
+      border-radius: 10px; font-weight: 500; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--text); }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    .footer-logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text);
+      text-transform: uppercase;
+    }
+    .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+    .footer-full {
+      padding: 4rem 5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="preview-new-hero.html" class="nav-logo" style="text-decoration:none;">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="preview-new-hero.html#scenari">Soluzioni</a>
+    <a href="ciclo-cognitivo.html" class="active">Ciclo Cognitivo</a>
+    <a href="preview-new-hero.html#piattaforma">La Piattaforma</a>
+    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="s-label">Il Principio</div>
+    <h1 class="page-hero-title">
+      Il Ciclo Cognitivo<br>dell'<em>Intelligenza Eseguibile</em>
+    </h1>
+    <p class="page-hero-sub">
+      Democratizzare la conoscenza significa renderla utilizzabile
+      da chiunque, <strong style="color: var(--accent2);">indipendentemente dalla competenza individuale.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- CICLO — Immagine + testo -->
+<section class="ciclo-section">
+  <div class="container">
+    <div class="ciclo-grid">
+      <div>
+        <h2 class="s-title">Cinque principi.<br>Un flusso continuo.</h2>
+        <p class="s-desc">
+          Il sapere dell'esperto deve essere trasferito agli operatori
+          in una forma che ciascuno possa usare, in qualsiasi circostanza.
+        </p>
+        <p class="s-desc">
+          I 5 Principi del Ciclo Cognitivo governano questa trasformazione:
+          un flusso continuo dove ogni principio alimenta il successivo.
+          Nessuno &egrave; opzionale. Tutti insieme garantiscono che il K-Art
+          sia completo, affidabile e in continua evoluzione.
+        </p>
+      </div>
+      <div class="ciclo-image">
+        <img src="assets/ciclo-cognitivo-intelligenza-eseguibile (9).png" alt="Il Ciclo Cognitivo dell'Intelligenza Eseguibile" class="ciclo-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- I 5 PRINCIPI — dettaglio -->
+<section class="principi-section">
+  <div class="container">
+    <div class="s-label">I 5 Principi</div>
+    <h2 class="s-title">Ogni principio ha un ruolo.<br>Nessuno &egrave; sacrificabile.</h2>
+
+    <div class="principi-grid">
+      <div class="principio-card">
+        <div class="principio-num" style="color: var(--accent2);">01</div>
+        <h3 class="principio-title">CONOSCENZA</h3>
+        <p class="principio-desc">
+          &Egrave; il <strong>cosa sa fare</strong> il K-Art. Ogni regola, ogni eccezione,
+          ogni soglia, ogni criterio di valutazione del dominio viene destrutturato
+          in unit&agrave; atomiche (BLURB) e organizzato nel Knowledge Tree.
+          <br><br><em style="color: var(--muted);">Senza Conoscenza: il sistema chiacchiera ma non produce.</em>
+        </p>
+      </div>
+
+      <div class="principio-card">
+        <div class="principio-num" style="color: #8eaaff;">02</div>
+        <h3 class="principio-title">CONSAPEVOLEZZA</h3>
+        <p class="principio-desc">
+          Applica la conoscenza a <strong>questo utente, in questa organizzazione,
+          in questo momento</strong>. Il Genoma a 5 livelli garantisce che ogni output
+          sia calibrato sul contesto: dal principiante all'esperto.
+          <br><br><em style="color: var(--muted);">Senza Consapevolezza: fa la cosa giusta nel contesto sbagliato.</em>
+        </p>
+      </div>
+
+      <div class="principio-card">
+        <div class="principio-num" style="color: var(--green);">03</div>
+        <h3 class="principio-title">ESECUZIONE</h3>
+        <p class="principio-desc">
+          &Egrave; il <strong>come produce</strong>. Ogni output passa un Quality Gate
+          a 5 livelli: Conformit&agrave;, Coerenza, Completezza, Vulnerabilit&agrave;, Eccellenza.
+          Non esce nulla di non verificato.
+          <br><br><em style="color: var(--muted);">Senza Quality Gate: output inaffidabili, falsa sicurezza.</em>
+        </p>
+      </div>
+
+      <div class="principio-card">
+        <div class="principio-num" style="color: var(--gold);">04</div>
+        <h3 class="principio-title">FORMAZIONE</h3>
+        <p class="principio-desc">
+          L'approccio <strong>DUAL-Mode</strong>: ogni azione &egrave; simultaneamente
+          esecuzione e formazione. Il K-Art produce il risultato e spiega perch&eacute;.
+          L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.
+          <br><br><em style="color: var(--muted);">Senza Formazione: l'utente esegue senza capire. Dipendenza totale.</em>
+        </p>
+      </div>
+
+      <div class="principio-card" style="grid-column: 1 / -1; max-width: 600px;">
+        <div class="principio-num" style="color: #d8b4fe;">05</div>
+        <h3 class="principio-title">AUTOPOIESI</h3>
+        <p class="principio-desc">
+          &Egrave; il <strong>come matura</strong>. Ogni interazione arricchisce la base di conoscenza.
+          Il K-Art evolve, si affina, anticipa i pattern ricorrenti.
+          Chiude il ciclo riportando a Conoscenza. Il valore cresce nel tempo &mdash; automaticamente.
+          <br><br><em style="color: var(--muted);">Senza Autopoiesi: funziona il primo anno, obsoleto il secondo.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="s-title" style="margin-bottom: 1rem;">Ogni K-Art rispetta tutti e 5 i principi.<br>Sempre.</h2>
+    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
+      &Egrave; la garanzia EGEMON. Nessun artefatto esce dalla piattaforma incompleto.
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+      <a href="preview-new-hero.html#kart" class="btn-primary">Cosa sono i K-Art &rarr;</a>
+      <a href="preview-new-hero.html#factory" class="btn-ghost">Come li ottieni &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="preview-new-hero.html#kart">Cosa sono i K-Art</a>
+      <a href="ciclo-cognitivo.html">Il Ciclo Cognitivo</a>
+      <a href="preview-new-hero.html#piattaforma">La Piattaforma</a>
+      <a href="preview-new-hero.html#factory">La Factory</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Soluzioni</div>
+      <a href="preview-new-hero.html#scenari">I primi K-Art</a>
+      <a href="mailto:info@egemon.ai">Contattaci</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
+</footer>
+
+<!-- Reveal animation -->
+<script>
+document.querySelectorAll('.principio-card, .ciclo-grid > div').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 5) * 0.1 + 's';
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
