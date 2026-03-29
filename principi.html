@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGEMON — I Principi Fondanti dei K-Art</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1c;
+      --surface: #10141f;
+      --border: rgba(255,255,255,0.09);
+      --accent: #5b52f0;
+      --accent2: #9b8eff;
+      --green: #22c55e;
+      --gold: #eab308;
+      --text: #eef2f7;
+      --soft: #b8c8d8;
+      --muted: #8a9db5;
+      --hot: #ff6b35;
+      --electric: #00e5ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes nebulaPulse {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    @keyframes starDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(40px, -25px) scale(1.02); }
+      50% { transform: translate(-20px, -50px) scale(0.98); }
+      75% { transform: translate(-40px, 15px) scale(1.01); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    @keyframes glowPulse {
+      0%,100% { text-shadow: 0 0 8px rgba(155,142,255,0.3); }
+      50% { text-shadow: 0 0 20px rgba(155,142,255,0.6), 0 0 40px rgba(91,82,240,0.3); }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important; transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #6b63f5 !important; }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
+    .nav-dropdown-trigger { cursor: pointer; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.5rem;
+      z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.5rem 0; min-width: 180px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .nav-dropdown-menu-inner::before {
+      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: var(--surface);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+
+    /* SECTION COMMON */
+    .s-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.4rem; font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem; color: var(--text);
+    }
+    .s-desc {
+      font-size: 1.1rem; color: var(--soft); line-height: 1.75;
+      margin-bottom: 1.4rem; max-width: 100%;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 80vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 6rem; padding-bottom: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-cosmos {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      animation: nebulaPulse 8s ease-in-out infinite;
+      background:
+        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(91,82,240,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 60%, rgba(59,130,246,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 35% at 60% 85%, rgba(168,85,247,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.10) 0%, transparent 70%);
+    }
+    .hero-stars {
+      position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
+      pointer-events: none; z-index: 0;
+      animation: starDrift 20s ease-in-out infinite;
+      background-image:
+        radial-gradient(3px 3px at 10% 15%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(3px 3px at 80% 20%, rgba(155,142,255,1), transparent),
+        radial-gradient(2px 2px at 25% 8%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.75), transparent),
+        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 92% 8%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.5px 1.5px at 70% 32%, rgba(255,255,255,0.55), transparent),
+        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 40% 82%, rgba(255,255,255,0.35), transparent);
+    }
+    .hero-vignette {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(6,8,16,0.6) 100%);
+    }
+
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 2rem; max-width: 900px; color: var(--text);
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 33%, #c084fc 66%, #9b8eff 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      padding: 0 0.08em;
+    }
+    .s-title-assertive .hot { padding: 0 0.06em; }
+    .hero-subtitle {
+      font-size: 1.35rem; color: var(--soft); max-width: 800px;
+      line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .hero-subtitle strong { color: var(--text); font-weight: 600; }
+    .hero-cta-row { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: 2.5rem; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--accent); color: #fff; padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+      box-shadow: 0 4px 16px rgba(91,82,240,0.3);
+    }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 500; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── INCEPTION ── */
+    .inception-highlight {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--text);
+      line-height: 1.5; margin-bottom: 1.5rem;
+      border-left: 3px solid var(--accent); padding-left: 1.5rem;
+    }
+    .inception-highlight em {
+      font-style: normal; color: var(--accent2);
+    }
+    .axes-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin: 2.5rem 0;
+    }
+    .axis-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .axis-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+    .axis-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .axis-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem;
+    }
+    .axis-desc { font-size: 0.95rem; color: var(--soft); line-height: 1.65; }
+
+    /* ── CAMBIARE VS EVOLVERE ── */
+    .vs-grid {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 2rem; align-items: stretch; margin: 2.5rem 0;
+    }
+    .vs-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+    }
+    .vs-card.evolve { border-color: rgba(91,82,240,0.4); }
+    .vs-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem;
+    }
+    .vs-card.change h3 { color: var(--muted); }
+    .vs-card.evolve h3 { color: var(--accent2); }
+    .vs-separator {
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800; color: var(--accent2);
+    }
+    .vs-item {
+      display: flex; gap: 0.6rem; margin-bottom: 0.8rem;
+      font-size: 0.95rem; line-height: 1.55;
+    }
+    .vs-item .icon { flex-shrink: 0; }
+    .vs-card.change .vs-item .icon { color: var(--muted); }
+    .vs-card.evolve .vs-item .icon { color: var(--green); }
+
+    /* ── K-ART CONVERGENZA ── */
+    .convergence-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin: 2.5rem 0;
+    }
+    .conv-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: transform .2s;
+    }
+    .conv-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+    .conv-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+      display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px;
+    }
+    .conv-today { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.55; }
+    .conv-kart { font-size: 0.95rem; color: var(--text); line-height: 1.6; font-weight: 500; }
+    .conv-divider { height: 1px; background: var(--border); margin: 0.8rem 0; }
+
+    /* ── REGISTRI ── */
+    .registri-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin: 2.5rem 0;
+    }
+    .registro-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+    }
+    .registro-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .registro-card p { font-size: 0.95rem; color: var(--soft); line-height: 1.7; }
+    .registro-card strong { color: var(--text); }
+
+    /* ── CONSAPEVOLEZZA ── */
+    .awareness-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem; margin: 2.5rem 0;
+    }
+    .aw-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      transition: transform .2s;
+    }
+    .aw-card:hover { transform: translateY(-4px); box-shadow: 0 6px 24px rgba(91,82,240,0.15); border-color: var(--accent); }
+    .aw-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 700; color: var(--accent2); margin-bottom: 0.5rem;
+    }
+    .aw-does { font-size: 0.88rem; color: var(--text); line-height: 1.55; margin-bottom: 0.5rem; }
+    .aw-without { font-size: 0.82rem; color: var(--muted); line-height: 1.5; font-style: italic; }
+
+    /* ── PIRAMIDE ── */
+    .pyramid-section { text-align: center; }
+    .pyramid-wrap {
+      max-width: 700px; margin: 2.5rem auto;
+    }
+    .pyramid-level {
+      margin: 0 auto; padding: 1rem 1.5rem;
+      border-radius: 10px; margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: transform .2s;
+    }
+    .pyramid-level:hover { transform: scale(1.02); }
+    .pyramid-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 800; flex-shrink: 0; width: 2rem;
+    }
+    .pyramid-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; flex-shrink: 0; min-width: 140px; text-align: left;
+    }
+    .pyramid-desc { font-size: 0.9rem; color: var(--soft); text-align: left; }
+    .pyr-5 { background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.3); max-width: 500px; }
+    .pyr-5 .pyramid-num, .pyr-5 .pyramid-name { color: var(--gold); }
+    .pyr-4 { background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.25); max-width: 560px; }
+    .pyr-4 .pyramid-num, .pyr-4 .pyramid-name { color: #c084fc; }
+    .pyr-3 { background: rgba(91,82,240,0.12); border: 1px solid rgba(91,82,240,0.25); max-width: 620px; }
+    .pyr-3 .pyramid-num, .pyr-3 .pyramid-name { color: var(--accent2); }
+    .pyr-2 { background: rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.25); max-width: 680px; }
+    .pyr-2 .pyramid-num, .pyr-2 .pyramid-name { color: #60a5fa; }
+    .pyr-1 { background: rgba(34,197,94,0.10); border: 1px solid rgba(34,197,94,0.25); max-width: 740px; }
+    .pyr-1 .pyramid-num, .pyr-1 .pyramid-name { color: var(--green); }
+    .pyramid-compare {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 2.5rem; max-width: 740px; margin-left: auto; margin-right: auto;
+    }
+    .pyrc-item { text-align: center; }
+    .pyrc-label { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .pyrc-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700;
+    }
+
+    /* ── COSTI ── */
+    .costs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin: 2.5rem 0;
+    }
+    .cost-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem;
+      transition: transform .2s;
+    }
+    .cost-card:hover { transform: translateY(-4px); box-shadow: 0 6px 24px rgba(91,82,240,0.15); border-color: var(--accent); }
+    .cost-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.3rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.4rem;
+      animation: glowPulse 3s ease infinite;
+    }
+    .cost-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem;
+    }
+    .cost-desc { font-size: 0.9rem; color: var(--soft); line-height: 1.6; }
+    .cost-callout {
+      background: rgba(91,82,240,0.08); border: 1px solid rgba(91,82,240,0.2);
+      border-radius: 14px; padding: 2rem; margin-top: 2.5rem; text-align: center;
+    }
+    .cost-callout p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--text); line-height: 1.6;
+    }
+    .cost-callout em { font-style: normal; color: var(--accent2); }
+
+    /* ── DALLA SOLUZIONE AL BISOGNO ── */
+    .solution-block { margin-bottom: 2.5rem; }
+    .solution-block h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem; font-weight: 700; color: var(--accent2); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .solution-num {
+      font-size: 0.75rem; font-weight: 800; background: rgba(155,142,255,0.15);
+      color: var(--accent2); padding: 0.25rem 0.6rem; border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .solution-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      background: var(--surface); border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .solution-table th {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 1rem 1.2rem; text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .solution-table th:nth-child(1) { color: var(--muted); }
+    .solution-table th:nth-child(2) { color: var(--muted); }
+    .solution-table th:nth-child(3) { color: var(--accent2); }
+    .solution-table td {
+      font-size: 0.9rem; padding: 0.9rem 1.2rem; line-height: 1.55;
+      border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .solution-table tr:last-child td { border-bottom: none; }
+    .solution-table td:nth-child(1) { color: var(--soft); }
+    .solution-table td:nth-child(2) { color: var(--muted); }
+    .solution-table td:nth-child(3) { color: var(--text); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    .footer-full {
+      padding: 4rem 5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    /* PARTICLES */
+    .particles {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .particle { position: absolute; border-radius: 50%; background: #fff; }
+    .p1 { width:4px; height:4px; top:12%; left:8%; animation: twinkle 4s ease infinite, float1 6s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+    .p2 { width:3px; height:3px; top:25%; left:85%; animation: twinkle 5s ease infinite 0.5s, float2 7s ease infinite; }
+    .p3 { width:5px; height:5px; top:60%; left:92%; animation: twinkle 3.5s ease infinite 1s, float1 8s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+    .p4 { width:3px; height:3px; top:75%; left:5%; animation: twinkle 6s ease infinite 0.3s, float2 5s ease infinite; }
+    .p5 { width:4px; height:4px; top:8%; left:45%; animation: twinkle 4.5s ease infinite 1.5s, float1 9s ease infinite; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .axes-grid, .convergence-grid, .awareness-grid, .costs-grid { grid-template-columns: 1fr 1fr; }
+      .vs-grid { grid-template-columns: 1fr; }
+      .vs-separator { padding: 1rem 0; }
+      .registri-grid { grid-template-columns: 1fr; }
+      .pyramid-compare { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .s-title { font-size: 1.8rem; }
+      .hero-title { font-size: 2rem; }
+      .hero-subtitle { font-size: 1.1rem; }
+      .axes-grid, .convergence-grid, .awareness-grid, .costs-grid { grid-template-columns: 1fr; }
+      .footer-full { padding: 2rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .solution-table { font-size: 0.82rem; }
+      .solution-table th, .solution-table td { padding: 0.7rem 0.8rem; }
+    }
+
+    /* ══════════ ASSERTIVE DARK — Stile aggressivo ══════════ */
+
+    /* Marker highlight — pennellata di evidenziatore */
+    .mark {
+      background: linear-gradient(transparent 45%, rgba(91,82,240,0.35) 45%, rgba(91,82,240,0.35) 85%, transparent 85%);
+      padding: 0 0.15em;
+    }
+    .mark-hot {
+      background: linear-gradient(transparent 45%, rgba(255,107,53,0.30) 45%, rgba(255,107,53,0.30) 85%, transparent 85%);
+      padding: 0 0.15em;
+    }
+    .mark-electric {
+      background: linear-gradient(transparent 45%, rgba(0,229,255,0.25) 45%, rgba(0,229,255,0.25) 85%, transparent 85%);
+      padding: 0 0.15em;
+    }
+
+    /* Section titles — assertive underline slash */
+    .s-title-assertive {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.8rem; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--text);
+      position: relative;
+    }
+    .s-title-assertive::after {
+      content: '';
+      display: block;
+      width: 80px; height: 4px;
+      background: var(--accent);
+      margin-top: 1rem;
+      border-radius: 2px;
+    }
+    .s-title-assertive .hot { color: var(--hot); }
+
+    /* Inception quote — dramatic */
+    .inception-dramatic {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.8rem; font-weight: 800; color: var(--text);
+      line-height: 1.35; margin: 2.5rem 0;
+      padding: 2rem 2.5rem;
+      border-left: 5px solid var(--hot);
+      background: linear-gradient(90deg, rgba(255,107,53,0.08) 0%, transparent 60%);
+      border-radius: 0 12px 12px 0;
+    }
+    .inception-dramatic em {
+      font-style: normal; color: var(--hot);
+    }
+
+    /* Solution tables — K-Art column dominates */
+    .solution-table td:nth-child(3) {
+      background: rgba(91,82,240,0.06);
+      box-shadow: inset 3px 0 0 var(--accent);
+      font-weight: 600;
+      color: #fff;
+    }
+    .solution-table th:nth-child(3) {
+      background: rgba(91,82,240,0.12);
+      box-shadow: inset 3px 0 0 var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    /* Solution block title — bigger number */
+    .solution-num {
+      font-size: 0.85rem; font-weight: 900;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.3rem 0.75rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .solution-block h3 {
+      font-size: 1.3rem; font-weight: 800;
+      color: #fff;
+    }
+
+    /* Cost cards — dramatic numbers */
+    .cost-num {
+      font-size: 2rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--accent2), var(--hot));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cost-title {
+      font-size: 1.1rem; font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Awareness cards — assertive border on hover */
+    .aw-card {
+      border-left: 3px solid transparent;
+      transition: transform .2s, border-color .3s, box-shadow .2s;
+    }
+    .aw-card:hover {
+      border-left-color: var(--accent);
+    }
+    .aw-title {
+      font-size: 1rem; font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .aw-without {
+      border-top: 1px solid var(--border);
+      padding-top: 0.5rem; margin-top: 0.5rem;
+      color: var(--hot); font-style: normal; font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    /* Pyramid — more punch */
+    .pyramid-level {
+      border-width: 2px;
+    }
+    .pyramid-name {
+      font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Convergence cards — stronger "oggi vs K-Art" contrast */
+    .conv-today {
+      text-decoration: line-through;
+      text-decoration-color: rgba(255,107,53,0.5);
+      text-decoration-thickness: 2px;
+    }
+    .conv-kart {
+      font-weight: 600;
+      color: #fff;
+      padding-left: 0.8rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* VS section — stronger visual contrast */
+    .vs-card.change {
+      opacity: 0.7;
+      border-color: rgba(255,107,53,0.2);
+    }
+    .vs-card.change h3 { color: var(--hot); opacity: 0.7; text-decoration: line-through; text-decoration-thickness: 2px; }
+    .vs-card.evolve {
+      border-color: rgba(34,197,94,0.4);
+      box-shadow: 0 0 30px rgba(34,197,94,0.08);
+    }
+    .vs-card.evolve h3 { color: var(--green); }
+    .vs-card.change .vs-item .icon { color: var(--hot); }
+
+    /* Callout — more assertive */
+    .cost-callout {
+      border-color: rgba(255,107,53,0.3);
+      background: rgba(255,107,53,0.06);
+    }
+    .cost-callout p {
+      font-size: 1.3rem; font-weight: 700;
+    }
+    .cost-callout em { color: var(--hot); font-weight: 800; }
+
+    /* Axis cards — bold icon treatment */
+    .axis-icon {
+      font-size: 2.2rem;
+      color: var(--hot);
+    }
+    .axis-title {
+      font-size: 1.2rem; font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="preview-new-hero.html" class="nav-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="preview-new-hero.html">Home</a>
+    <a href="principi.html" style="color:var(--accent2);">I Principi</a>
+    <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
+    <div class="nav-dropdown">
+      <a href="piattaforma.html" class="nav-dropdown-trigger">La Piattaforma &#x25BE;</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="piattaforma.html">Architettura</a>
+          <a href="forge.html">La Workstation</a>
+        </div>
+      </div>
+    </div>
+    <a href="preview-new-hero.html#scenari">Soluzioni</a>
+    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-cosmos"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-vignette"></div>
+  <div class="particles">
+    <div class="particle p1"></div><div class="particle p2"></div>
+    <div class="particle p3"></div><div class="particle p4"></div>
+    <div class="particle p5"></div>
+  </div>
+  <div class="container">
+    <div class="s-label">I Principi Fondanti</div>
+    <h1 class="hero-title">
+      Il Ciclo Cognitivo<br>dell'<em>Intelligenza Eseguibile</em>
+    </h1>
+    <p class="hero-subtitle">
+      Democratizzare la conoscenza significa renderla utilizzabile da chiunque,
+      <strong>indipendentemente dalla competenza individuale.</strong>
+    </p>
+    <p class="hero-subtitle">
+      I 5 Principi del Ciclo Cognitivo governano questa trasformazione:
+      un flusso continuo dove ogni principio alimenta il successivo.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#inception" class="btn-primary">L'inception &darr;</a>
+      <a href="#soluzione" class="btn-ghost">Dal bisogno alla soluzione &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 1. L'INCEPTION ══════════ -->
+<section id="inception" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">L'Inception</div>
+    <h2 class="s-title-assertive">La disparit&agrave; di performance<br>come <span class="hot">principio universale</span></h2>
+
+    <div class="inception-dramatic">
+      In qualsiasi organizzazione, la performance operativa <em>non &egrave; mai uniforme.</em>
+      Varia &mdash; naturalmente, inevitabilmente, continuamente &mdash; su tre assi.
+    </div>
+
+    <div class="axes-grid">
+      <div class="axis-card">
+        <div class="axis-icon">&otimes;</div>
+        <div class="axis-title">Il Tempo</div>
+        <p class="axis-desc">La stessa persona non produce lo stesso risultato luned&igrave; mattina e venerd&igrave; pomeriggio. Non produce lo stesso risultato prima e dopo un cambiamento normativo. La performance oscilla &mdash; &egrave; fisiologia, non negligenza.</p>
+      </div>
+      <div class="axis-card">
+        <div class="axis-icon">&#x25C8;</div>
+        <div class="axis-title">I Luoghi</div>
+        <p class="axis-desc">Stesso ruolo, stessa procedura, sedi diverse: dove c'&egrave; l'esperto senior la performance &egrave; alta. Dove non c'&egrave;, cala. La sede centrale ha accesso diretto ai responsabili. Quella periferica no.</p>
+      </div>
+      <div class="axis-card">
+        <div class="axis-icon">&#x25CB;</div>
+        <div class="axis-title">Le Persone</div>
+        <p class="axis-desc">Lo stesso compito assegnato a cinque persone produce cinque risultati diversi. Non perch&eacute; alcune siano migliori &mdash; perch&eacute; hanno competenze diverse, esperienze diverse, sono a stadi diversi della crescita professionale.</p>
+      </div>
+    </div>
+
+    <div class="inception-dramatic" style="margin-top: 2rem; border-left-color: var(--accent);">
+      La disparit&agrave; non &egrave; un difetto &mdash; <em style="color: var(--accent2);">&egrave; il default del sistema.</em>
+    </div>
+
+    <p class="s-desc">
+      Si possono automatizzare tutti i processi, digitalizzare ogni documento, implementare il gestionale pi&ugrave; sofisticato del mercato. <strong style="color: #fff;"><span class="mark-hot">Resta un problema: le persone che lo usano sono tutte diverse, si evolvono in modo diverso e spesso vengono sostituite.</span></strong>
+    </p>
+    <p class="s-desc" style="font-size: 1.25rem; font-weight: 600; color: #fff;">
+      Il bisogno primario dell'impresa &egrave; far s&igrave; che il personale operi
+      <span class="mark">sempre nelle condizioni di massima performance</span>,
+      fornendo strumenti, informazioni e formazione adeguate.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 2. CAMBIARE vs EVOLVERE ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il Paradigma</div>
+    <h2 class="s-title-assertive">Cambiare non &egrave; la soluzione.<br>La soluzione &egrave; <span class="hot">evolvere.</span></h2>
+
+    <div class="vs-grid">
+      <div class="vs-card change">
+        <h3>Cambiare</h3>
+        <div class="vs-item"><span class="icon">&times;</span> <span>Discontinuo &mdash; interventi episodici</span></div>
+        <div class="vs-item"><span class="icon">&times;</span> <span>Disruptivo &mdash; si ferma tutto, si ricomincia</span></div>
+        <div class="vs-item"><span class="icon">&times;</span> <span>Temporaneo &mdash; il miglioramento decade</span></div>
+        <div class="vs-item"><span class="icon">&times;</span> <span>Reattivo &mdash; si cambia quando il problema &egrave; evidente</span></div>
+        <div class="vs-item"><span class="icon">&times;</span> <span>Parziale &mdash; un componente alla volta</span></div>
+      </div>
+      <div class="vs-separator">&harr;</div>
+      <div class="vs-card evolve">
+        <h3>Evolvere</h3>
+        <div class="vs-item"><span class="icon">&check;</span> <span>Continuo &mdash; crescita costante</span></div>
+        <div class="vs-item"><span class="icon">&check;</span> <span>Armonico &mdash; tutti i componenti evolvono insieme</span></div>
+        <div class="vs-item"><span class="icon">&check;</span> <span>Permanente &mdash; il valore si accumula</span></div>
+        <div class="vs-item"><span class="icon">&check;</span> <span>Concomitante &mdash; si evolve con il contesto, in tempo reale</span></div>
+        <div class="vs-item"><span class="icon">&check;</span> <span>Integrale &mdash; persone, sistemi, knowledge simultaneamente</span></div>
+      </div>
+    </div>
+
+    <div class="inception-dramatic" style="border-left-color: var(--green); background: linear-gradient(90deg, rgba(34,197,94,0.08) 0%, transparent 60%);">
+      Le organizzazioni che sopravvivono non sono le pi&ugrave; forti, ma quelle che si adattano pi&ugrave; rapidamente al cambiamento del contesto. Non &egrave; miglioramento di prestazioni &mdash; &egrave; <em style="color: var(--green);">co-evoluzione permanente.</em>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 3. K-ART COME CONVERGENZA ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">La Convergenza</div>
+    <h2 class="s-title-assertive">Il K-Art: dove strumento,<br>informazione e formazione<br>sono <span class="hot">lo stesso atto.</span></h2>
+
+    <p class="s-desc">
+      Non corregge. Non controlla. Non sostituisce. <strong style="color:var(--text);">Potenzia</strong> &mdash;
+      livellando la performance al massimo, indipendentemente dal tempo, dal luogo, dalla persona.
+      La qualit&agrave; del risultato dipende dal processo, non dalla competenza della persona.
+    </p>
+
+    <div class="convergence-grid">
+      <div class="conv-card">
+        <div class="conv-label" style="background:rgba(91,82,240,0.15); color:var(--accent2);">Strumento</div>
+        <p class="conv-today">Oggi: il software esegue ma non spiega</p>
+        <div class="conv-divider"></div>
+        <p class="conv-kart">Nel K-Art: produce l'artefatto verificato, conforme, tracciabile</p>
+      </div>
+      <div class="conv-card">
+        <div class="conv-label" style="background:rgba(34,197,94,0.15); color:var(--green);">Informazione</div>
+        <p class="conv-today">Oggi: il know-how &egrave; frammentato</p>
+        <div class="conv-divider"></div>
+        <p class="conv-kart">Nel K-Art: l'intero knowledge del dominio, unificato, accessibile</p>
+      </div>
+      <div class="conv-card">
+        <div class="conv-label" style="background:rgba(234,179,8,0.15); color:var(--gold);">Formazione</div>
+        <p class="conv-today">Oggi: separata dal lavoro, si dimentica</p>
+        <div class="conv-divider"></div>
+        <p class="conv-kart">Nel K-Art: nel flusso del lavoro, calibrata alla persona, permanente</p>
+      </div>
+    </div>
+
+    <!-- I due registri -->
+    <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.4rem; font-weight:700; color:var(--text); margin: 3rem 0 1rem;">I due registri operativi</h3>
+    <p class="s-desc" style="margin-bottom: 2rem;">
+      La potenza del K-Art sta nella <strong style="color:var(--text);">coesistenza dei due registri nello stesso atto</strong>:
+      deterministico dove deve esserlo, euristico dove serve esserlo.
+    </p>
+
+    <div class="registri-grid">
+      <div class="registro-card">
+        <h3 style="color: var(--green);">Registro Deterministico</h3>
+        <p>Quando la regola &egrave; certa, l'artefatto viene generato in modo deterministico. Il DURC scade a 120 giorni: <strong>non &egrave; un'opinione</strong>. La classifica IV richiede organico medio &ge; 10: <strong>non &egrave; una valutazione</strong>. In questi casi il K-Art applica la regola e non ammette eccezioni. L'outcome &egrave; garantito per architettura.</p>
+      </div>
+      <div class="registro-card">
+        <h3 style="color: var(--gold);">Registro Euristico</h3>
+        <p>Quando il contesto richiede ragionamento &mdash; interpretare un dato ambiguo, valutare un rischio, stabilire una priorit&agrave; &mdash; il K-Art partecipa al meglio delle capacit&agrave; offerte dal modello, dal Genoma e dalla Knowledge Base. <strong>Propone, argomenta, segnala &mdash; ma la decisione finale resta alla persona.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 4. CONSAPEVOLEZZA DEL CONTESTO ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il Differenziatore</div>
+    <h2 class="s-title" style="font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05;">La consapevolezza del contesto:<br><span style="background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 33%, #c084fc 66%, #9b8eff 100%); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 6s ease infinite;">la struttura fondante di EGEMON</span></h2>
+    <p class="s-desc">
+      La context awareness al 100% non &egrave; una propriet&agrave; singola &mdash; &egrave; il risultato della convergenza di pi&ugrave; componenti,
+      ciascuna necessaria, nessuna sufficiente da sola.
+    </p>
+
+    <div class="awareness-grid">
+      <div class="aw-card">
+        <div class="aw-title">Knowledge Base di dominio</div>
+        <p class="aw-does">Conosce tutte le regole, le norme, le procedure, i casi &mdash; l'intero patrimonio operativo del settore.</p>
+        <p class="aw-without">Senza: ragiona nel vuoto. Risposte plausibili ma non fondate.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Genoma del cliente</div>
+        <p class="aw-does">Conosce i parametri specifici del contesto operativo: soglie, limiti, vincoli, livello di rischio accettabile.</p>
+        <p class="aw-without">Senza: regole generiche su un caso specifico. Corretto in astratto, inadeguato in concreto.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Stato corrente del processo</div>
+        <p class="aw-does">Sa a che punto si &egrave;: quali passi completati, quali mancano, quali vincoli attivi.</p>
+        <p class="aw-without">Senza: ogni caso &egrave; nuovo. Non ha memoria del percorso.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Profilo della persona</div>
+        <p class="aw-does">Sa chi sta operando: livello di esperienza, ruolo, storico interazioni, pattern di errore.</p>
+        <p class="aw-without">Senza: tratta tutti allo stesso modo. Rallenta l'esperto, sommerge il principiante.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Contesto temporale</div>
+        <p class="aw-does">Sa quando: scadenze imminenti, finestre operative, transizioni in corso.</p>
+        <p class="aw-without">Senza: non distingue l'urgente dall'ordinario. Non anticipa, solo reagisce.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Storico operativo</div>
+        <p class="aw-does">Sa cosa &egrave; successo prima: errori precedenti, decisioni prese, eccezioni gestite, pattern ricorrenti.</p>
+        <p class="aw-without">Senza: ripete gli stessi errori. Non impara dall'esperienza.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Vincoli normativi attivi</div>
+        <p class="aw-does">Sa quali regole si applicano ora: regolamenti in vigore, deroghe attive, aggiornamenti in corso.</p>
+        <p class="aw-without">Senza: applica regole obsolete o ignora regole nuove.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Relazioni tra entit&agrave;</div>
+        <p class="aw-does">Sa come i dati si collegano: un dato che cambia in un punto ha conseguenze a catena su altri.</p>
+        <p class="aw-without">Senza: vede ogni dato come isolato. Non coglie implicazioni trasversali.</p>
+      </div>
+      <div class="aw-card">
+        <div class="aw-title">Evoluzione continua</div>
+        <p class="aw-does">Si aggiorna autonomamente: nuove regole assorbite, vecchie disattivate, errori intercettati diventano prevenzione.</p>
+        <p class="aw-without">Senza: il sistema invecchia. Ogni cambiamento lo rende meno adeguato.</p>
+      </div>
+    </div>
+
+    <div class="cost-callout" style="margin-top: 2.5rem;">
+      <p>Nessun sistema tradizionale &mdash; gestionale, check-list, chatbot generico &mdash; integra tutte le componenti simultaneamente.<br>
+      E nessuno evolve con il contesto che &egrave; chiamato a governare.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. PIRAMIDE QUALITY DETECTION ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container pyramid-section">
+    <div class="s-label">Quality Detection</div>
+    <h2 class="s-title-assertive" style="text-align:center;">Non filtra. <span class="hot">Crea.</span></h2>
+    <p class="s-desc" style="max-width: 700px; margin: 0 auto 1rem; text-align: center;">
+      Il K-Art rileva cinque livelli di qualit&agrave; che nessun sistema tradizionale &egrave; in grado di vedere.
+    </p>
+
+    <div class="pyramid-wrap">
+      <div class="pyramid-level pyr-5">
+        <div class="pyramid-num">5</div>
+        <div class="pyramid-name">Eccellenza</div>
+        <div class="pyramid-desc">&Egrave; il meglio possibile per questo contesto?</div>
+      </div>
+      <div class="pyramid-level pyr-4">
+        <div class="pyramid-num">4</div>
+        <div class="pyramid-name">Vulnerabilit&agrave;</div>
+        <div class="pyramid-desc">Resister&agrave; a uno scrutinio rigoroso?</div>
+      </div>
+      <div class="pyramid-level pyr-3">
+        <div class="pyramid-num">3</div>
+        <div class="pyramid-name">Completezza</div>
+        <div class="pyramid-desc">C'&egrave; tutto quello che serve, anche ci&ograve; che nessuno ha chiesto?</div>
+      </div>
+      <div class="pyramid-level pyr-2">
+        <div class="pyramid-num">2</div>
+        <div class="pyramid-name">Coerenza</div>
+        <div class="pyramid-desc">I dati convergono tra fonti diverse?</div>
+      </div>
+      <div class="pyramid-level pyr-1">
+        <div class="pyramid-num">1</div>
+        <div class="pyramid-name">Conformit&agrave;</div>
+        <div class="pyramid-desc">Rispetta le regole?</div>
+      </div>
+    </div>
+
+    <div class="pyramid-compare">
+      <div class="pyrc-item">
+        <div class="pyrc-label">Check-list / QC tradizionale</div>
+        <div class="pyrc-value" style="color: var(--muted);">Livello 1, forse 2</div>
+      </div>
+      <div class="pyrc-item">
+        <div class="pyrc-label">Controllore umano esperto</div>
+        <div class="pyrc-value" style="color: var(--soft);">Livelli 1&ndash;3, a volte 4</div>
+      </div>
+      <div class="pyrc-item">
+        <div class="pyrc-label">K-Art</div>
+        <div class="pyrc-value" style="color: var(--accent2);">Tutti e 5, sempre, su tutto</div>
+      </div>
+    </div>
+
+    <p class="s-desc" style="max-width: 700px; margin: 2.5rem auto 0; text-align: center;">
+      Il QC tradizionale &egrave; un <strong style="color:var(--muted);">filtro</strong> &mdash; lascia passare il buono, blocca il cattivo.<br>
+      Il K-Art &egrave; un <strong style="color:var(--accent2);">generatore di qualit&agrave;</strong> &mdash; produce direttamente output di livello 5.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 6. I COSTI NASCOSTI ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">L'Iceberg</div>
+    <h2 class="s-title-assertive">I 6 costi dell'errore<br>e dell'<span class="hot">imperfezione</span></h2>
+    <p class="s-desc">
+      Quello che vedi &egrave; la punta. Sotto la superficie, i costi invisibili sono enormi.
+    </p>
+
+    <div class="costs-grid">
+      <div class="cost-card">
+        <div class="cost-num">01</div>
+        <div class="cost-title">Difformit&agrave;</div>
+        <p class="cost-desc">Errore classico scoperto e corretto. Rilavorazione: 2&ndash;4 ore per pratica. Riciclo completo per attestazioni. Sanzioni per dichiarazioni. Remediation plan per compliance.</p>
+      </div>
+      <div class="cost-card">
+        <div class="cost-num">02</div>
+        <div class="cost-title">Errore non scoperto</div>
+        <p class="cost-desc">Il pi&ugrave; costoso. Escussione Fondo di Garanzia negata. Attestazione SOA revocata. Accertamento fiscale: sanzioni 90&ndash;180%. AI Act: fino a &euro;35M o 7% del fatturato.</p>
+      </div>
+      <div class="cost-card">
+        <div class="cost-num">03</div>
+        <div class="cost-title">Prevenzione</div>
+        <p class="cost-desc">L'infrastruttura anti-errore: 1 controllore ogni 5&ndash;8 operatori. Doppio controllo su ogni output. &euro;20K&ndash;50K/anno di formazione. Check-list, audit, consulenti.</p>
+      </div>
+      <div class="cost-card">
+        <div class="cost-num">04</div>
+        <div class="cost-title">Rilavorazione</div>
+        <p class="cost-desc">Il loop infinito: produzione &rarr; errore &rarr; restituzione &rarr; correzione &rarr; ri-verifica. Una pratica con errori costa quasi tre volte una pratica corretta.</p>
+      </div>
+      <div class="cost-card">
+        <div class="cost-num">05</div>
+        <div class="cost-title">Lentezza</div>
+        <p class="cost-desc">Il cliente si rivolge altrove. La delibera scade durante la rilavorazione. Il cantiere aspetta l'attestazione. La scadenza fiscale viene mancata. Penali automatiche.</p>
+      </div>
+      <div class="cost-card">
+        <div class="cost-num">06</div>
+        <div class="cost-title">Inconsistenza</div>
+        <p class="cost-desc">L'imperfezione invisibile. L'analisi corretta ma incompleta. L'output corretto ma incomprensibile. La pratica conforme ma fragile. Il lavoro buono ma non eccellente. Valore non generato.</p>
+      </div>
+    </div>
+
+    <div class="cost-callout">
+      <p><em>Domanda scomoda:</em> quanto spende la vostra organizzazione, ogni anno,<br>per controllare che le persone non sbaglino?</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 7. DALLA SOLUZIONE AL BISOGNO ══════════ -->
+<section id="soluzione" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">Le 8 Caratteristiche</div>
+    <h2 class="s-title-assertive">Dal bisogno alla <span class="hot">soluzione.</span></h2>
+    <p class="s-desc" style="margin-bottom: 3rem;">
+      Non si parte da ci&ograve; che il K-Art &egrave; e fa. Si parte dal problema dell'impresa.
+      Il lettore riconosce da solo la connessione tra bisogno e soluzione.
+    </p>
+
+    <!-- 1 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">01</span> Knowledge Unificato</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Il know-how &egrave; distribuito in modo diseguale</td>
+            <td>Ogni professionista conosce una porzione. Nessuno ha il quadro completo</td>
+            <td>Unifica l'intero patrimonio in un'unica base &mdash; accessibile a tutti, sempre</td>
+          </tr>
+          <tr>
+            <td>L'automazione contiene regole ma non le rende visibili</td>
+            <td>Il software esegue ma non trasferisce il perch&eacute;</td>
+            <td>Rende esplicito il knowledge implicito &mdash; ogni regola accompagnata dalla sua ragione d'essere</td>
+          </tr>
+          <tr>
+            <td>L'esperienza critica risiede in poche persone</td>
+            <td>L'assenza dell'esperto rallenta tutto. Il pensionamento &egrave; perdita irreversibile</td>
+            <td>Moltiplica la conoscenza dell'esperto &mdash; permanente, disponibile a tutti</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 2 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">02</span> Equalizzazione della Qualit&agrave;</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Persone con esperienze e competenze diverse</td>
+            <td>Stesso processo, risultati diversi a seconda di chi esegue</td>
+            <td>Stesso knowledge per tutti, guida calibrata al livello di ciascuno</td>
+          </tr>
+          <tr>
+            <td>La variabilit&agrave; non &egrave; eliminabile con le procedure</td>
+            <td>Pi&ugrave; check-list contengono ma non eliminano &mdash; e aggiungono costo</td>
+            <td>Assorbe la variabilit&agrave; nel sistema. La qualit&agrave; diventa propriet&agrave; del sistema</td>
+          </tr>
+          <tr>
+            <td>La giornata conta</td>
+            <td>Anche l'esperto ha giornate in cui un controllo viene saltato</td>
+            <td>Non ha giornate no. Non dimentica. Non salta passaggi</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">03</span> Quality Gate &mdash; Cinque Livelli</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Il QC tradizionale verifica la conformit&agrave; formale</td>
+            <td>Check-list: presenza campi e formato. Non coerenza, completezza, vulnerabilit&agrave;</td>
+            <td>Rileva 5 livelli: conformit&agrave;, coerenza, completezza, vulnerabilit&agrave;, eccellenza</td>
+          </tr>
+          <tr>
+            <td>Gli errori vengono trovati dopo la produzione</td>
+            <td>Output torna indietro, corretto, ri-verificato. Ogni ciclo costa</td>
+            <td>L'output esce conforme &mdash; o non esce. L'errore non si corregge: non si produce</td>
+          </tr>
+          <tr>
+            <td>Alcuni errori non vengono trovati affatto</td>
+            <td>L'errore di omissione passa inosservato fino al danno</td>
+            <td>Conosce l'intero dominio end-to-end, inclusi gli errori tipici</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 4 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">04</span> Frictionless &mdash; Zero Training</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>I sistemi complessi richiedono formazione</td>
+            <td>Corsi, affiancamento, curva di apprendimento</td>
+            <td>Operativo dal giorno 1. Esprime l'intento, il sistema gestisce il resto</td>
+          </tr>
+          <tr>
+            <td>La formazione si dimentica</td>
+            <td>70&ndash;80% dimenticato entro 30 giorni se non praticato</td>
+            <td>Formazione nel flusso del lavoro, sul caso reale, nel momento in cui serve</td>
+          </tr>
+          <tr>
+            <td>La complessit&agrave; del dominio cresce</td>
+            <td>Ogni cambiamento richiede riqualificazione</td>
+            <td>Assorbe la nuova complessit&agrave;. La persona continua a esprimere intenti</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">05</span> Dal Principiante all'Esperto</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Il neoassunto &egrave; affiancato brevemente</td>
+            <td>Impara per tentativi. Crescita lenta e non strutturata</td>
+            <td>Accompagna dal giorno 1. Si ritrae progressivamente con la crescita</td>
+          </tr>
+          <tr>
+            <td>L'esperto riceve la stessa interfaccia del principiante</td>
+            <td>Rallentato da passaggi pensati per chi non sa</td>
+            <td>All'esperto: interventi chirurgici, solo eccezioni, nessun paternalismo</td>
+          </tr>
+          <tr>
+            <td>La formazione ha una fine</td>
+            <td>Dopo il corso, la persona &egrave; "formata". Il dominio continua a cambiare</td>
+            <td>Percorso senza traguardo. Ogni novit&agrave; &egrave; crescita nel flusso del lavoro</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 6 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">06</span> Dual Mode &mdash; Formazione nell'Azione</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>La formazione &egrave; separata dall'operativit&agrave;</td>
+            <td>Si impara in un contesto, si opera in un altro</td>
+            <td>Ogni interazione spiega il perch&eacute; oltre al cosa. Risultato e comprensione insieme</td>
+          </tr>
+          <tr>
+            <td>Il sistema d&agrave; risultati senza spiegazioni</td>
+            <td>Output corretto ma opaco. La persona non impara</td>
+            <td>Principio maieutico: guida il ragionamento, non emette verdetti</td>
+          </tr>
+          <tr>
+            <td>La competenza crea dipendenza dallo strumento</td>
+            <td>Pi&ugrave; il sistema &egrave; efficace, pi&ugrave; la persona si affida</td>
+            <td>Lavora per rendersi meno indispensabile. Obiettivo: competenza, non dipendenza</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 7 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">07</span> Autopoiesi</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>I sistemi sono statici &mdash; il dominio no</td>
+            <td>Normative cambiano, prodotti evolvono. Il sistema resta fermo</td>
+            <td>Assorbe nuove regole, disattiva quelle obsolete. Evolve continuamente</td>
+          </tr>
+          <tr>
+            <td>Gli errori si ripetono</td>
+            <td>Stesso errore da persone diverse in momenti diversi</td>
+            <td>Ogni errore intercettato diventa prevenzione per tutti, per sempre</td>
+          </tr>
+          <tr>
+            <td>Il valore della consulenza degrada</td>
+            <td>Report invecchia, consiglio si dimentica, consulente se ne va</td>
+            <td>Il valore si accumula &mdash; nelle persone, nel sistema, nell'impresa</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 8 -->
+    <div class="solution-block">
+      <h3><span class="solution-num">08</span> HITL &mdash; La Persona al Centro</h3>
+      <table class="solution-table">
+        <thead><tr><th>La situazione comune</th><th>Cosa accade in pratica</th><th>Cosa fa il K-Art</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>La conoscenza professionale &egrave; un universo aperto</td>
+            <td>Ogni caso &egrave; diverso. Il giudizio sulle sfumature &egrave; umano</td>
+            <td>Arma la persona con l'intero knowledge. La persona esercita il giudizio</td>
+          </tr>
+          <tr>
+            <td>L'automazione totale &egrave; fragile</td>
+            <td>Funziona finch&eacute; i casi rientrano nel previsto. Al primo imprevisto, crolla</td>
+            <td>Segnala, guida, propone &mdash; non decide. L'essere umano &egrave; il garante ultimo</td>
+          </tr>
+          <tr>
+            <td>Le persone non sono intercambiabili</td>
+            <td>Ogni persona porta un punto di vista che arricchisce il risultato</td>
+            <td>Rispetta la diversit&agrave;. Non omologa &mdash; potenzia ciascuno nel proprio percorso</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg); text-align: center;">
+  <div class="container">
+    <h2 class="s-title" style="margin-bottom: 1rem;">Il vostro dominio ha le stesse sfide?</h2>
+    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
+      Qualsiasi settore ad alta intensit&agrave; cognitiva pu&ograve; beneficiare di un K-Art.
+      Parliamo di come trasformare il vostro know-how in intelligenza operativa.
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci &rarr;</a>
+      <a href="preview-new-hero.html" class="btn-ghost">&larr; Torna alla Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="preview-new-hero.html#kart">Cosa sono i K-Art</a>
+      <a href="preview-new-hero.html#ciclo">Il Ciclo Cognitivo</a>
+      <a href="principi.html">I Principi Fondanti</a>
+      <a href="preview-new-hero.html#factory">La Factory</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Soluzioni</div>
+      <a href="preview-new-hero.html#scenari">I primi K-Art</a>
+      <a href="mailto:info@egemon.ai">Contattaci</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
+</footer>
+
+<!-- Scroll reveal -->
+<script>
+document.querySelectorAll('section:not(#hero) .container > *').forEach(el => {
+  el.classList.add('reveal');
+});
+document.querySelectorAll('.axis-card, .conv-card, .aw-card, .cost-card, .solution-block, .vs-card, .registro-card, .pyramid-level').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 6) * 0.08 + 's';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

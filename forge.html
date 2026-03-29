@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGEMON Forge — La Workstation della Conoscenza</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1c;
+      --surface: #10141f;
+      --border: rgba(255,255,255,0.09);
+      --accent: #5b52f0;
+      --accent2: #9b8eff;
+      --green: #22c55e;
+      --gold: #eab308;
+      --text: #eef2f7;
+      --soft: #b8c8d8;
+      --muted: #8a9db5;
+      --hot: #ff6b35;
+      --teal: #14b8a6;
+    }
+
+    html { scroll-behavior: smooth; }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes nebulaPulse { 0%,100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+    @keyframes starDrift { 0% { transform: translate(0,0); } 50% { transform: translate(-20px,-30px); } 100% { transform: translate(0,0); } }
+    @keyframes glowPulse { 0%,100% { box-shadow: 0 0 15px rgba(91,82,240,0.2); } 50% { box-shadow: 0 0 30px rgba(91,82,240,0.4); } }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text);
+      overflow-x: hidden; line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text); text-transform: uppercase; }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important; font-size: 0.85rem !important; }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
+    .nav-dropdown-trigger { cursor: pointer; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.5rem; z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.5rem 0; min-width: 180px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .nav-dropdown-menu-inner::before {
+      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: var(--surface);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+
+    /* COMMON */
+    .s-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; }
+    .s-title-assertive {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.8rem; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--text);
+    }
+    .s-title-assertive::after { content: ''; display: block; width: 80px; height: 4px; background: var(--accent); margin-top: 1rem; border-radius: 2px; }
+    .s-title-assertive .hot { color: var(--hot); }
+    .s-desc { font-size: 1.1rem; color: var(--soft); line-height: 1.75; margin-bottom: 1.4rem; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--accent); color: #fff; padding: 0.85rem 2rem; border-radius: 10px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all .2s; box-shadow: 0 4px 16px rgba(91,82,240,0.3); }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem; border-radius: 10px; font-weight: 500; font-size: 1rem; text-decoration: none; transition: all .2s; }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* HERO */
+    #hero {
+      min-height: 85vh; display: flex; flex-direction: column; justify-content: center;
+      padding-top: 6rem; padding-bottom: 3rem; position: relative; overflow: hidden;
+    }
+    .hero-cosmos {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0;
+      animation: nebulaPulse 8s ease-in-out infinite;
+      background:
+        radial-gradient(ellipse 50% 50% at 70% 40%, rgba(20,184,166,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 30% 30%, rgba(91,82,240,0.20) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 80%, rgba(234,179,8,0.10) 0%, transparent 55%);
+    }
+    .hero-stars {
+      position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
+      pointer-events: none; z-index: 0; animation: starDrift 20s ease-in-out infinite;
+      background-image:
+        radial-gradient(2px 2px at 10% 15%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 80% 20%, rgba(155,142,255,0.9), transparent),
+        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.4), transparent),
+        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.35), transparent);
+    }
+    .hero-vignette {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(6,8,16,0.6) 100%);
+    }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 2rem; max-width: 900px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #14b8a6 0%, #22c55e 50%, #14b8a6 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      padding: 0 0.08em;
+    }
+    .s-title-assertive .hot { padding: 0 0.06em; }
+    .hero-subtitle { font-size: 1.35rem; color: var(--soft); max-width: 800px; line-height: 1.7; margin-bottom: 1.5rem; }
+    .hero-subtitle strong { color: var(--text); font-weight: 600; }
+
+    /* FORGE BADGE */
+    .forge-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: rgba(20,184,166,0.10); border: 1px solid rgba(20,184,166,0.3);
+      padding: 0.5rem 1.2rem; border-radius: 8px; margin-bottom: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; font-weight: 600; color: var(--teal);
+      letter-spacing: 0.05em;
+    }
+    .forge-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+
+    /* ── PHASE SECTIONS ── */
+    .phase-header {
+      display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
+    }
+    .phase-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3.5rem; font-weight: 900;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 2px;
+    }
+    .phase-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .phase-sub {
+      font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-top: 0.2rem;
+    }
+
+    /* ── MODULE GRID ── */
+    .mod-grid { display: grid; gap: 1rem; margin: 1.5rem 0; }
+    .mod-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .mod-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .mod-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .mod-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      position: relative; overflow: hidden;
+    }
+    .mod-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(91,82,240,0.15); border-color: var(--accent); }
+    .mod-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .mod-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .mod-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem;
+    }
+    .mod-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    /* Phase colors */
+    .phase-design .phase-num { -webkit-text-stroke-color: var(--accent2); color: var(--accent2); }
+    .phase-design .phase-title { color: var(--accent2); }
+    .phase-design .mod-card::before { background: var(--accent2); }
+
+    .phase-lego .phase-num { -webkit-text-stroke-color: var(--teal); color: var(--teal); }
+    .phase-lego .phase-title { color: var(--teal); }
+    .phase-lego .mod-card::before { background: var(--teal); }
+
+    .phase-config .phase-num { -webkit-text-stroke-color: var(--gold); color: var(--gold); }
+    .phase-config .phase-title { color: var(--gold); }
+    .phase-config .mod-card::before { background: var(--gold); }
+
+    .phase-service .phase-num { -webkit-text-stroke-color: var(--hot); color: var(--hot); }
+    .phase-service .phase-title { color: var(--hot); }
+    .phase-service .mod-card::before { background: var(--hot); }
+
+    /* ── FLOW DIAGRAM ── */
+    .giro-flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin: 3rem 0; flex-wrap: wrap;
+    }
+    .giro-step {
+      padding: 1.2rem 2rem; border-radius: 12px; text-align: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700; font-size: 0.95rem;
+      min-width: 160px;
+    }
+    .giro-arrow {
+      font-size: 1.5rem; color: var(--muted); padding: 0 0.5rem;
+    }
+    .giro-idea { background: rgba(155,142,255,0.12); border: 1px solid rgba(155,142,255,0.3); color: var(--accent2); }
+    .giro-prog { background: rgba(20,184,166,0.12); border: 1px solid rgba(20,184,166,0.3); color: var(--teal); }
+    .giro-real { background: rgba(234,179,8,0.12); border: 1px solid rgba(234,179,8,0.3); color: var(--gold); }
+    .giro-exec { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+    .giro-auto { background: rgba(255,107,53,0.12); border: 1px solid rgba(255,107,53,0.3); color: var(--hot); }
+    .giro-loop {
+      display: block; text-align: center; margin-top: 1rem;
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .giro-loop span { color: var(--hot); font-weight: 700; }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+      margin: 3rem 0; padding: 2rem 0;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.8rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--teal), var(--accent2));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; font-weight: 500; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: rgba(20,184,166,0.06); border: 1px solid rgba(20,184,166,0.2);
+      border-radius: 14px; padding: 2rem; margin: 2.5rem 0; text-align: center;
+    }
+    .callout p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--text); line-height: 1.6;
+    }
+    .callout em { font-style: normal; color: var(--teal); font-weight: 700; }
+
+    /* ── DRAMATIC ── */
+    .dramatic {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem; font-weight: 800; color: var(--text);
+      line-height: 1.35; margin: 2rem 0; padding: 1.5rem 2rem;
+      border-left: 5px solid var(--teal);
+      background: linear-gradient(90deg, rgba(20,184,166,0.08) 0%, transparent 60%);
+      border-radius: 0 12px 12px 0;
+    }
+    .dramatic em { font-style: normal; color: var(--teal); }
+
+    /* ── FOOTER ── */
+    .footer-full { padding: 4rem 5rem 2rem; border-top: 1px solid var(--border); background: var(--bg); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-logo-text { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; color: var(--text); text-transform: uppercase; }
+    .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
+    .footer-col a { display: block; font-size: 0.85rem; color: var(--muted); text-decoration: none; margin-bottom: 0.5rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .mod-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .mod-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .giro-flow { flex-direction: column; }
+      .giro-arrow { transform: rotate(90deg); }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .s-title-assertive { font-size: 2rem; }
+      .hero-title { font-size: 2rem; }
+      .mod-grid-4, .mod-grid-3, .mod-grid-2 { grid-template-columns: 1fr; }
+      .stats-row { gap: 2rem; }
+      .footer-full { padding: 2rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="preview-new-hero.html" class="nav-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="preview-new-hero.html">Home</a>
+    <a href="principi.html">I Principi</a>
+    <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
+    <div class="nav-dropdown">
+      <a href="piattaforma.html" class="nav-dropdown-trigger">La Piattaforma &#x25BE;</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="piattaforma.html">Architettura</a>
+          <a href="forge.html" style="color:var(--accent2);">La Workstation</a>
+        </div>
+      </div>
+    </div>
+    <a href="preview-new-hero.html#scenari">Soluzioni</a>
+    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-cosmos"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-vignette"></div>
+  <div class="container">
+    <div class="forge-badge"><span class="dot"></span> EGEMON FORGE</div>
+    <h1 class="hero-title">
+      La Workstation dove nasce<br>l'<em>Intelligenza Eseguibile</em>
+    </h1>
+    <p class="hero-subtitle">
+      L'esperto di dominio trasferisce il proprio sapere.
+      <span style="color: var(--hot); font-weight: 700;">Forge</span> lo destruttura, lo organizza, lo codifica.
+      <strong>Il K-Art nasce qui.</strong>
+    </p>
+    <p class="hero-subtitle">
+      Nessuna competenza tecnologica richiesta. Solo conoscenza del dominio.
+    </p>
+    <div style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top: 2rem;">
+      <a href="#moduli" class="btn-primary">Esplora i moduli &darr;</a>
+      <a href="#flusso" class="btn-ghost">Il flusso di lavoro &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCREENSHOT ══════════ -->
+<section style="padding: 3rem 0 5rem; background: var(--bg); position: relative;">
+  <div class="container" style="text-align: center;">
+    <div class="screenshot-wrap">
+      <img src="assets/forge-screenshot.png" alt="EGEMON Forge — La Workstation della Conoscenza" class="forge-img">
+    </div>
+  </div>
+</section>
+
+<style>
+  .screenshot-wrap {
+    max-width: 1100px; margin: 0 auto;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(155,142,255,0.2);
+    box-shadow: 0 20px 80px rgba(91,82,240,0.25), 0 0 0 1px rgba(255,255,255,0.05);
+    animation: glowPulse 4s ease-in-out infinite;
+    position: relative;
+  }
+  .screenshot-wrap::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 32px;
+    background: linear-gradient(90deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    z-index: 2;
+    border-radius: 16px 16px 0 0;
+  }
+  .screenshot-wrap::after {
+    content: ''; position: absolute; top: 10px; left: 16px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #ff5f57;
+    box-shadow: 20px 0 0 #febc2e, 40px 0 0 #28c840;
+    z-index: 3;
+  }
+  .forge-img {
+    width: 100%; display: block;
+    margin-top: 0;
+  }
+</style>
+
+<!-- ══════════ STATS ══════════ -->
+<section style="padding: 3rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="stats-row" style="border: none; padding: 0; margin: 0;">
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Moduli specializzati</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Fasi operative</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Competenze tecniche richieste</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">&infin;</div>
+        <div class="stat-label">Domini applicabili</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FLUSSO — IL GIRO DEL FUMO ══════════ -->
+<section id="flusso" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il Flusso</div>
+    <h2 class="s-title-assertive">Dall'idea al K-Art. <span class="hot">In circolo.</span></h2>
+    <p class="s-desc">
+      Il percorso &egrave; lineare la prima volta. Poi diventa circolare:
+      l'esecuzione genera feedback che arricchisce la progettazione.
+      &Egrave; il Giro del Fumo &mdash; il ciclo autopoietico della conoscenza.
+    </p>
+
+    <div class="giro-flow">
+      <div class="giro-step giro-idea">&#x1F4A1; Idea</div>
+      <div class="giro-arrow">&rarr;</div>
+      <div class="giro-step giro-prog">&#x1F527; Progettazione</div>
+      <div class="giro-arrow">&rarr;</div>
+      <div class="giro-step giro-real">&#x2699; Realizzazione</div>
+      <div class="giro-arrow">&rarr;</div>
+      <div class="giro-step giro-exec">&#x26A1; Esecuzione</div>
+      <div class="giro-arrow">&rarr;</div>
+      <div class="giro-step giro-auto">&#x1F504; Autopoiesi</div>
+    </div>
+    <div class="giro-loop">&#x21A9; L'autopoiesi alimenta la progettazione. <span>Il ciclo non si ferma mai.</span></div>
+
+    <div class="dramatic" style="margin-top: 3rem;">
+      L'esperto non programma. <em>Parla.</em> Forge ascolta, struttura, codifica.
+      L'AI guida la destrutturazione con 8 aree di scoperta: problema, attori, knowledge,
+      regole, dati, risultati, qualit&agrave;, eccezioni.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MODULI — FASE 1: PROGETTAZIONE ══════════ -->
+<section id="moduli" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">I Moduli</div>
+    <h2 class="s-title-assertive">20+ moduli. Quattro <span class="hot">fasi.</span></h2>
+    <p class="s-desc" style="margin-bottom: 3rem;">
+      Ogni modulo ha un ruolo preciso nel ciclo di vita della conoscenza.
+      Insieme, coprono l'intero percorso: dall'esplorazione del dominio alla messa in produzione.
+    </p>
+
+    <!-- FASE 1 -->
+    <div class="phase-design" style="margin-bottom: 3.5rem;">
+      <div class="phase-header">
+        <div class="phase-num">01</div>
+        <div>
+          <div class="phase-title">Progettazione</div>
+          <div class="phase-sub">Esplorare il dominio, strutturare la conoscenza, disegnare i flussi</div>
+        </div>
+      </div>
+      <div class="mod-grid mod-grid-4">
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F50D;</div>
+          <div class="mod-name">Discover</div>
+          <p class="mod-desc">Esplorazione AI-guidata del dominio. 8 aree di scoperta. L'esperto parla, Forge propone Building Blocks, Factors, BLURB.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F333;</div>
+          <div class="mod-name">Knowledge Tree</div>
+          <p class="mod-desc">Gerarchia navigabile: Building Block &rarr; Factor &rarr; BLURB. La mappa completa del dominio a 3 livelli.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F3AF;</div>
+          <div class="mod-name">Blueprint Designer</div>
+          <p class="mod-desc">Flusso operativo visuale: Start &rarr; Azioni &rarr; Decisioni &rarr; Errori &rarr; Output. Il workflow del K-Art.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F5A5;</div>
+          <div class="mod-name">Dashboard Designer</div>
+          <p class="mod-desc">Progettazione dell'interfaccia operativa che gli utenti finali vedranno nel K-Art.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase-lego" style="margin-bottom: 3.5rem;">
+      <div class="phase-header">
+        <div class="phase-num">02</div>
+        <div>
+          <div class="phase-title">I Lego dell'App</div>
+          <div class="phase-sub">Le unit&agrave; atomiche di conoscenza: regole, dati, semantica</div>
+        </div>
+      </div>
+      <div class="mod-grid mod-grid-3">
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4E6;</div>
+          <div class="mod-name">BLURB Library</div>
+          <p class="mod-desc">Le unit&agrave; atomiche: Rules + Scores + Data + Formation. Deduplicazione e organizzazione per tag.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4D6;</div>
+          <div class="mod-name">Thesaurus</div>
+          <p class="mod-desc">Calibrazione semantica: sinonimi, terminologia di dominio, vocabolario unificato tra fonti e utenti.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F517;</div>
+          <div class="mod-name">Data Hub</div>
+          <p class="mod-desc">Registro sorgenti dati. Mappatura BLURB &harr; fonti reali. Gap analysis e specifiche formato.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4DD;</div>
+          <div class="mod-name">Rules</div>
+          <p class="mod-desc">Estrazione e gestione delle regole operative dai BLURB. La logica di business codificata.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4C2;</div>
+          <div class="mod-name">Data Import</div>
+          <p class="mod-desc">Ingestione dati manuale: Excel, CSV, PDF. Validazione e mappatura automatica.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x25B6;</div>
+          <div class="mod-name">Execute</div>
+          <p class="mod-desc">Blueprint + Dati reali &rarr; Risultati. Esecuzione con gate di validazione e gestione errori.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase-config" style="margin-bottom: 3.5rem;">
+      <div class="phase-header">
+        <div class="phase-num">03</div>
+        <div>
+          <div class="phase-title">Configurazione</div>
+          <div class="phase-sub">Il DNA del K-Art: compliance, strategia cognitiva, guardrail</div>
+        </div>
+      </div>
+      <div class="mod-grid mod-grid-4">
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F91D;</div>
+          <div class="mod-name">Cognitive Twin Strategy</div>
+          <p class="mod-desc">Strategia Frictionless: intent decoder, profiling, routing DEEP/FAST, Dual Mode, onboarding, citazioni, feedback.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F9EC;</div>
+          <div class="mod-name">Genome</div>
+          <p class="mod-desc">DNA del cliente a 5 livelli: Assiomi, Enterprise, Applicazione, Preferenze, IP. Compliance by design.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F6E1;</div>
+          <div class="mod-name">Guardrails</div>
+          <p class="mod-desc">Soglie operative derivate dal Genoma. Parametri numerici, flag, testi per cliente.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4C4;</div>
+          <div class="mod-name">Artefact Templates</div>
+          <p class="mod-desc">Schemi di output: report, checklist, analisi. PDF, Excel, JSON, HTML.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 4 -->
+    <div class="phase-service">
+      <div class="phase-header">
+        <div class="phase-num">04</div>
+        <div>
+          <div class="phase-title">Servizio</div>
+          <div class="phase-sub">Test, deploy, manutenzione: dalla workstation alla produzione</div>
+        </div>
+      </div>
+      <div class="mod-grid mod-grid-4">
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4E5;</div>
+          <div class="mod-name">Excel Importer</div>
+          <p class="mod-desc">Import automatico di metadati strutturati. Da foglio di calcolo a BLURB in un click.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F527;</div>
+          <div class="mod-name">Prompt Workshop</div>
+          <p class="mod-desc">KB + Genome + CT Strategy &rarr; System Prompt per MMS. La traduzione della conoscenza in istruzioni AI.</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F9EA;</div>
+          <div class="mod-name">Test Bench</div>
+          <p class="mod-desc">Validazione end-to-end: Blueprint + dati reali. I gate bloccano? Il Dual Mode funziona? Le citazioni sono corrette?</p>
+        </div>
+        <div class="mod-card">
+          <div class="mod-icon">&#x1F4E4;</div>
+          <div class="mod-name">Deploy</div>
+          <p class="mod-desc">Pacchettizzazione e rilascio: KB + Blueprint + Prompt + CT Strategy &rarr; app operativa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FRICTIONLESS ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il Principio</div>
+    <h2 class="s-title-assertive">L'esperto non scrive codice.<br><span class="hot">Parla.</span></h2>
+
+    <div class="comp-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2.5rem 0;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; border-left: 4px solid var(--teal);">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.1rem; font-weight:800; color:var(--teal); margin-bottom:0.8rem; text-transform:uppercase;">Linguaggio naturale</div>
+        <p class="mod-desc" style="font-size:0.95rem; color:var(--soft); line-height:1.65;">L'esperto di dominio descrive le regole, le eccezioni, i casi limite come li racconterebbe a un collega. Forge destruttura automaticamente in BLURB, organizza nel Knowledge Tree, mappa i Data Requirements.</p>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; border-left: 4px solid var(--gold);">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:1.1rem; font-weight:800; color:var(--gold); margin-bottom:0.8rem; text-transform:uppercase;">PIN &mdash; Accettazione consapevole</div>
+        <p class="mod-desc" style="font-size:0.95rem; color:var(--soft); line-height:1.65;">L'AI propone, l'esperto valida. Ogni elemento destrutturato viene presentato e accettato consapevolmente (PIN) prima di entrare nella Knowledge Base. Nulla entra senza approvazione umana.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>Forge non &egrave; il Cognitive Twin. &Egrave; lo <em>strumento per costruirlo.</em><br>
+      La conoscenza la porta l'esperto. Forge la rende eseguibile.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2); text-align: center;">
+  <div class="container">
+    <h2 class="s-title-assertive" style="text-align:center;">Il vostro dominio ha conoscenza<br>che merita di diventare <span class="hot">eseguibile?</span></h2>
+    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
+      Forge &egrave; pronta. L'esperto porta il sapere, Forge lo trasforma in un K-Art
+      operativo. Senza programmazione, senza formazione tecnica.
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci &rarr;</a>
+      <a href="piattaforma.html" class="btn-ghost">&larr; La Piattaforma</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="preview-new-hero.html#kart">Cosa sono i K-Art</a>
+      <a href="ciclo-cognitivo.html">Il Ciclo Cognitivo</a>
+      <a href="principi.html">I Principi Fondanti</a>
+      <a href="piattaforma.html">La Piattaforma</a>
+      <a href="forge.html">EGEMON Forge</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Soluzioni</div>
+      <a href="preview-new-hero.html#scenari">I primi K-Art</a>
+      <a href="mailto:info@egemon.ai">Contattaci</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
+</footer>
+
+<!-- Scroll reveal -->
+<script>
+document.querySelectorAll('section:not(#hero) .container > *').forEach(el => el.classList.add('reveal'));
+document.querySelectorAll('.mod-card, .giro-step, .stat').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 8) * 0.06 + 's';
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

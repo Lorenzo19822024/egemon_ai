@@ -62,6 +62,29 @@
     }
     .nav-cta:hover { background: #6b63f5 !important; }
 
+    /* Dropdown */
+    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
+    .nav-dropdown-trigger { cursor: pointer; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.5rem; z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.5rem 0; min-width: 180px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .nav-dropdown-menu-inner::before {
+      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: var(--surface);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+
     .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
 
     .s-label {
@@ -115,7 +138,12 @@
       max-width: 620px;
       height: auto;
       display: block;
-      mix-blend-mode: lighten;
+    }
+    .ciclo-canvas {
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      display: block;
     }
     .ciclo-image {
       display: flex;
@@ -234,9 +262,19 @@
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </a>
   <div class="nav-links">
-    <a href="preview-new-hero.html#scenari">Soluzioni</a>
+    <a href="preview-new-hero.html">Home</a>
+    <a href="principi.html">I Principi</a>
     <a href="ciclo-cognitivo.html" class="active">Ciclo Cognitivo</a>
-    <a href="preview-new-hero.html#piattaforma">La Piattaforma</a>
+    <div class="nav-dropdown">
+      <a href="piattaforma.html" class="nav-dropdown-trigger">La Piattaforma &#x25BE;</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="piattaforma.html">Architettura</a>
+          <a href="forge.html">La Workstation</a>
+        </div>
+      </div>
+    </div>
+    <a href="preview-new-hero.html#scenari">Soluzioni</a>
     <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
   </div>
 </nav>
@@ -273,7 +311,8 @@
         </p>
       </div>
       <div class="ciclo-image">
-        <img src="assets/ciclo-cognitivo-intelligenza-eseguibile (9).png" alt="Il Ciclo Cognitivo dell'Intelligenza Eseguibile" class="ciclo-img">
+        <img src="assets/ciclo-cognitivo-intelligenza-eseguibile (9).png" alt="Il Ciclo Cognitivo dell'Intelligenza Eseguibile" class="ciclo-img" id="ciclo-src" style="display:none;">
+        <canvas id="ciclo-canvas" class="ciclo-canvas"></canvas>
       </div>
     </div>
   </div>
@@ -367,13 +406,14 @@
         <div class="footer-logo-text">EGEMON<span>.ai</span></div>
       </div>
       <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
-      <p style="margin-top:0.5rem; font-size:0.78rem;">P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Piattaforma</div>
       <a href="preview-new-hero.html#kart">Cosa sono i K-Art</a>
       <a href="ciclo-cognitivo.html">Il Ciclo Cognitivo</a>
-      <a href="preview-new-hero.html#piattaforma">La Piattaforma</a>
+      <a href="principi.html">I Principi Fondanti</a>
+      <a href="piattaforma.html">La Piattaforma</a>
       <a href="preview-new-hero.html#factory">La Factory</a>
     </div>
     <div class="footer-col">
@@ -393,6 +433,35 @@
     <div>Powered by MMS Technology</div>
   </div>
 </footer>
+
+<!-- Remove dark background from ciclo image -->
+<script>
+(function() {
+  const img = document.getElementById('ciclo-src');
+  const canvas = document.getElementById('ciclo-canvas');
+  if (!img || !canvas) return;
+  img.onload = function() {
+    const ctx = canvas.getContext('2d');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx.drawImage(img, 0, 0);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+    const threshold = 65;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i+1], b = data[i+2];
+      const brightness = Math.max(r, g, b);
+      if (brightness < threshold) {
+        data[i+3] = 0;
+      } else if (brightness < threshold + 40) {
+        data[i+3] = Math.round(255 * (brightness - threshold) / 40);
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+  };
+  if (img.complete) img.onload();
+})();
+</script>
 
 <!-- Reveal animation -->
 <script>

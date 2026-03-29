@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EGEMON — La Piattaforma</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0c0f1c;
+      --surface: #10141f;
+      --border: rgba(255,255,255,0.09);
+      --accent: #5b52f0;
+      --accent2: #9b8eff;
+      --green: #22c55e;
+      --gold: #eab308;
+      --text: #eef2f7;
+      --soft: #b8c8d8;
+      --muted: #8a9db5;
+      --hot: #ff6b35;
+      --electric: #00e5ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes nebulaPulse {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    @keyframes starDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(40px, -25px) scale(1.02); }
+      50% { transform: translate(-20px, -50px) scale(0.98); }
+      75% { transform: translate(-40px, 15px) scale(1.01); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    @keyframes glowPulse {
+      0%,100% { text-shadow: 0 0 8px rgba(155,142,255,0.3); }
+      50% { text-shadow: 0 0 20px rgba(155,142,255,0.6), 0 0 40px rgba(91,82,240,0.3); }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5rem;
+      background: rgba(6,8,16,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
+      font-size: 0.85rem !important; transition: background .2s !important;
+    }
+    .nav-cta:hover { background: #6b63f5 !important; }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
+    .nav-dropdown-trigger { cursor: pointer; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.5rem; z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.5rem 0; min-width: 180px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .nav-dropdown-menu-inner::before {
+      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: var(--surface);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+
+    /* COMMON */
+    .s-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.4rem; font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem; color: var(--text);
+    }
+    .s-title-assertive {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.8rem; font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1.5rem; color: var(--text);
+      position: relative;
+    }
+    .s-title-assertive::after {
+      content: ''; display: block;
+      width: 80px; height: 4px;
+      background: var(--accent); margin-top: 1rem; border-radius: 2px;
+    }
+    .s-title-assertive .hot { color: var(--hot); }
+    .s-desc {
+      font-size: 1.1rem; color: var(--soft); line-height: 1.75;
+      margin-bottom: 1.4rem; max-width: 100%;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--accent); color: #fff; padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+      box-shadow: 0 4px 16px rgba(91,82,240,0.3);
+    }
+    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
+      border-radius: 10px; font-weight: 500; font-size: 1rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    .mark-hot {
+      background: linear-gradient(transparent 45%, rgba(255,107,53,0.30) 45%, rgba(255,107,53,0.30) 85%, transparent 85%);
+      padding: 0 0.15em;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 80vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 6rem; padding-bottom: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-cosmos {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      animation: nebulaPulse 8s ease-in-out infinite;
+      background:
+        radial-gradient(ellipse 60% 50% at 25% 30%, rgba(91,82,240,0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 80% 60%, rgba(34,197,94,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 35% at 50% 80%, rgba(234,179,8,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.08) 0%, transparent 70%);
+    }
+    .hero-stars {
+      position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
+      pointer-events: none; z-index: 0;
+      animation: starDrift 20s ease-in-out infinite;
+      background-image:
+        radial-gradient(3px 3px at 10% 15%, rgba(255,255,255,0.9), transparent),
+        radial-gradient(3px 3px at 80% 20%, rgba(155,142,255,1), transparent),
+        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.75), transparent),
+        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.7), transparent),
+        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.4), transparent);
+    }
+    .hero-vignette {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(6,8,16,0.6) 100%);
+    }
+    .hero-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 2rem; max-width: 900px; color: var(--text);
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 33%, #c084fc 66%, #9b8eff 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 6s ease infinite;
+      padding: 0 0.08em;
+    }
+    .s-title-assertive .hot { padding: 0 0.06em; }
+    .hero-subtitle {
+      font-size: 1.35rem; color: var(--soft); max-width: 800px;
+      line-height: 1.7; margin-bottom: 1.5rem;
+    }
+    .hero-subtitle strong { color: var(--text); font-weight: 600; }
+
+    /* PARTICLES */
+    .particles {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .particle { position: absolute; border-radius: 50%; background: #fff; }
+    .p1 { width:4px; height:4px; top:12%; left:8%; animation: twinkle 4s ease infinite, float1 6s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+    .p2 { width:3px; height:3px; top:25%; left:85%; animation: twinkle 5s ease infinite 0.5s, float2 7s ease infinite; }
+    .p3 { width:5px; height:5px; top:60%; left:92%; animation: twinkle 3.5s ease infinite 1s, float1 8s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+    .p4 { width:3px; height:3px; top:75%; left:5%; animation: twinkle 6s ease infinite 0.3s, float2 5s ease infinite; }
+
+    /* ── FLOW CARDS ── */
+    .flow-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin: 2.5rem 0; position: relative;
+    }
+    .flow-card {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 2.5rem 2rem; position: relative;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .flow-card:first-child { border-radius: 14px 0 0 14px; }
+    .flow-card:last-child { border-radius: 0 14px 14px 0; }
+    .flow-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); z-index: 2; }
+    .flow-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--accent2), var(--hot));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .flow-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+    .flow-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 800; color: var(--text); margin-bottom: 0.8rem;
+    }
+    .flow-desc { font-size: 0.95rem; color: var(--soft); line-height: 1.65; }
+    .flow-arrow {
+      position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
+      font-size: 1.5rem; color: var(--accent2); z-index: 3;
+      background: var(--bg2); width: 28px; height: 28px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--accent);
+    }
+
+    /* ── COMPONENT CARDS ── */
+    .comp-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 2rem; margin: 2.5rem 0;
+    }
+    .comp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+      border-left: 4px solid var(--accent);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .comp-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); }
+    .comp-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .comp-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .comp-sub {
+      font-size: 0.82rem; color: var(--accent2); font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .comp-desc { font-size: 0.95rem; color: var(--soft); line-height: 1.65; }
+    .comp-desc strong { color: var(--text); }
+
+    /* ── GENOMA LEVELS ── */
+    .genoma-stack {
+      max-width: 800px; margin: 2.5rem 0;
+    }
+    .genoma-level {
+      display: flex; align-items: stretch; gap: 0;
+      margin-bottom: 0.5rem; border-radius: 10px; overflow: hidden;
+      transition: transform .2s;
+    }
+    .genoma-level:hover { transform: scale(1.02); }
+    .genoma-badge {
+      min-width: 50px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 900; color: #fff; letter-spacing: 0.05em;
+    }
+    .genoma-body {
+      flex: 1; padding: 1rem 1.5rem;
+    }
+    .genoma-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .genoma-what { font-size: 0.9rem; color: var(--soft); line-height: 1.55; }
+    .gl1 .genoma-badge { background: var(--accent); }
+    .gl1 .genoma-body { background: rgba(91,82,240,0.10); border: 1px solid rgba(91,82,240,0.25); border-left: none; border-radius: 0 10px 10px 0; }
+    .gl1 .genoma-name { color: var(--accent2); }
+    .gl2 .genoma-badge { background: #3b82f6; }
+    .gl2 .genoma-body { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); border-left: none; border-radius: 0 10px 10px 0; }
+    .gl2 .genoma-name { color: #60a5fa; }
+    .gl3 .genoma-badge { background: var(--green); }
+    .gl3 .genoma-body { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-left: none; border-radius: 0 10px 10px 0; }
+    .gl3 .genoma-name { color: var(--green); }
+    .gl4 .genoma-badge { background: var(--gold); }
+    .gl4 .genoma-body { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.2); border-left: none; border-radius: 0 10px 10px 0; }
+    .gl4 .genoma-name { color: var(--gold); }
+    .gl5 .genoma-badge { background: #a855f7; }
+    .gl5 .genoma-body { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.2); border-left: none; border-radius: 0 10px 10px 0; }
+    .gl5 .genoma-name { color: #c084fc; }
+
+    /* ── BLURB ANATOMY ── */
+    .blurb-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin: 2.5rem 0;
+    }
+    .blurb-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem; text-align: center;
+      border-top: 4px solid;
+      transition: transform .2s;
+    }
+    .blurb-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); }
+    .blurb-card h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 800; margin-bottom: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .blurb-card p { font-size: 0.95rem; color: var(--soft); line-height: 1.6; text-align: left; }
+    .br { border-top-color: var(--accent2); }
+    .br h3 { color: var(--accent2); }
+    .bs { border-top-color: var(--gold); }
+    .bs h3 { color: var(--gold); }
+    .bd { border-top-color: var(--green); }
+    .bd h3 { color: var(--green); }
+
+    /* ── FORGE MODULES ── */
+    .forge-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem; margin: 2.5rem 0;
+    }
+    .forge-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: transform .2s;
+    }
+    .forge-card:hover { transform: translateY(-4px); box-shadow: 0 6px 24px rgba(91,82,240,0.15); border-color: var(--accent); }
+    .forge-card h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 700; color: var(--accent2); margin-bottom: 0.5rem;
+    }
+    .forge-card p { font-size: 0.85rem; color: var(--soft); line-height: 1.55; }
+
+    /* ── LAYERS ── */
+    .layers-stack {
+      max-width: 900px; margin: 2.5rem 0;
+    }
+    .layer-row {
+      display: grid; grid-template-columns: 80px 180px 1fr;
+      gap: 0; margin-bottom: 0.4rem; align-items: stretch;
+      border-radius: 8px; overflow: hidden;
+      transition: transform .2s;
+    }
+    .layer-row:hover { transform: scale(1.01); }
+    .layer-num {
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem; font-weight: 900; color: #fff;
+    }
+    .layer-name {
+      display: flex; align-items: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700; padding: 0.8rem 1rem;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .layer-desc {
+      display: flex; align-items: center;
+      font-size: 0.88rem; color: var(--soft); padding: 0.8rem 1.2rem;
+      line-height: 1.5;
+    }
+    .l6 .layer-num { background: var(--accent); }
+    .l6 .layer-name { background: rgba(91,82,240,0.12); color: var(--accent2); }
+    .l6 .layer-desc { background: rgba(91,82,240,0.05); border: 1px solid rgba(91,82,240,0.15); border-left: none; border-radius: 0 8px 8px 0; }
+    .l5 .layer-num { background: var(--gold); }
+    .l5 .layer-name { background: rgba(234,179,8,0.10); color: var(--gold); }
+    .l5 .layer-desc { background: rgba(234,179,8,0.04); border: 1px solid rgba(234,179,8,0.12); border-left: none; border-radius: 0 8px 8px 0; }
+    .l4 .layer-num { background: var(--green); }
+    .l4 .layer-name { background: rgba(34,197,94,0.10); color: var(--green); }
+    .l4 .layer-desc { background: rgba(34,197,94,0.04); border: 1px solid rgba(34,197,94,0.12); border-left: none; border-radius: 0 8px 8px 0; }
+    .l3 .layer-num { background: var(--hot); }
+    .l3 .layer-name { background: rgba(255,107,53,0.10); color: var(--hot); }
+    .l3 .layer-desc { background: rgba(255,107,53,0.04); border: 1px solid rgba(255,107,53,0.12); border-left: none; border-radius: 0 8px 8px 0; }
+    .l2 .layer-num { background: #a855f7; }
+    .l2 .layer-name { background: rgba(168,85,247,0.10); color: #c084fc; }
+    .l2 .layer-desc { background: rgba(168,85,247,0.04); border: 1px solid rgba(168,85,247,0.12); border-left: none; border-radius: 0 8px 8px 0; }
+    .l1 .layer-num { background: #3b82f6; }
+    .l1 .layer-name { background: rgba(59,130,246,0.10); color: #60a5fa; }
+    .l1 .layer-desc { background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.12); border-left: none; border-radius: 0 8px 8px 0; }
+
+    /* ── BARRIERS ── */
+    .barriers-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin: 2.5rem 0;
+    }
+    .barrier-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+      border-bottom: 4px solid var(--hot);
+      transition: transform .2s;
+    }
+    .barrier-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(255,107,53,0.15); }
+    .barrier-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem; font-weight: 900; color: var(--hot); margin-bottom: 0.5rem;
+      animation: glowPulse 3s ease infinite;
+    }
+    .barrier-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .barrier-desc { font-size: 0.95rem; color: var(--soft); line-height: 1.65; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: rgba(91,82,240,0.08); border: 1px solid rgba(91,82,240,0.2);
+      border-radius: 14px; padding: 2rem; margin: 2.5rem 0; text-align: center;
+    }
+    .callout p {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--text); line-height: 1.6;
+    }
+    .callout em { font-style: normal; color: var(--accent2); font-weight: 700; }
+    .callout-hot {
+      background: rgba(255,107,53,0.06); border-color: rgba(255,107,53,0.2);
+    }
+    .callout-hot em { color: var(--hot); font-weight: 800; }
+
+    /* ── DRAMATIC QUOTE ── */
+    .dramatic {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem; font-weight: 800; color: var(--text);
+      line-height: 1.35; margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      border-left: 5px solid var(--accent);
+      background: linear-gradient(90deg, rgba(91,82,240,0.08) 0%, transparent 60%);
+      border-radius: 0 12px 12px 0;
+    }
+    .dramatic em { font-style: normal; color: var(--accent2); }
+
+    /* FOOTER */
+    .footer-full {
+      padding: 4rem 5rem 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-logo-text {
+      font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700;
+      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+    }
+    .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
+    .footer-col-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent2); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .flow-grid, .blurb-grid, .barriers-grid { grid-template-columns: 1fr; }
+      .comp-grid, .forge-grid { grid-template-columns: 1fr 1fr; }
+      .flow-card { border-radius: 14px !important; margin-bottom: 1rem; }
+      .flow-arrow { display: none; }
+      .layer-row { grid-template-columns: 60px 140px 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1.5rem; }
+      .s-title-assertive { font-size: 2rem; }
+      .hero-title { font-size: 2rem; }
+      .comp-grid, .forge-grid { grid-template-columns: 1fr; }
+      .layer-row { grid-template-columns: 1fr; }
+      .layer-num, .layer-name { justify-content: flex-start; padding: 0.6rem 1rem; }
+      .footer-full { padding: 2rem 1.5rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="preview-new-hero.html" class="nav-logo">
+    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
+    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="preview-new-hero.html">Home</a>
+    <a href="principi.html">I Principi</a>
+    <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
+    <div class="nav-dropdown">
+      <a href="piattaforma.html" class="nav-dropdown-trigger" style="color:var(--accent2);">La Piattaforma &#x25BE;</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="piattaforma.html">Architettura</a>
+          <a href="forge.html">La Workstation</a>
+        </div>
+      </div>
+    </div>
+    <a href="preview-new-hero.html#scenari">Soluzioni</a>
+    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-cosmos"></div>
+  <div class="hero-stars"></div>
+  <div class="hero-vignette"></div>
+  <div class="particles">
+    <div class="particle p1"></div><div class="particle p2"></div>
+    <div class="particle p3"></div><div class="particle p4"></div>
+  </div>
+  <div class="container">
+    <div class="s-label">La Piattaforma</div>
+    <h1 class="hero-title">
+      Dall'esperto di dominio<br>al <em>K-Art operativo.</em><br>Automaticamente.
+    </h1>
+    <p class="hero-subtitle">
+      EGEMON orchestra l'intero ciclo: dall'acquisizione della conoscenza
+      fino alla distribuzione di un K-Art che opera in totale autonomia.
+      <strong>Chi lo usa non percepisce la complessit&agrave; &mdash; percepisce solo il risultato.</strong>
+    </p>
+    <div style="display:flex; gap:1.2rem; flex-wrap:wrap; margin-top: 2.5rem;">
+      <a href="#flusso" class="btn-primary">Il flusso &darr;</a>
+      <a href="#componenti" class="btn-ghost">I componenti &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 1. IL FLUSSO — 3 MOMENTI ══════════ -->
+<section id="flusso" style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">Il Flusso</div>
+    <h2 class="s-title-assertive">Tre momenti. Un ciclo <span class="hot">che non si ferma.</span></h2>
+    <p class="s-desc">
+      Ogni K-Art nasce, vive e matura attraverso tre momenti distinti.
+      L'autopoiesi chiude il cerchio: il terzo momento alimenta il primo. Per sempre.
+    </p>
+
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="flow-num">01</div>
+        <div class="flow-label" style="color: var(--accent2);">Progettazione</div>
+        <h3 class="flow-title">EGEMON Forge</h3>
+        <p class="flow-desc">L'esperto di dominio lavora in linguaggio naturale. La piattaforma lo guida con domande strutturate, destruttura la conoscenza in BLURB, organizza il Knowledge Tree, configura il Genoma. <strong style="color:var(--text);">Nessuna competenza tecnologica richiesta.</strong></p>
+        <div class="flow-arrow">&rarr;</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">02</div>
+        <div class="flow-label" style="color: var(--green);">Realizzazione</div>
+        <h3 class="flow-title">Compilazione K-Art</h3>
+        <p class="flow-desc">Il motore MMS applica i 5 Principi, costruisce il Genoma di compliance, integra le fonti dati, testa il Quality Gate. <strong style="color:var(--text);">Il K-Art esce dalla Factory pronto all'uso.</strong></p>
+        <div class="flow-arrow">&rarr;</div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-num">03</div>
+        <div class="flow-label" style="color: var(--gold);">Esecuzione</div>
+        <h3 class="flow-title">K-Art operativo</h3>
+        <p class="flow-desc">Migliaia di utenti operano ogni giorno. Il K-Art guida, forma, produce artefatti conformi, traccia tutto. <strong style="color:var(--text);">Ogni interazione arricchisce la Knowledge Base.</strong> Il ciclo ricomincia.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>La conoscenza non invecchia. <em>Matura con l'uso.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 2. MMS — IL KERNEL ══════════ -->
+<section id="componenti" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il Kernel</div>
+    <h2 class="s-title-assertive">MMS: Meta-Model <span class="hot">Semantics</span></h2>
+    <p class="s-desc">
+      Il cuore neuro-simbolico di EGEMON. Un compilatore cognitivo Just-In-Time
+      che opera secondo un principio fondamentale: <strong style="color:#fff;">One Intent, One Artifact.</strong>
+    </p>
+
+    <div class="dramatic">
+      Ogni richiesta dell'utente produce esattamente <em>un artefatto deterministico.</em>
+      Compilato al volo. Eseguito in isolamento. Distrutto al completamento.
+      Zero contaminazione tra contesti.
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-card" style="border-left-color: var(--accent2);">
+        <div class="comp-title">Analizza l'Intent</div>
+        <div class="comp-sub">Intent Decoder</div>
+        <p class="comp-desc">Decodifica la richiesta dell'utente. Riconosce chi sta operando, il suo livello, lo storico. <strong>Anche un intento impreciso viene compreso.</strong></p>
+      </div>
+      <div class="comp-card" style="border-left-color: var(--green);">
+        <div class="comp-title">Compila l'Artefatto</div>
+        <div class="comp-sub">JIT Compiler</div>
+        <p class="comp-desc">Costruisce un micro-software AI temporaneo con <strong>solo gli strumenti e i dati necessari</strong> per quel singolo task. Niente di pi&ugrave;.</p>
+      </div>
+      <div class="comp-card" style="border-left-color: var(--gold);">
+        <div class="comp-title">Routing Intelligente</div>
+        <div class="comp-sub">MMS Dispatcher</div>
+        <p class="comp-desc">Seleziona il modello AI ottimale: <strong>DEEP</strong> per il ragionamento complesso, <strong>FAST</strong> per output strutturato e JSON. Efficienza e qualit&agrave;.</p>
+      </div>
+      <div class="comp-card" style="border-left-color: var(--hot);">
+        <div class="comp-title">Esegue e Distrugge</div>
+        <div class="comp-sub">Isolated Execution</div>
+        <p class="comp-desc">Esegue in ambiente isolato. Al completamento, l'artefatto si autodistrugge. <strong>Nessuna contaminazione tra contesti.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 3. BLURB — L'UNITA' ATOMICA ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">L'Unit&agrave; Atomica</div>
+    <h2 class="s-title-assertive">BLURB: quattro componenti <span class="hot">inscindibili</span></h2>
+    <p class="s-desc">
+      <strong style="color:#fff;">Building Logic Unit Resource Block</strong> &mdash;
+      l'unit&agrave; atomica di conoscenza che popola la Knowledge Base.
+      Ogni BLURB contiene quattro componenti che non possono essere separate.
+    </p>
+
+    <div class="blurb-grid" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="blurb-card br">
+        <h3>Rules</h3>
+        <p>Condizioni operative, soglie, eccezioni, azioni correttive. Le regole del dominio nella loro forma pi&ugrave; precisa. Non opinioni &mdash; <strong style="color:var(--text);">fatti codificati.</strong></p>
+      </div>
+      <div class="blurb-card bs">
+        <h3>Scores</h3>
+        <p>Pesi, priorit&agrave;, soglie specifiche per cliente, matrici di criticit&agrave;. La stessa regola, calibrata sul Genoma di <strong style="color:var(--text);">ogni singola organizzazione.</strong></p>
+      </div>
+      <div class="blurb-card bd">
+        <h3>Data</h3>
+        <p>Dove e come reperire ogni dato: fonte, formato, validazione, default. Ogni regola &egrave; collegata alla sua <strong style="color:var(--text);">sorgente verificabile.</strong></p>
+      </div>
+      <div class="blurb-card" style="border-top-color: var(--hot);">
+        <h3 style="color: var(--hot);">Formation</h3>
+        <p>Il contenuto formativo associato alla regola: il perch&eacute;, il contesto, gli esempi. Da qui origina il <strong style="color:var(--text);">Cognitive Twin</strong> &mdash; il K-Art non solo esegue, ma spiega e insegna. Nulla viene tralasciato.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-hot">
+      <p>L'artefatto &egrave; conforme <em>per architettura</em> (Genoma) e corretto <em>per conoscenza</em> (BLURB).<br>Non &egrave; un filtro post-hoc. &Egrave; una garanzia strutturale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 4. GENOMA — I 5 LIVELLI ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il DNA</div>
+    <h2 class="s-title-assertive">Genoma: 5 livelli di <span class="hot">compliance by design</span></h2>
+    <p class="s-desc">
+      Il Genoma &egrave; il DNA dell'artefatto. Una configurazione semantica gerarchica
+      dove ogni livello superiore ha <strong style="color:#fff;">autorit&agrave; di override</strong> su quelli inferiori.
+      Le regole non vengono verificate dopo l'output &mdash; vengono iniettate nell'artefatto.
+    </p>
+
+    <div class="genoma-stack">
+      <div class="genoma-level gl1">
+        <div class="genoma-badge">L1</div>
+        <div class="genoma-body">
+          <div class="genoma-name">Principi Assiomatici</div>
+          <div class="genoma-what">I 9 invarianti del kernel: onest&agrave; cognitiva, compliance normativa, determinismo, zero allucinazioni. Autorit&agrave; suprema.</div>
+        </div>
+      </div>
+      <div class="genoma-level gl2">
+        <div class="genoma-badge">L2</div>
+        <div class="genoma-body">
+          <div class="genoma-name">Genoma Enterprise</div>
+          <div class="genoma-what">Codice etico aziendale, AI Act, compliance settoriale, GDPR, AML. Il DNA dell'organizzazione.</div>
+        </div>
+      </div>
+      <div class="genoma-level gl3">
+        <div class="genoma-badge">L3</div>
+        <div class="genoma-body">
+          <div class="genoma-name">Limiti Applicazione</div>
+          <div class="genoma-what">Perimetro operativo: cosa il sistema pu&ograve; e non pu&ograve; fare, fonti dati autorizzate, tracciabilit&agrave;.</div>
+        </div>
+      </div>
+      <div class="genoma-level gl4">
+        <div class="genoma-badge">L4</div>
+        <div class="genoma-body">
+          <div class="genoma-name">Preferenze Personali</div>
+          <div class="genoma-what">Lingua, formato output, livello di dettaglio, stile di interazione. Il sistema si adatta alla persona.</div>
+        </div>
+      </div>
+      <div class="genoma-level gl5">
+        <div class="genoma-badge">L5</div>
+        <div class="genoma-body">
+          <div class="genoma-name">IP &amp; Protezione</div>
+          <div class="genoma-what">Propriet&agrave; intellettuale, data governance, retention, isolamento tenant, cifratura. Sovranit&agrave; del dato.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dramatic" style="border-left-color: var(--hot); background: linear-gradient(90deg, rgba(255,107,53,0.06) 0%, transparent 60%);">
+      L'output &egrave; conforme <em style="color:var(--hot);">o non viene prodotto.</em>
+      Non &egrave; un controllo a posteriori. &Egrave; un vincolo architetturale.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. FORGE — LA WORKSTATION ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">La Workstation</div>
+    <h2 class="s-title-assertive">EGEMON Forge: dove nasce la <span class="hot">conoscenza</span></h2>
+    <p class="s-desc">
+      Forge &egrave; lo strumento per costruire e mantenere la Knowledge Base.
+      L'esperto di dominio lavora in linguaggio naturale &mdash; la piattaforma destruttura, organizza e codifica automaticamente.
+    </p>
+
+    <div style="max-width:900px; margin: 2rem 0 2.5rem; border-radius:14px; overflow:hidden; border:1px solid rgba(155,142,255,0.2); box-shadow: 0 12px 50px rgba(91,82,240,0.2); position:relative;">
+      <div style="height:28px; background:linear-gradient(90deg,#1a1a2e,#16213e); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; padding:0 12px;">
+        <div style="width:10px; height:10px; border-radius:50%; background:#ff5f57; margin-right:6px;"></div>
+        <div style="width:10px; height:10px; border-radius:50%; background:#febc2e; margin-right:6px;"></div>
+        <div style="width:10px; height:10px; border-radius:50%; background:#28c840;"></div>
+      </div>
+      <img src="assets/forge-screenshot.png" alt="EGEMON Forge" style="width:100%; display:block;">
+    </div>
+
+    <div class="forge-grid">
+      <div class="forge-card">
+        <h4>Knowledge Tree</h4>
+        <p>Gerarchia del dominio: Building Block &rarr; Factor &rarr; BLURB. La mappa navigabile di tutta la conoscenza.</p>
+      </div>
+      <div class="forge-card">
+        <h4>BLURB Library</h4>
+        <p>Le unit&agrave; atomiche: Rules + Scores + Data. Ogni regola codificata, pesata, collegata alla fonte.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Genome</h4>
+        <p>Configurazione a 5 livelli per cliente e contesto. Il DNA di compliance dell'artefatto.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Blueprint Designer</h4>
+        <p>Flusso operativo: Start &rarr; Azioni &rarr; Decisioni &rarr; Output. Il workflow del K-Art.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Data Requirements</h4>
+        <p>Mappatura dati: dove, come, in che formato. Ogni dato tracciato alla sorgente.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Thesaurus</h4>
+        <p>Calibrazione semantica: sinonimi, domini, terminologia. Lingua unificata tra fonti e utenti.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Artefact Templates</h4>
+        <p>Schemi di output: report, checklist, analisi. PDF, JSON, HTML, Excel.</p>
+      </div>
+      <div class="forge-card">
+        <h4>Excel Importer</h4>
+        <p>Import automatico di metadati strutturati. Da foglio di calcolo a BLURB in un click.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 6. I 6 LAYER ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">L'Architettura</div>
+    <h2 class="s-title-assertive">6 layer. Un'unica <span class="hot">intelligenza.</span></h2>
+    <p class="s-desc">
+      Dall'ingestione documentale al Cognitive Twin: ogni layer ha un ruolo preciso.
+      Insieme producono un'intelligenza eseguibile, tracciabile, conforme.
+    </p>
+
+    <div class="layers-stack">
+      <div class="layer-row l6">
+        <div class="layer-num">L6</div>
+        <div class="layer-name">Cognitive Twin</div>
+        <div class="layer-desc">Interfaccia adattiva, guida operativa, formazione contestuale. Attiva i componenti della KB quando servono.</div>
+      </div>
+      <div class="layer-row l5">
+        <div class="layer-num">L5</div>
+        <div class="layer-name">Quality Score</div>
+        <div class="layer-desc">Aggregazione multidimensionale. Semafori. Gate PASS/FAIL. Punteggio complessivo della pratica.</div>
+      </div>
+      <div class="layer-row l4">
+        <div class="layer-num">L4</div>
+        <div class="layer-name">Workflow</div>
+        <div class="layer-desc">Macchina a stati. La pratica avanza solo se ogni step supera il gate. Blueprint Designer in Forge modella questo flusso.</div>
+      </div>
+      <div class="layer-row l3">
+        <div class="layer-num">L3</div>
+        <div class="layer-name">Symbolic Kernel</div>
+        <div class="layer-desc">Motore di regole deterministico. Valida le regole BLURB. Applica i gate. Garanzia 100%.</div>
+      </div>
+      <div class="layer-row l2">
+        <div class="layer-num">L2</div>
+        <div class="layer-name">Semantic Engine</div>
+        <div class="layer-desc">LLM via API (pattern MMS). Comprende documenti, estrae dati, interpreta intenti. Routing DEEP/FAST.</div>
+      </div>
+      <div class="layer-row l1">
+        <div class="layer-num">L1</div>
+        <div class="layer-name">Document Ingestion</div>
+        <div class="layer-desc">OCR, PDF, multi-formato. Legge documenti in qualsiasi formato, estrae dati strutturati.</div>
+      </div>
+    </div>
+
+    <p class="s-desc" style="margin-top: 2rem;">
+      Trasversali a tutti i layer: <strong style="color:var(--accent2);">Genoma</strong> (5 livelli, gerarchico, versionato),
+      <strong style="color:var(--green);">U-PKL</strong> (BLURB Library + Knowledge Tree + Thesaurus + Data Requirements),
+      <strong style="color:var(--gold);">Audit Trail</strong> (log immutabile, tracciabilit&agrave; completa).
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 7. LE 3 BARRIERE ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg2);">
+  <div class="container">
+    <div class="s-label">Le Barriere Competitive</div>
+    <h2 class="s-title-assertive">Tre vantaggi <span class="hot">non replicabili.</span></h2>
+    <p class="s-desc">
+      Non basta l'AI. Non bastano i dati. Servono anni di destrutturazione,
+      un kernel proprietario e un network effect che si accumula ogni giorno.
+    </p>
+
+    <div class="barriers-grid">
+      <div class="barrier-card">
+        <div class="barrier-num">01</div>
+        <div class="barrier-title">Destrutturazione della Conoscenza</div>
+        <p class="barrier-desc">Replicare richiede destrutturare l'intero dominio in BLURB (Rules + Scores + Data), organizzare il Knowledge Tree, calibrare il Thesaurus, mappare i Data Requirements. Anni di lavoro + accesso a esperti + migliaia di casi reali.</p>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-num">02</div>
+        <div class="barrier-title">Kernel Neuro-Simbolico</div>
+        <p class="barrier-desc">Non &egrave; un LLM con un prompt. &Egrave; un'architettura ibrida che fonde comprensione linguistica e rigidit&agrave; logica: Compliance-by-Design, routing intelligente, compilazione JIT. Propriet&agrave; intellettuale proprietaria.</p>
+      </div>
+      <div class="barrier-card">
+        <div class="barrier-num">03</div>
+        <div class="barrier-title">Network Effect</div>
+        <p class="barrier-desc">Ogni giorno di utilizzo arricchisce la Knowledge Base: configurazioni salvate, correzioni metabolizzate, feedback integrati. Il vantaggio si accumula esponenzialmente. Chi parte dopo, parte da zero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section style="padding: 5rem 0; background: var(--bg); text-align: center;">
+  <div class="container">
+    <h2 class="s-title" style="margin-bottom: 1rem;">La tecnologia &egrave; pronta.<br>Il vostro dominio aspetta.</h2>
+    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
+      Qualsiasi settore con conoscenza strutturabile pu&ograve; diventare un K-Art.
+      Parliamo di come trasformare il vostro know-how in intelligenza operativa.
+    </p>
+    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci &rarr;</a>
+      <a href="preview-new-hero.html" class="btn-ghost">&larr; Torna alla Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer-full">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
+        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
+        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
+      </div>
+      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Piattaforma</div>
+      <a href="preview-new-hero.html#kart">Cosa sono i K-Art</a>
+      <a href="ciclo-cognitivo.html">Il Ciclo Cognitivo</a>
+      <a href="principi.html">I Principi Fondanti</a>
+      <a href="piattaforma.html">La Piattaforma</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Soluzioni</div>
+      <a href="preview-new-hero.html#scenari">I primi K-Art</a>
+      <a href="mailto:info@egemon.ai">Contattaci</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legale</div>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="cookie.html">Cookie Policy</a>
+      <a href="terms.html">Termini di Servizio</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
+    <div>Powered by MMS Technology</div>
+  </div>
+</footer>
+
+<!-- Scroll reveal -->
+<script>
+document.querySelectorAll('section:not(#hero) .container > *').forEach(el => {
+  el.classList.add('reveal');
+});
+document.querySelectorAll('.flow-card, .comp-card, .blurb-card, .forge-card, .genoma-level, .layer-row, .barrier-card').forEach((el, i) => {
+  el.classList.add('reveal');
+  el.style.transitionDelay = (i % 6) * 0.08 + 's';
+});
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

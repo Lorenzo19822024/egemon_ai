@@ -102,6 +102,29 @@ Cambia<!DOCTYPE html>
       font-size: 0.85rem !important; transition: background .2s !important;
     }
 
+    /* Dropdown */
+    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
+    .nav-dropdown-trigger { cursor: pointer; }
+    .nav-dropdown-menu {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.5rem; z-index: 200;
+    }
+    .nav-dropdown-menu-inner {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.5rem 0; min-width: 180px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .nav-dropdown-menu-inner::before {
+      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-bottom-color: var(--surface);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
+      text-decoration: none; transition: all .15s; white-space: nowrap;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+
     /* HERO */
     #hero {
       min-height: 100vh;
@@ -331,6 +354,7 @@ Cambia<!DOCTYPE html>
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: gradientShift 6s ease infinite;
+      padding: 0 0.08em;
     }
 
     /* Claim */
@@ -407,9 +431,19 @@ Cambia<!DOCTYPE html>
     <div class="nav-logo-text">EGEMON<span>.ai</span></div>
   </div>
   <div class="nav-links">
-    <a href="#scenari">Soluzioni</a>
+    <a href="preview-new-hero.html">Home</a>
+    <a href="principi.html">I Principi</a>
     <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
-    <a href="#piattaforma">La Piattaforma</a>
+    <div class="nav-dropdown">
+      <a href="piattaforma.html" class="nav-dropdown-trigger">La Piattaforma &#x25BE;</a>
+      <div class="nav-dropdown-menu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="piattaforma.html">Architettura</a>
+          <a href="forge.html">La Workstation</a>
+        </div>
+      </div>
+    </div>
+    <a href="#scenari">Soluzioni</a>
     <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
   </div>
 </nav>
@@ -502,11 +536,21 @@ Cambia<!DOCTYPE html>
     gap: 1.5rem;
   }
   .scenario-card {
-    background: var(--surface); border: 1px solid var(--border);
+    background: var(--surface); border: 2px solid rgba(155,142,255,0.25);
     border-radius: 14px; padding: 2rem;
-    transition: transform .2s, box-shadow .2s;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    box-shadow: 0 2px 12px rgba(91,82,240,0.10);
   }
-  .scenario-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .scenario-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(91,82,240,0.35), 0 0 0 1px rgba(155,142,255,0.3);
+    border-color: var(--accent);
+  }
+  .scenario-card:active {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(91,82,240,0.5), inset 0 0 20px rgba(91,82,240,0.08);
+    border-color: var(--accent2);
+  }
   .scenario-card-cta {
     border: 1px dashed rgba(155,142,255,0.3);
     background: rgba(91,82,240,0.05);
@@ -514,7 +558,8 @@ Cambia<!DOCTYPE html>
   .scenario-icon { font-size: 2rem; margin-bottom: 0.8rem; }
   .scenario-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+    font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 0.8rem;
+    letter-spacing: -0.02em; text-transform: uppercase;
   }
   .scenario-highlight {
     font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 0.8rem; font-weight: 500;
@@ -969,13 +1014,14 @@ Cambia<!DOCTYPE html>
         <div class="footer-logo-text">EGEMON<span>.ai</span></div>
       </div>
       <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
-      <p style="margin-top:0.5rem; font-size:0.78rem;">P.IVA IT02813270416<br>Via Conservatorio 30, 20122 Milano (MI)</p>
+      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
     </div>
     <div class="footer-col">
       <div class="footer-col-title">Piattaforma</div>
       <a href="#kart">Cosa sono i K-Art</a>
       <a href="#ciclo">Il Ciclo Cognitivo</a>
-      <a href="#piattaforma">La Piattaforma</a>
+      <a href="principi.html">I Principi Fondanti</a>
+      <a href="piattaforma.html">La Piattaforma</a>
       <a href="#factory">La Factory</a>
     </div>
     <div class="footer-col">
