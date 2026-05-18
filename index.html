@@ -29,14 +29,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #060810;
-      --bg2: #0c0f1c;
-      --surface: #10141f;
+      --bg: #0d1120;
+      --bg2: #151a2b;
+      --surface: #1c2338;
       --border: rgba(255,255,255,0.09);
       --accent: #5b52f0;
       --accent2: #9b8eff;
@@ -531,6 +531,145 @@
       z-index: 999;
     }
   </style>
+
+  <style>
+    /* HERO ARIOSA — sfondo scuro, serif, centrata */
+    #hero.hero-light {
+      background: var(--bg);
+      color: var(--text);
+      padding-top: 9rem;
+      padding-bottom: 9rem;
+      min-height: 92vh;
+    }
+    #hero.hero-light .hero-cosmos,
+    #hero.hero-light .hero-stars,
+    #hero.hero-light .hero-vignette {
+      display: none;
+    }
+    #hero.hero-light::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 90px 90px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #hero.hero-light::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(91,82,240,0.18) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #hero.hero-light .container {
+      text-align: left;
+      max-width: 1100px;
+    }
+    #hero.hero-light .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 500;
+      font-size: clamp(3.4rem, 7vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      text-shadow: none;
+    }
+    #hero.hero-light .hero-title em {
+      font-style: italic;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 500;
+      background: linear-gradient(135deg, #c084fc 0%, #9b8eff 50%, #5b52f0 100%);
+      background-size: 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: none;
+    }
+    #hero.hero-light .hero-claim {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+      color: var(--soft);
+      line-height: 1.55;
+      max-width: 780px;
+      margin: 0 0 3rem 0;
+      text-shadow: none;
+      letter-spacing: -0.005em;
+    }
+    #hero.hero-light .hero-actions {
+      justify-content: flex-start;
+      align-items: center;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+    #hero.hero-light .btn-primary {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      letter-spacing: 0.01em;
+    }
+    #hero.hero-light .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      opacity: 0.85;
+      margin-bottom: 2rem;
+    }
+    #hero.hero-light .hero-claim-primary {
+      margin-bottom: 0.8rem;
+    }
+    #hero.hero-light .hero-claim-emphasis {
+      color: var(--text);
+      font-weight: 500;
+    }
+    #hero.hero-light .btn-link {
+      background: transparent;
+      color: var(--soft);
+      padding: 0.7rem 0.5rem;
+      border: none;
+      text-decoration: none;
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    #hero.hero-light .btn-link:hover {
+      color: var(--text);
+      border-bottom-color: var(--accent2);
+    }
+    #hero.hero-light .hero-proof {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.75;
+      margin-top: 3rem;
+      margin-bottom: 0;
+    }
+    #hero.hero-light .hero-dual {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.3rem;
+      color: #d4c9ff;
+      opacity: 1;
+      margin-top: -1.5rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      padding-left: 1rem;
+      border-left: 2px solid rgba(192,132,252,0.5);
+    }
+  </style>
 </head>
 <body>
 
@@ -562,7 +701,7 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" class="hero-light">
   <div class="hero-cosmos"></div>
   <div class="hero-stars"></div>
   <div class="hero-vignette"></div>
@@ -570,27 +709,114 @@
 
     <div class="hero-grid">
       <h1 class="hero-title">
-        EGEMON, la piattaforma di <em>AI Cognitiva</em>
+        <em>AI Cognitiva</em><br>
+        Il Know-how diventa <em>risultato</em>.
       </h1>
 
       <p class="hero-claim">
-        Trasformiamo il Know-How degli esperti di dominio in <span class="term" data-tooltip="Knowledge Artefact &mdash; un artefatto di AI Cognitiva che sostituisce il tradizionale &laquo;programma applicativo&raquo;. Un K-Art incapsula il know-how di un esperto e lo rende operativo per chiunque. Non &egrave; un chatbot: &egrave; un esperto digitale che conosce il dominio, si adatta a chi lo usa, garantisce la conformit&agrave;, esegue le procedure assegnate, forma le persone mentre operano e migliora continuamente. Non sostituisce nessuno. Rende tutti pi&ugrave; efficaci.">K-Art</span>,
-        i potenti artefatti dell'AI immediatamente utilizzabili ovunque.<br>
-        Senza formazione.
+        Trasformiamo il know-how di dominio in artefatti operativi, utilizzabili ovunque, con l'obiettivo che la qualit&agrave; del risultato dipenda dal processo, non dall'esperienza individuale.
       </p>
 
-      <p class="hero-claim">
-        L'approccio <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span> garantisce un'interazione continua tra esecuzione e formazione.
+      <p class="hero-dual">
+        Ogni esecuzione &egrave; anche formazione.
       </p>
 
       <div class="hero-actions">
-        <a href="#kart" class="btn-primary">Cosa facciamo &rarr;</a>
-        <a href="#factory" class="btn-ghost">Come lo ottieni &rarr;</a>
-        <a href="#scenari" class="btn-primary">Le Soluzioni &rarr;</a>
+        <a href="#scenari" class="btn-primary">Vedi le soluzioni &rarr;</a>
+        <a href="#factory" class="btn-link">Come funziona</a>
+      </div>
+
+      <p class="hero-proof">
+        Al lavoro su: Crisi di impresa, Quality Document Control, Attestazioni SOA, Education
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SEZIONE: COSA SONO I K-ART ══════════ -->
+<section id="kart" style="padding: 5rem 0; background: var(--bg);">
+  <div class="container">
+    <div class="s-label">Il nostro prodotto</div>
+    <h2 class="s-title">Cosa sono gli Artefatti (cognitivi)</h2>
+    <p class="s-desc" style="max-width:100%; margin-bottom: 2.5rem;">
+      Generati dalla nostra piattaforma di AI Cognitiva, sono la nuova forma di &laquo;applicazioni&raquo;
+      che comprendono il know-how degli esperti del dominio, gestiscono la fusione deterministico/cognitivo
+      per garantirne la corretta esecuzione e la necessaria conformit&agrave;, e lo rendono operativo per chiunque.
+    </p>
+    <p class="kart-manifesto">La democratizzazione della conoscenza e l'empowerment del personale.</p>
+
+    <div class="kart-grid">
+      <div class="kart-block">
+        <div class="kart-num">01</div>
+        <h3 class="kart-title">Nasce dalla conoscenza reale</h3>
+        <p class="kart-desc">Un esperto di dominio trasferisce il proprio sapere attraverso
+          <span class="term" data-tooltip="La workstation EGEMON per destrutturare la conoscenza di dominio in unit&agrave; atomiche (BLURB) e configurare il Genoma di compliance.">EGEMON Forge</span>:
+          regole, eccezioni, soglie, criteri di valutazione. La piattaforma destruttura
+          e organizza tutto automaticamente in
+          <span class="term" data-tooltip="Building Logic Unit Resource Block &mdash; l'unit&agrave; atomica di conoscenza: contiene Rules (regole operative), Scores (pesi e soglie per cliente) e Data (fonti dati e validazione).">BLURB</span>,
+          le unit&agrave; atomiche di conoscenza.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">02</div>
+        <h3 class="kart-title">Opera come l'esperto</h3>
+        <p class="kart-desc">Il K-Art non &egrave; un assistente generico. Conosce ogni regola del dominio,
+          si adatta a chi lo usa &mdash; dal principiante all'esperto &mdash; e garantisce la conformit&agrave;
+          attraverso il
+          <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span>,
+          il DNA di compliance integrato in ogni output.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">03</div>
+        <h3 class="kart-title">Forma mentre esegue</h3>
+        <p class="kart-desc">&Egrave; il principio
+          <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span>:
+          ogni azione &egrave; simultaneamente esecuzione e formazione.
+          Il K-Art produce il risultato e spiega perch&eacute;.
+          L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.</p>
+      </div>
+      <div class="kart-block">
+        <div class="kart-num">04</div>
+        <h3 class="kart-title">Migliora nel tempo</h3>
+        <p class="kart-desc">Ogni interazione arricchisce la base di conoscenza.
+          Il K-Art evolve, si affina, anticipa i pattern ricorrenti.
+          &Egrave; l'<span class="term" data-tooltip="Capacit&agrave; del K-Art di evolvere autonomamente: ogni interazione arricchisce la Knowledge Base, chiudendo il ciclo Conoscenza &rarr; Esecuzione &rarr; Apprendimento.">Autopoiesi</span>
+          &mdash; il valore cresce automaticamente.</p>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .kart-manifesto {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 40%, #c084fc 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 3rem;
+  }
+  .kart-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .kart-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .kart-block:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
+  .kart-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.8rem;
+  }
+  .kart-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
+  }
+  .kart-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
+</style>
 
 <!-- ══════════ SEZIONE 2: SCENARI — Per chi, cosa risolviamo ══════════ -->
 <section id="scenari" style="padding: 5rem 0; background: var(--bg2);">
@@ -604,7 +830,7 @@
     <div class="scenari-grid">
       <div class="scenario-card">
         <div class="scenario-icon">&#x1F4B3;</div>
-        <h3 class="scenario-title">Pratiche di Mediazione</h3>
+        <h3 class="scenario-title">Quality Document Control</h3>
         <p class="scenario-highlight">K-Art Credit eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
         <p class="scenario-result">Il K-Art Credit analizza la tipologia della pratica, stabilisce i documenti necessari, verifica che siano corretti, supervisiona le attivit&agrave; di completamento e fornisce un Quality Score a beneficio dell'Istituto prescelto.</p>
         <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
@@ -699,91 +925,6 @@
     background: #6b63f5;
     transform: translateY(-1px);
   }
-</style>
-
-<!-- ══════════ SEZIONE: COSA SONO I K-ART ══════════ -->
-<section id="kart" style="padding: 5rem 0; background: var(--bg);">
-  <div class="container">
-    <div class="s-label">Il nostro prodotto</div>
-    <h2 class="s-title">Cosa sono i K-Art</h2>
-    <p class="s-desc" style="max-width:100%; margin-bottom: 2.5rem;">
-      <strong>K-Art</strong> sta per <strong>Knowledge Artefact</strong> &mdash;
-      un artefatto di <span class="term" data-tooltip="AI che comprende il dominio, si adatta all'utente e garantisce conformit&agrave; &mdash; non &egrave; un chatbot generico.">AI Cognitiva</span>
-      che incapsula il know-how di un esperto e lo rende operativo per chiunque.
-    </p>
-    <p class="kart-manifesto">La democratizzazione della conoscenza e l'empowerment del personale.</p>
-
-    <div class="kart-grid">
-      <div class="kart-block">
-        <div class="kart-num">01</div>
-        <h3 class="kart-title">Nasce dalla conoscenza reale</h3>
-        <p class="kart-desc">Un esperto di dominio trasferisce il proprio sapere attraverso
-          <span class="term" data-tooltip="La workstation EGEMON per destrutturare la conoscenza di dominio in unit&agrave; atomiche (BLURB) e configurare il Genoma di compliance.">EGEMON Forge</span>:
-          regole, eccezioni, soglie, criteri di valutazione. La piattaforma destruttura
-          e organizza tutto automaticamente in
-          <span class="term" data-tooltip="Building Logic Unit Resource Block &mdash; l'unit&agrave; atomica di conoscenza: contiene Rules (regole operative), Scores (pesi e soglie per cliente) e Data (fonti dati e validazione).">BLURB</span>,
-          le unit&agrave; atomiche di conoscenza.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">02</div>
-        <h3 class="kart-title">Opera come l'esperto</h3>
-        <p class="kart-desc">Il K-Art non &egrave; un assistente generico. Conosce ogni regola del dominio,
-          si adatta a chi lo usa &mdash; dal principiante all'esperto &mdash; e garantisce la conformit&agrave;
-          attraverso il
-          <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span>,
-          il DNA di compliance integrato in ogni output.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">03</div>
-        <h3 class="kart-title">Forma mentre esegue</h3>
-        <p class="kart-desc">&Egrave; il principio
-          <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span>:
-          ogni azione &egrave; simultaneamente esecuzione e formazione.
-          Il K-Art produce il risultato e spiega perch&eacute;.
-          L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">04</div>
-        <h3 class="kart-title">Migliora nel tempo</h3>
-        <p class="kart-desc">Ogni interazione arricchisce la base di conoscenza.
-          Il K-Art evolve, si affina, anticipa i pattern ricorrenti.
-          &Egrave; l'<span class="term" data-tooltip="Capacit&agrave; del K-Art di evolvere autonomamente: ogni interazione arricchisce la Knowledge Base, chiudendo il ciclo Conoscenza &rarr; Esecuzione &rarr; Apprendimento.">Autopoiesi</span>
-          &mdash; il valore cresce automaticamente.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  .kart-manifesto {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 40%, #c084fc 100%);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 3rem;
-  }
-  .kart-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .kart-block {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .kart-block:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
-  .kart-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.8rem;
-  }
-  .kart-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
-  }
-  .kart-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
 </style>
 
 <!-- ══════════ SEZIONE: IL CICLO COGNITIVO ══════════ -->
