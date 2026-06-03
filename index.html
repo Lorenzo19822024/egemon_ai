@@ -388,7 +388,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: clamp(3.6rem, 6vw, 5.6rem);
       align-items: center;
     }
@@ -520,6 +520,7 @@
     }
 
     .product-console {
+      display: none;
       border: 1px solid var(--line);
       border-radius: 8px;
       background:
@@ -688,6 +689,7 @@
     }
 
     body.view-essential .product-console {
+      display: block;
       box-shadow: 0 18px 44px rgba(0,0,0,0.18), inset 0 1px 0 var(--violet-soft);
     }
 
@@ -734,7 +736,7 @@
 
     body.view-essential .copy-stack .lead:nth-child(2),
     body.view-essential .operating-map,
-    body.view-essential .process-strip,
+    body.view-essential #come-funziona,
     body.view-essential footer a[href="#come-funziona"] {
       display: none;
     }
@@ -1850,23 +1852,6 @@
           </div>
         </div>
 
-        <div class="process-strip" id="come-funziona" aria-label="Come funziona EGEASY">
-          <article class="process-step">
-            <span>01 Acquisizione</span>
-            <h3>L'esperto parla naturale</h3>
-            <p>Nessuna competenza tecnologica richiesta: obiettivi, regole e casi limite entrano come conoscenza strutturabile.</p>
-          </article>
-          <article class="process-step">
-            <span>02 Costruzione</span>
-            <h3>La piattaforma governa</h3>
-            <p>Calcolo, giudizio, fonti, controlli e responsabilità restano distinti fin dall'origine.</p>
-          </article>
-          <article class="process-step">
-            <span>03 Distribuzione</span>
-            <h3>Il team lavora meglio</h3>
-            <p>L'applicazione è accessibile agli operatori, produce risultato e forma mentre viene usata.</p>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -1957,6 +1942,34 @@
             </div>
             <figcaption class="cycle-caption">La conoscenza si trasforma in esecuzione, l'esecuzione forma, la formazione riporta valore al sistema.</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="come-funziona" class="alt" aria-labelledby="come-funziona-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Come funziona</span>
+          <h2 id="come-funziona-title">Dall'esperto a tutti. Automaticamente.</h2>
+          <p class="lead">EGEMON orchestra l'intero ciclo: dall'acquisizione della conoscenza dell'esperto fino alla distribuzione di un'applicazione che opera in autonomia. Chi la usa non percepisce la complessità: percepisce il risultato.</p>
+        </div>
+
+        <div class="process-strip" aria-label="Come funziona EGEASY">
+          <article class="process-step">
+            <span>01 Acquisizione</span>
+            <h3>L'esperto parla naturale</h3>
+            <p>La piattaforma lavora in modo collaborativo e proattivo: aiuta l'esperto a chiarire intento, regole, eccezioni e casi limite senza costringerlo a imparare la destrutturazione del knowledge.</p>
+          </article>
+          <article class="process-step">
+            <span>02 Costruzione</span>
+            <h3>La piattaforma destruttura</h3>
+            <p>EGEASY organizza moduli, dati, orchestrazione, calcolo, giudizio, fonti e responsabilità. Le complessità metodologiche restano dentro la piattaforma, non sulle spalle dell'esperto.</p>
+          </article>
+          <article class="process-step">
+            <span>03 Distribuzione</span>
+            <h3>L'applicazione lavora</h3>
+            <p>L'applicazione diventa accessibile agli operatori, produce risultato, forma durante l'uso e conserva la tracciabilità di configurazioni, vincoli, versioni e decisioni.</p>
+          </article>
         </div>
       </div>
     </section>
