@@ -3,1608 +3,1797 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EGEMON — Intelligenza Eseguibile</title>
-  <meta name="description" content="EGEMON è la piattaforma AI cognitiva che consente al tuo personale di realizzare risultati eccezionali. Cognitive Twin, Dual Mode, Genomic Compliance.">
+  <title>EGEMON - AI Cognitiva</title>
+  <meta name="description" content="EGEMON trasforma il know-how degli esperti in applicazioni operative, governate e tracciabili che formano le persone mentre lavorano.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://egemon.ai/">
 
-  <!-- Favicon -->
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="assets/egemon-logo.png">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://egemon.ai/">
-  <meta property="og:title" content="EGEMON — Intelligenza Eseguibile">
-  <meta property="og:description" content="Piattaforma AI cognitiva. Produttività eccezionale con le risorse che hai. Per chiunque.">
+  <meta property="og:title" content="EGEMON - AI Cognitiva">
+  <meta property="og:description" content="Il sapere del miglior esperto nelle mani di tutto il team.">
   <meta property="og:image" content="https://egemon.ai/assets/egemon-logo.png">
   <meta property="og:locale" content="it_IT">
   <meta property="og:site_name" content="egemon.ai">
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="EGEMON — Intelligenza Eseguibile">
-  <meta name="twitter:description" content="Piattaforma AI cognitiva. Produttività eccezionale con le risorse che hai. Per chiunque.">
+  <meta name="twitter:title" content="EGEMON - AI Cognitiva">
+  <meta name="twitter:description" content="Il sapere del miglior esperto nelle mani di tutto il team.">
   <meta name="twitter:image" content="https://egemon.ai/assets/egemon-logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0d1120;
-      --bg2: #151a2b;
-      --surface: #1c2338;
-      --border: rgba(255,255,255,0.09);
-      --accent: #5b52f0;
-      --accent2: #9b8eff;
-      --green: #22c55e;
-      --gold: #eab308;
-      --text: #eef2f7;
-      --soft: #b8c8d8;
-      --muted: #8a9db5;
+      --bg: #0e0f12;
+      --bg-soft: #15171c;
+      --surface: #1a1d23;
+      --surface-2: #20242b;
+      --line: #2a2e37;
+      --ink: #f2efe9;
+      --ink-soft: #c2beb6;
+      --ink-faint: #89847c;
+      --accent: #c9a24b;
+      --accent-2: #6fae9f;
+      --violet: #9484ff;
+      --violet-soft: rgba(148,132,255,0.16);
+      --danger: #d68c6d;
+      --maxw: 1180px;
+      --display: "Fraunces", Georgia, "Times New Roman", serif;
+      --body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
-
-    /* ── ANIMATIONS ── */
-
-    /* 1. Fade-in on scroll */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    @keyframes cycleRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
-    /* 4. Animated gradient on headline */
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes cyclePulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.86; }
+      50% { transform: translate(-50%, -50%) scale(1.06); opacity: 1; }
     }
 
-    /* 7. Particle starfield */
-    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    @keyframes float2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-    @keyframes twinkle { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
-    @keyframes starDrift {
-      0% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(40px, -25px) scale(1.02); }
-      50% { transform: translate(-20px, -50px) scale(0.98); }
-      75% { transform: translate(-40px, 15px) scale(1.01); }
-      100% { transform: translate(0, 0) scale(1); }
-    }
-    @keyframes nebulaPulse {
-      0%,100% { opacity: 0.7; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
+    @keyframes landIn {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(7px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
     }
 
-    /* 2. Glow pulse on component numbers */
-    @keyframes glowPulse {
-      0%,100% { text-shadow: 0 0 8px rgba(155,142,255,0.3); }
-      50% { text-shadow: 0 0 20px rgba(155,142,255,0.6), 0 0 40px rgba(91,82,240,0.3); }
+    @keyframes consoleLand {
+      0% {
+        opacity: 0;
+        transform: translateY(26px) scale(0.985);
+        box-shadow: 0 0 0 rgba(0,0,0,0), inset 0 1px 0 var(--violet-soft);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 30px 80px rgba(0,0,0,0.28), 0 0 34px rgba(148,132,255,0.16), inset 0 1px 0 var(--violet-soft);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 22px 60px rgba(0,0,0,0.24), inset 0 1px 0 var(--violet-soft);
+      }
+    }
+
+    @keyframes lineSweep {
+      from { transform: scaleX(0); opacity: 0; }
+      to { transform: scaleX(1); opacity: 0.42; }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    ::selection {
+      background: rgba(148,132,255,0.32);
+      color: var(--ink);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.65;
+      min-width: 320px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.014) 1px, transparent 1px),
+        var(--bg);
+      background-size: 56px 56px;
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 400;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* NAV (simplified) */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 5rem;
-      background: rgba(6,8,16,0.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+    img {
+      max-width: 100%;
+      display: block;
     }
-    .nav-logo { display: flex; align-items: center; gap: 0.75rem; }
-    .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
-    .nav-logo-text {
-      font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
-      letter-spacing: 0.04em; color: var(--text); text-transform: uppercase;
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    .nav-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; letter-spacing: -0.02em; text-transform: lowercase; font-size: 0.8em; }
-    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-    .nav-links a { color: var(--text); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 3px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--display);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    em {
+      color: var(--accent);
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .wrap {
+      width: min(100%, var(--maxw));
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 1000;
+      transform: translateY(-140%);
+      background: var(--accent);
+      color: #171106;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(14,15,18,0.86);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--violet), var(--accent), var(--accent-2), transparent);
+      opacity: 0.42;
+      transform-origin: center;
+      animation: lineSweep 900ms ease-out both;
+      pointer-events: none;
+    }
+
+    .nav .wrap {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: max-content;
+      font-family: var(--display);
+      font-size: 1.18rem;
+      letter-spacing: 0;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      object-fit: contain;
+      box-shadow: 0 0 18px rgba(124,108,255,0.18);
+    }
+
+    .brand .brand-name {
+      color: var(--ink);
+    }
+
+    .brand .brand-name span {
+      color: var(--ink-faint);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 1.55rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
     .nav-toggle {
       display: none;
       width: 42px;
       height: 42px;
-      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--ink);
+      cursor: pointer;
       align-items: center;
       justify-content: center;
-      gap: 5px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(255,255,255,0.04);
-      cursor: pointer;
+      gap: 4px;
+      flex-direction: column;
     }
+
     .nav-toggle span {
       width: 18px;
       height: 2px;
       border-radius: 999px;
-      background: var(--text);
-      transition: transform .2s, opacity .2s;
+      background: currentColor;
+      transition: transform 0.18s ease, opacity 0.18s ease;
     }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .menu a {
+      transition: color 0.18s ease;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible {
+      color: var(--ink);
+    }
+
     .nav-cta {
-      background: var(--accent) !important; color: #fff !important;
-      padding: 0.55rem 1.4rem; border-radius: 8px; font-weight: 600 !important;
-      font-size: 0.85rem !important; transition: background .2s !important;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      padding: 0.52rem 0.9rem;
     }
 
-    /* Dropdown */
-    .nav-dropdown { position: relative; padding-bottom: 0.5rem; margin-bottom: -0.5rem; }
-    .nav-dropdown-trigger { cursor: pointer; }
-    .nav-dropdown-menu {
-      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      padding-top: 0.5rem; z-index: 200;
-    }
-    .nav-dropdown-menu-inner {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-      padding: 0.5rem 0; min-width: 180px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-    }
-    .nav-dropdown-menu-inner::before {
-      content: ''; position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
-      border: 6px solid transparent; border-bottom-color: var(--surface);
-    }
-    .nav-dropdown-menu a {
-      display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--soft);
-      text-decoration: none; transition: all .15s; white-space: nowrap;
-    }
-    .nav-dropdown-menu a:hover { background: rgba(91,82,240,0.1); color: var(--accent2); }
-    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
-
-    @media (max-width: 1280px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.25rem; }
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
-    @media (max-width: 1180px) {
-      nav { padding: 0.9rem 1rem; }
-      .nav-logo-text { font-size: 1.15rem; }
-      .nav-toggle { display: flex; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        max-height: calc(100vh - 74px);
-        overflow-y: auto;
-        padding: 0.75rem 1rem 1rem;
-        background: rgba(6,8,16,0.97);
-        border-bottom: 1px solid var(--border);
-        box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-      }
-      .nav-links.open { display: flex; }
-      .nav-links > a,
-      .nav-dropdown-trigger {
-        display: block;
-        padding: 0.85rem 0;
-        border-bottom: 1px solid var(--border);
-      }
-      .nav-cta {
-        width: 100%;
-        margin-top: 0.75rem;
-        text-align: center;
-      }
-      .nav-dropdown { padding-bottom: 0; margin-bottom: 0; }
-      .nav-dropdown-menu {
-        display: block;
-        position: static;
-        transform: none;
-        padding-top: 0;
-      }
-      .nav-dropdown-menu-inner {
-        min-width: 0;
-        border: 0;
-        border-radius: 0;
-        padding: 0 0 0.35rem 1rem;
-        background: transparent;
-        box-shadow: none;
-      }
-      .nav-dropdown-menu-inner::before { display: none; }
-      .nav-dropdown-menu a {
-        padding: 0.55rem 0;
-        white-space: normal;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .nav-logo-icon { width: 32px; height: 32px; }
-      .nav-logo-text { font-size: 1rem; }
-    }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding-top: 6rem; padding-bottom: 2rem;
-      position: relative; overflow: hidden;
-    }
-
-    /* Hero cosmic background */
-    .hero-cosmos {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; z-index: 0;
-      animation: nebulaPulse 8s ease-in-out infinite;
-      background:
-        /* Nebula principale — viola intenso */
-        radial-gradient(ellipse 60% 50% at 75% 30%, rgba(91,82,240,0.40) 0%, transparent 60%),
-        /* Nebula secondaria — blu profondo */
-        radial-gradient(ellipse 50% 60% at 20% 60%, rgba(59,130,246,0.22) 0%, transparent 55%),
-        /* Nebula rosa/magenta */
-        radial-gradient(ellipse 40% 35% at 60% 85%, rgba(168,85,247,0.20) 0%, transparent 55%),
-        /* Glow centrale diffuso */
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(91,82,240,0.15) 0%, transparent 70%),
-        /* Nebula teal/ciano */
-        radial-gradient(ellipse 25% 30% at 85% 70%, rgba(34,197,170,0.12) 0%, transparent 60%),
-        /* Nebula rosa lontana */
-        radial-gradient(ellipse 30% 25% at 10% 20%, rgba(236,72,153,0.10) 0%, transparent 55%),
-        /* Glow dorato basso */
-        radial-gradient(ellipse 35% 20% at 40% 95%, rgba(234,179,8,0.08) 0%, transparent 50%);
-    }
-    /* Star layer */
-    .hero-stars {
-      position: absolute; top: -20px; left: -20px; right: -20px; bottom: -20px;
-      pointer-events: none; z-index: 0;
-      animation: starDrift 20s ease-in-out infinite;
-      background-image:
-        /* Stelle brillanti — grandi */
-        radial-gradient(3px 3px at 10% 15%, rgba(255,255,255,0.9), transparent),
-        radial-gradient(3px 3px at 80% 20%, rgba(155,142,255,1), transparent),
-        radial-gradient(3.5px 3.5px at 90% 90%, rgba(200,190,255,0.85), transparent),
-        radial-gradient(3px 3px at 45% 5%, rgba(200,190,255,0.9), transparent),
-        radial-gradient(3px 3px at 5% 55%, rgba(155,142,255,0.8), transparent),
-        /* Stelle medie */
-        radial-gradient(2px 2px at 25% 8%, rgba(255,255,255,0.7), transparent),
-        radial-gradient(2px 2px at 35% 28%, rgba(192,132,252,0.75), transparent),
-        radial-gradient(2px 2px at 95% 60%, rgba(200,190,255,0.7), transparent),
-        radial-gradient(2px 2px at 82% 75%, rgba(155,142,255,0.65), transparent),
-        radial-gradient(2px 2px at 12% 78%, rgba(192,132,252,0.7), transparent),
-        radial-gradient(2px 2px at 55% 42%, rgba(255,255,255,0.6), transparent),
-        radial-gradient(2px 2px at 68% 15%, rgba(200,190,255,0.65), transparent),
-        radial-gradient(2px 2px at 42% 68%, rgba(155,142,255,0.6), transparent),
-        /* Stelle piccole — polvere cosmica */
-        radial-gradient(1.5px 1.5px at 92% 8%, rgba(255,255,255,0.6), transparent),
-        radial-gradient(1.5px 1.5px at 70% 32%, rgba(255,255,255,0.55), transparent),
-        radial-gradient(1.5px 1.5px at 50% 48%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 55% 72%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 65% 88%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 48% 95%, rgba(255,255,255,0.45), transparent),
-        radial-gradient(1.5px 1.5px at 18% 52%, rgba(192,132,252,0.5), transparent),
-        radial-gradient(1.5px 1.5px at 78% 48%, rgba(255,255,255,0.45), transparent),
-        radial-gradient(1.5px 1.5px at 33% 85%, rgba(200,190,255,0.5), transparent),
-        /* Micro stelle — profondità */
-        radial-gradient(1px 1px at 60% 12%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 15% 35%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1px 1px at 88% 40%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1px 1px at 75% 52%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1px 1px at 30% 65%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 40% 82%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 20% 92%, rgba(255,255,255,0.35), transparent),
-        radial-gradient(1px 1px at 8% 45%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 62% 58%, rgba(155,142,255,0.35), transparent),
-        radial-gradient(1px 1px at 25% 72%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 85% 35%, rgba(200,190,255,0.3), transparent),
-        radial-gradient(1px 1px at 52% 22%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(1px 1px at 3% 88%, rgba(192,132,252,0.3), transparent),
-        radial-gradient(1px 1px at 95% 15%, rgba(255,255,255,0.3), transparent);
-    }
-    /* Vignette */
-    .hero-vignette {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none; z-index: 0;
-      background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 45%, rgba(6,8,16,0.6) 100%);
-    }
-
-    .container { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
-
-    /* Hero: testo full width sopra, poi grid con definizione + immagine */
-    .hero-grid {
-      display: block;
-    }
-    .hero-left { min-width: 0; }
-    .hero-bottom {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    .hero-right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Cycle diagram */
-    .cycle-wrap {
-      width: 480px; height: 480px;
+    .menu a[aria-current="page"] {
+      color: var(--ink);
       position: relative;
     }
-    .cycle-ring {
-      position:absolute;
-      width:380px; height:380px;
-      top:50%; left:50%;
-      transform: translate(-50%,-50%);
-      border-radius:50%;
-      border: 2px solid rgba(155,142,255,0.18);
-      box-shadow: 0 0 25px rgba(155,142,255,0.08), inset 0 0 25px rgba(155,142,255,0.03);
-    }
-    .cycle-halo {
-      display: none;
-    }
-    .cycle-glow {
-      position:absolute;
-      width:420px; height:420px;
-      top:50%; left:50%;
-      transform: translate(-50%,-50%);
-      border-radius:50%;
-      background: radial-gradient(ellipse at 50% 50%, rgba(91,82,240,0.15) 0%, transparent 70%);
-    }
-    .cycle-node {
-      position:absolute;
-      width:100px; height:100px;
-      border-radius:50%;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      transform: translate(-50%,-50%);
-      text-align:center;
-      z-index:10;
-    }
-    .cycle-node-title {
-      font-size: 11px; font-weight: 700; color: #fff;
-      letter-spacing: 0.8px; line-height: 1.15;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-    .cycle-node-sub {
-      font-size: 8.5px; font-weight: 500; color: #1a1a3a; margin-top: 2px;
-    }
-    .cn1 { top:10%; left:50%;
-      background: radial-gradient(circle at 38% 28%, #9b8eff, #6b5ff0 55%, #3a2fa0);
-      box-shadow: 0 0 25px rgba(155,142,255,0.5);
-      border: 1px solid rgba(192,184,255,0.35);
-    }
-    .cn2 { top:37%; left:88%;
-      background: radial-gradient(circle at 38% 28%, #8eaaff, #5b7ef0 55%, #2a4fa0);
-      box-shadow: 0 0 25px rgba(107,142,240,0.5);
-      border: 1px solid rgba(142,170,255,0.35);
-    }
-    .cn3 { top:82%; left:73%;
-      background: radial-gradient(circle at 38% 28%, #4ade80, #22c55e 55%, #0d5c2a);
-      box-shadow: 0 0 25px rgba(34,197,94,0.5);
-      border: 1px solid rgba(74,222,128,0.35);
-    }
-    .cn4 { top:82%; left:27%;
-      background: radial-gradient(circle at 38% 28%, #fcd34d, #d4a00a 55%, #6b4f05);
-      box-shadow: 0 0 25px rgba(234,179,8,0.5);
-      border: 1px solid rgba(252,211,77,0.35);
-    }
-    .cn5 { top:37%; left:12%;
-      background: radial-gradient(circle at 38% 28%, #d8b4fe, #a855f7 55%, #4c1d95);
-      box-shadow: 0 0 25px rgba(168,85,247,0.5);
-      border: 1px solid rgba(216,180,254,0.35);
-    }
-    .cycle-center {
-      position:absolute;
-      top:50%; left:50%;
-      transform: translate(-50%,-50%);
-      text-align:center;
-      z-index:5;
-    }
-    .cycle-center-title {
-      font-size: 16px; font-weight: 700; color: #e0dcff; line-height: 1.2;
-    }
-    .cycle-center-sub {
-      font-size: 9px; font-weight: 400; color: #8a9db5;
-      letter-spacing: 1px; margin-top: 6px;
+
+    .menu a[aria-current="page"]::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.55rem;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--violet), var(--accent));
+      opacity: 0.75;
     }
 
-    /* Arrows SVG overlay */
-    .cycle-arrows {
-      position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;
+    main {
+      overflow: hidden;
     }
 
-    /* Logo area */
-    .hero-logo { display: flex; align-items: center; gap: 2rem; margin-bottom: 1rem; }
-    .hero-logo-icon {
-      width: 90px; height: 90px; border-radius: 20px; object-fit: contain; flex-shrink: 0;
-      box-shadow: 0 8px 32px rgba(91,82,240,0.25);
-    }
-    .hero-wordmark {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(3.8rem, 7.5vw, 6rem);
-      font-weight: 700; letter-spacing: 0.06em; line-height: 1;
-      color: var(--text); text-transform: uppercase;
-    }
-    .hero-wordmark .ai {
-      color: var(--accent2); font-weight: 400; font-style: italic;
-      font-size: 0.5em; letter-spacing: -0.02em; text-transform: lowercase;
-    }
-
-    .hero-tagline {
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent2);
-      margin-bottom: 2.5rem; opacity: 0.8;
-      padding-left: 112px;
-    }
-
-    /* Main headline */
-    .hero-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(3rem, 5.5vw, 4.8rem);
-      font-weight: 900; line-height: 1.08; letter-spacing: -0.03em;
-      margin-bottom: 2.5rem; max-width: 900px; color: var(--text);
-    }
-    .hero-title em {
-      font-style: normal;
-      background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 33%, #c084fc 66%, #9b8eff 100%);
-      background-size: 300% 300%;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s ease infinite;
-      padding: 0 0.08em;
-    }
-
-    /* Claim */
-    .hero-claim {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      font-weight: 500;
-      color: var(--soft);
-      max-width: 1000px;
-      line-height: 1.55;
-      margin-bottom: 2rem;
-      border-left: none;
-      padding-left: 0;
-    }
-    .hero-claim em {
-      font-style: normal;
-      color: var(--text);
-    }
-
-    /* Definition block — impactful */
-    .hero-def {
-      font-size: 1.35rem; color: var(--text); max-width: 100%;
-      line-height: 1.7; margin-bottom: 2.5rem; font-weight: 400;
-    }
-
-    /* Subtitle / value prop */
-    .hero-sub {
-      font-size: 1.15rem; color: var(--text); max-width: 600px;
-      line-height: 1.75; margin-bottom: 3rem; font-weight: 400;
-    }
-
-    /* CTAs */
-    .hero-actions { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-bottom: 4rem; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--accent); color: #fff; padding: 0.85rem 2rem;
-      border-radius: 10px; font-weight: 600; font-size: 1rem;
-      text-decoration: none; transition: all .2s;
-      box-shadow: 0 4px 16px rgba(91,82,240,0.3);
-    }
-    .btn-primary:hover { background: #6b63f5; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(91,82,240,0.4); }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      border: 1px solid var(--border); color: var(--text); padding: 0.85rem 2rem;
-      border-radius: 10px; font-weight: 500; font-size: 1rem;
-      text-decoration: none; transition: all .2s;
-    }
-    .btn-ghost:hover { border-color: var(--accent2); color: var(--text); }
-
-    /* Social proof */
-    .hero-proof {
-      display: flex; gap: 3.5rem; flex-wrap: wrap;
-    }
-    .proof-item { position: relative; padding-left: 1rem; border-left: 2px solid var(--accent); }
-    .proof-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1rem; margin-bottom: 0.2rem; color: var(--accent2); }
-    .proof-label { font-size: 0.82rem; color: var(--muted); max-width: 200px; line-height: 1.5; }
-
-    /* Watermark */
-    .preview-badge {
-      position: fixed; bottom: 20px; right: 20px;
-      background: rgba(91,82,240,0.15); border: 1px solid rgba(91,82,240,0.3);
-      padding: 8px 16px; border-radius: 8px;
-      font-size: 12px; color: var(--accent2); letter-spacing: 1px;
-      z-index: 999;
-    }
-  </style>
-
-  <style>
-    /* HERO ARIOSA — sfondo scuro, serif, centrata */
-    #hero.hero-light {
-      background: var(--bg);
-      color: var(--text);
-      padding-top: 9rem;
-      padding-bottom: 9rem;
-      min-height: 92vh;
-    }
-    #hero.hero-light .hero-cosmos,
-    #hero.hero-light .hero-stars,
-    #hero.hero-light .hero-vignette {
-      display: none;
-    }
-    #hero.hero-light::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 90px 90px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    #hero.hero-light::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 40%, rgba(91,82,240,0.18) 0%, transparent 65%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    #hero.hero-light .container {
-      text-align: left;
-      max-width: 1100px;
-    }
-    #hero.hero-light .hero-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 500;
-      font-size: clamp(3.4rem, 7vw, 6rem);
-      line-height: 1.05;
-      letter-spacing: -0.015em;
-      color: var(--text);
-      margin-bottom: 2.5rem;
-      text-shadow: none;
-    }
-    #hero.hero-light .hero-title em {
-      font-style: italic;
-      font-family: 'Playfair Display', Georgia, serif;
-      font-weight: 500;
-      background: linear-gradient(135deg, #c084fc 0%, #9b8eff 50%, #5b52f0 100%);
-      background-size: 100% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-      animation: none;
-    }
-    #hero.hero-light .hero-claim {
-      font-family: 'Space Grotesk', 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: clamp(1.1rem, 1.4vw, 1.35rem);
-      color: var(--soft);
-      line-height: 1.55;
-      max-width: 780px;
-      margin: 0 0 3rem 0;
-      text-shadow: none;
-      letter-spacing: -0.005em;
-    }
-    #hero.hero-light .hero-actions {
-      justify-content: flex-start;
-      align-items: center;
+    .hero {
+      min-height: clamp(680px, calc(100vh - 68px), 820px);
+      padding: 5.4rem 0 4.3rem;
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(201,162,75,0.07), transparent 38%),
+        linear-gradient(120deg, rgba(111,174,159,0.09), transparent 44%);
+    }
+
+    .hero .category-mark,
+    .hero h1,
+    .hero .lead,
+    .hero .micro,
+    .hero .hero-actions,
+    .hero .working-on {
+      opacity: 0;
+      animation: landIn 760ms cubic-bezier(0.2, 0.75, 0.18, 1) both;
+    }
+
+    .hero .category-mark { animation-delay: 80ms; }
+    .hero h1 { animation-delay: 170ms; }
+    .hero .lead { animation-delay: 280ms; }
+    .hero .micro { animation-delay: 390ms; }
+    .hero .hero-actions { animation-delay: 500ms; }
+    .hero .working-on { animation-delay: 610ms; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .category-mark {
+      display: flex;
+      align-items: baseline;
       flex-wrap: wrap;
-      margin-top: 3rem;
+      gap: 0.9rem;
+      margin-bottom: 1.35rem;
     }
-    #hero.hero-light .btn-primary {
-      font-family: 'Space Grotesk', 'Inter', sans-serif;
-      letter-spacing: 0.01em;
-    }
-    #hero.hero-light .hero-eyebrow {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
+
+    .category-mark .label {
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+      font-style: italic;
       font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      opacity: 0.85;
-      margin-bottom: 2rem;
+      line-height: 1;
     }
-    #hero.hero-light .hero-claim-primary {
+
+    .category-mark .tag {
+      color: var(--ink-faint);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.28rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 18ch;
+      margin-bottom: 1.45rem;
+      font-size: clamp(2.75rem, 5.2vw, 4.55rem);
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: var(--ink-soft);
+      font-size: 1.08rem;
+    }
+
+    .hero .lead {
+      font-size: 1.23rem;
+    }
+
+    .micro {
+      margin-top: 1.55rem;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 2.35rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 0.78rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    }
+
+    .btn::after {
+      content: "";
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      margin-left: 0;
+      opacity: 0;
+      transition: width 0.18s ease, margin-left 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover::after,
+    .btn:focus-visible::after {
+      width: 14px;
+      margin-left: 0.55rem;
+      opacity: 0.7;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1a1407;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      transform: translateY(-2px);
+      background: #d5b15d;
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .btn-ghost:hover,
+    .btn-ghost:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .working-on {
+      margin-top: 2.35rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      color: var(--ink-faint);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .working-on b {
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    .product-console {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.045), transparent),
+        rgba(26,29,35,0.86);
+      box-shadow: 0 22px 60px rgba(0,0,0,0.24), inset 0 1px 0 var(--violet-soft);
+      overflow: hidden;
+      opacity: 0;
+      animation: consoleLand 980ms cubic-bezier(0.2, 0.75, 0.18, 1) 330ms both;
+    }
+
+    .console-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(14,15,18,0.62);
+    }
+
+    .console-title {
+      color: var(--ink-faint);
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .console-status {
+      color: var(--accent-2);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .pipeline {
+      display: grid;
+      padding: 1.1rem;
+      gap: 0.9rem;
+    }
+
+    .pipe-row {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 0.85rem;
+      align-items: start;
+      padding: 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(14,15,18,0.38);
+    }
+
+    .pipe-dot {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+
+    .pipe-row:nth-child(2) .pipe-dot {
+      border-color: rgba(124,108,255,0.48);
+      color: var(--violet);
+    }
+
+    .pipe-row:nth-child(2) {
+      background: linear-gradient(90deg, rgba(124,108,255,0.055), rgba(14,15,18,0.38) 42%);
+    }
+
+    .pipe-row strong {
+      display: block;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.08rem;
+      font-weight: 500;
+      line-height: 1.22;
+      margin-bottom: 0.2rem;
+    }
+
+    .pipe-row p {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+    }
+
+    .console-output {
+      border-top: 1px solid var(--line);
+      padding: 1.1rem;
+    }
+
+    .console-output h3 {
+      margin-bottom: 0.85rem;
+      font-size: 1.25rem;
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
+
+    .output-cell {
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.75rem;
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .output-cell b {
+      display: block;
+      color: var(--ink);
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .trace-strip {
+      margin-top: 0.9rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 0.85rem;
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    section.alt {
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sec-head {
+      max-width: 76ch;
+      margin-bottom: 3rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .sec-head h2 {
+      margin-bottom: 1.1rem;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+    }
+
+    .egeasy-statement {
+      max-width: 72ch;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.35rem;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: clamp(1.28rem, 2.2vw, 1.72rem);
+      line-height: 1.36;
+    }
+
+    .copy-stack {
+      max-width: 73ch;
+      display: grid;
+      gap: 1.3rem;
+    }
+
+    .egeasy-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.8fr);
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .process-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .process-step {
+      border-top: 2px solid var(--accent);
+      padding-top: 1rem;
+    }
+
+    .process-step span {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--ink-faint);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .process-step h3 {
+      margin-bottom: 0.35rem;
+      font-size: 1.18rem;
+    }
+
+    .process-step p {
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+    }
+
+    .operating-map {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .map-step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .map-step:nth-child(2) {
+      border-color: rgba(124,108,255,0.34);
+      box-shadow: inset 3px 0 0 rgba(124,108,255,0.36);
+    }
+
+    .map-step span {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .map-step h3 {
+      font-size: 1.18rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .map-step p {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    #componenti .grid.cols-4 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.45rem;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(201,162,75,0.65);
+      background: var(--surface-2);
+    }
+
+    .card .num {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+      font-family: var(--display);
+      font-size: 1.5rem;
+    }
+
+    .card .sub {
+      display: block;
+      margin-bottom: 0.45rem;
+      color: var(--ink-faint);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin-bottom: 0.65rem;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: var(--ink-soft);
+      font-size: 0.96rem;
+    }
+
+    .card .warn {
+      display: block;
+      margin-top: 0.75rem;
+      color: var(--accent-2);
+      font-family: var(--display);
+      font-size: 0.94rem;
+      font-style: italic;
+    }
+
+    .solution-card {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.55rem;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .solution-card.live {
+      border-color: rgba(111,174,159,0.42);
+      background: linear-gradient(180deg, rgba(111,174,159,0.055), transparent), var(--surface);
+    }
+
+    .solution-card.live:nth-of-type(2) {
+      box-shadow: inset 3px 0 0 rgba(124,108,255,0.34);
+    }
+
+    .solution-card.reserved {
+      border-style: dashed;
+    }
+
+    .solution-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.65fr);
+      gap: 1.4rem;
+      align-items: end;
+    }
+
+    .solution-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.2rem 0 1rem;
+    }
+
+    .solution-meta span {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.25rem 0.5rem;
+      color: var(--ink-soft);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(201,162,75,0.65);
+      background: var(--surface-2);
+    }
+
+    .solution-kicker {
+      width: max-content;
+      margin-bottom: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.25rem 0.48rem;
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .solution-card h3 {
+      margin-bottom: 0.8rem;
+      font-size: 1.43rem;
+    }
+
+    .solution-card p {
+      color: var(--ink-soft);
+      font-size: 0.96rem;
       margin-bottom: 0.8rem;
     }
-    #hero.hero-light .hero-claim-emphasis {
-      color: var(--text);
-      font-weight: 500;
+
+    .solution-proof {
+      margin: 0.15rem 0 1rem;
+      border-left: 2px solid var(--accent);
+      padding-left: 0.85rem;
+      color: var(--ink);
+      font-size: 0.94rem;
+      font-weight: 700;
     }
-    #hero.hero-light .btn-link {
-      background: transparent;
-      color: var(--soft);
-      padding: 0.7rem 0.5rem;
-      border: none;
-      text-decoration: none;
-      font-family: 'Space Grotesk', 'Inter', sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
-      border-bottom: 1px solid rgba(255,255,255,0.18);
-      transition: color 0.2s ease, border-color 0.2s ease;
+
+    .solution-card .link {
+      margin-top: auto;
+      color: var(--accent);
+      font-weight: 700;
+      width: max-content;
+      text-underline-offset: 0.25em;
     }
-    #hero.hero-light .btn-link:hover {
-      color: var(--text);
-      border-bottom-color: var(--accent2);
+
+    .solution-card .link:hover {
+      text-decoration: underline;
     }
-    #hero.hero-light .hero-proof {
-      font-family: 'Space Grotesk', 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 0.82rem;
-      letter-spacing: 0.06em;
+
+    .cycle-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    #ciclo {
+      padding-bottom: 3.6rem;
+    }
+
+    .cycle-visual {
+      min-height: 520px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(201,162,75,0.13), transparent 34%),
+        radial-gradient(circle at 50% 50%, rgba(111,174,159,0.13), transparent 58%),
+        rgba(16,18,21,0.72);
+      padding: 1.15rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cycle-stage {
+      position: relative;
+      width: min(100%, 520px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+
+    .cycle-orbit,
+    .cycle-orbit::before {
+      position: absolute;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .cycle-orbit {
+      inset: 11%;
+      background: conic-gradient(from 12deg, rgba(201,162,75,0.05), var(--accent), rgba(111,174,159,0.9), rgba(127,111,219,0.82), rgba(201,162,75,0.9), rgba(201,162,75,0.05));
+      mask: radial-gradient(circle, transparent 62%, #000 63%, #000 66%, transparent 67%);
+      animation: cycleRotate 18s linear infinite;
+    }
+
+    .cycle-orbit::before {
+      inset: 7%;
+      border: 1px solid rgba(111,174,159,0.22);
+      box-shadow: 0 0 42px rgba(111,174,159,0.16);
+      animation: cycleRotate 26s linear infinite reverse;
+    }
+
+    .cycle-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 42%;
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(201,162,75,0.4);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,75,0.2), transparent 64%), rgba(14,15,18,0.72);
+      box-shadow: 0 0 55px rgba(201,162,75,0.12);
+      text-align: center;
+      padding: 1.2rem;
+      animation: cyclePulse 5s ease-in-out infinite;
+    }
+
+    .cycle-core strong {
+      display: block;
+      font-family: var(--display);
+      font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+      line-height: 1.1;
+    }
+
+    .cycle-core span {
+      display: block;
+      margin-top: 0.55rem;
+      color: var(--ink-faint);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
-      opacity: 0.75;
-      margin-top: 3rem;
-      margin-bottom: 0;
     }
-    #hero.hero-light .hero-dual {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-style: italic;
+
+    .cycle-node {
+      position: absolute;
+      width: 116px;
+      min-height: 78px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.65rem;
+      background: rgba(26,29,35,0.92);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    .cycle-node b {
+      display: block;
+      color: var(--ink);
+      font-size: 0.78rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .cycle-node small {
+      display: block;
+      color: var(--ink-faint);
+      font-size: 0.66rem;
+      margin-top: 0.25rem;
+    }
+
+    .cycle-node.n1 { top: 3%; left: 50%; transform: translateX(-50%); border-color: rgba(201,162,75,0.48); }
+    .cycle-node.n2 { top: 29%; right: 0; border-color: rgba(111,174,159,0.48); }
+    .cycle-node.n3 { bottom: 3%; right: 13%; border-color: rgba(111,174,159,0.48); }
+    .cycle-node.n4 { bottom: 3%; left: 13%; border-color: rgba(201,162,75,0.48); }
+    .cycle-node.n5 { top: 29%; left: 0; border-color: rgba(124,108,255,0.54); box-shadow: 0 12px 30px rgba(0,0,0,0.25), 0 0 20px rgba(124,108,255,0.12); }
+
+    .cycle-caption {
+      display: block;
+      margin: 0.85rem auto 0;
+      max-width: 52ch;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .not-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.1rem;
+    }
+
+    .not-item {
+      border-left: 2px solid var(--danger);
+      padding: 0.25rem 0 0.25rem 1.15rem;
+    }
+
+    .not-item b {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 1.22rem;
       font-weight: 500;
-      font-size: 1.3rem;
-      color: #d4c9ff;
-      opacity: 1;
-      margin-top: -1.5rem;
-      margin-bottom: 2.5rem;
-      text-align: left;
-      padding-left: 1rem;
-      border-left: 2px solid rgba(192,132,252,0.5);
+    }
+
+    .not-item span {
+      color: var(--ink-soft);
+      font-size: 0.97rem;
+    }
+
+    .cta {
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg), var(--bg-soft));
+    }
+
+    .cta h2 {
+      max-width: 22ch;
+      margin: 0 auto 1.25rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .cta p {
+      max-width: 58ch;
+      margin: 0 auto 2.1rem;
+      color: var(--ink-soft);
+    }
+
+    .cta .hero-actions {
+      justify-content: center;
+      margin-top: 0;
+    }
+
+    footer {
+      padding: 3.4rem 0 2.2rem;
+      background: var(--bg-soft);
+      border-top: 1px solid var(--line);
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .foot-grid h4 {
+      margin-bottom: 0.95rem;
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .foot-grid a,
+    .foot-grid p {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .foot-grid a:hover {
+      color: var(--ink);
+    }
+
+    .foot-grid a {
+      text-underline-offset: 0.25em;
+    }
+
+    .foot-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.4rem;
+      padding-top: 1.45rem;
+      border-top: 1px solid var(--line);
+      color: var(--ink-faint);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid,
+      .cycle-layout,
+      .egeasy-layout {
+        grid-template-columns: 1fr;
+        gap: 2.75rem;
+      }
+
+      .process-strip,
+      .grid.cols-4,
+      .grid.cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #componenti .grid.cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .solution-card.featured {
+        grid-column: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .foot-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav .wrap {
+        min-height: 64px;
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
+        align-items: center;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 20px;
+        right: 20px;
+        padding: 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(14,15,18,0.97);
+        box-shadow: 0 22px 50px rgba(0,0,0,0.32);
+        white-space: normal;
+        font-size: 0.94rem;
+      }
+
+      .menu.open {
+        display: grid;
+        gap: 0.1rem;
+      }
+
+      .menu a {
+        padding: 0.65rem 0.7rem;
+        border-radius: 8px;
+      }
+
+      .menu a[aria-current="page"]::after {
+        left: 0.7rem;
+        right: auto;
+        bottom: 0.3rem;
+        width: 32px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 4.2rem 0 3.6rem;
+      }
+
+      section {
+        padding: 4.5rem 0;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .wrap {
+        padding: 0 20px;
+      }
+
+      .nav .wrap {
+        display: flex;
+      }
+
+      .menu {
+        left: 20px;
+        right: 20px;
+      }
+
+      .category-mark .tag {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .category-mark .label {
+        font-size: 1.55rem;
+      }
+
+      .hero h1 {
+        font-size: 2.35rem;
+        max-width: 12ch;
+      }
+
+      .hero .lead {
+        font-size: 1.08rem;
+      }
+
+      .egeasy-statement {
+        font-size: 1.12rem;
+        line-height: 1.48;
+      }
+
+      .sec-head {
+        margin-bottom: 2.35rem;
+      }
+
+      .micro {
+        margin-top: 1.25rem;
+      }
+
+      .process-strip,
+      .grid.cols-4,
+      .grid.cols-3,
+      .grid.cols-2,
+      .not-list,
+      .foot-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pipeline {
+        padding: 0.85rem;
+        gap: 0.65rem;
+      }
+
+      .pipe-row {
+        grid-template-columns: 32px 1fr;
+        padding: 0.75rem;
+      }
+
+      .pipe-dot {
+        width: 32px;
+        height: 32px;
+      }
+
+      .console-output {
+        padding: 0.9rem;
+      }
+
+      .output-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .output-cell {
+        min-height: 52px;
+        padding: 0.6rem;
+      }
+
+      .cycle-visual {
+        min-height: 420px;
+        padding: 0.8rem;
+      }
+
+      .cycle-stage {
+        width: min(100%, 340px);
+      }
+
+      .cycle-node {
+        width: 92px;
+        min-height: 62px;
+        padding: 0.48rem;
+      }
+
+      .cycle-node b {
+        font-size: 0.66rem;
+      }
+
+      .cycle-node small {
+        display: none;
+      }
+
+      .cycle-core {
+        width: 46%;
+        padding: 0.8rem;
+      }
+
+      .cycle-caption {
+        font-size: 0.82rem;
+      }
+
+      #componenti .grid.cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      section {
+        padding: 3.6rem 0;
+      }
+
+      .solution-card,
+      .card {
+        padding: 1.05rem;
+      }
+
+      .solution-card p,
+      .card p,
+      .card .warn {
+        font-size: 0.88rem;
+      }
+
+      .solution-card h3,
+      .card h3 {
+        font-size: 1.12rem;
+      }
+
+      .solution-proof {
+        font-size: 0.88rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .solution-meta {
+        gap: 0.35rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .solution-meta span {
+        font-size: 0.66rem;
+      }
+
+      #componenti .sec-head h2 {
+        font-size: 1.8rem;
+      }
+
+      #componenti .sec-head .lead {
+        font-size: 1rem;
+      }
+
+      #componenti .card .warn {
+        display: none;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .foot-bottom {
+        display: grid;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+
+      .hero .category-mark,
+      .hero h1,
+      .hero .lead,
+      .hero .micro,
+      .hero .hero-actions,
+      .hero .working-on,
+      .product-console {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <img src="assets/egemon-logo.png" alt="Egemon" class="nav-logo-icon">
-    <div class="nav-logo-text">EGEMON<span>.ai</span></div>
-  </div>
-  <button class="nav-toggle" type="button" aria-label="Apri menu" aria-controls="navLinks" aria-expanded="false" onclick="toggleNav(this)">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" id="navLinks">
-    <a href="index.html">Home</a>
-    <a href="principi.html">I Principi</a>
-    <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
-    <div class="nav-dropdown">
-      <a href="piattaforma.html" class="nav-dropdown-trigger">La Piattaforma &#x25BE;</a>
-      <div class="nav-dropdown-menu">
-        <div class="nav-dropdown-menu-inner">
-          <a href="piattaforma.html">Architettura</a>
-          <a href="forge.html">La Workstation</a>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="EGEMON.ai home">
+        <img src="assets/egemon-logo.png" alt="">
+        <span class="brand-name">EGEMON<span>.ai</span></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Apri menu" aria-controls="main-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="menu" id="main-menu" aria-label="Navigazione principale">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="principi.html">I Principi</a>
+        <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
+        <a href="piattaforma.html">La Piattaforma</a>
+        <a href="#scenari">Soluzioni</a>
+        <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <div class="category-mark">
+              <span class="label">AI Cognitiva</span>
+              <span class="tag">la nuova classe di intelligenza</span>
+            </div>
+            <h1 id="hero-title">Il sapere del miglior esperto. Nelle mani di <em>tutto il team</em>.</h1>
+            <p class="lead">Egemon trasforma il know-how di chi sa come si fa in uno strumento operativo che chiunque può usare per ottenere lo stesso risultato, e che forma le persone mentre lavorano.</p>
+            <p class="micro">Ogni esecuzione è anche formazione.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#scenari">Vedi le soluzioni</a>
+              <a class="btn btn-ghost" href="#come-funziona">Come funziona</a>
+            </div>
+            <p class="working-on">Al lavoro su: <b>Crisi di impresa · Quality Document Control · Attestazioni SOA · Education</b></p>
+          </div>
+          <aside class="product-console" aria-label="Flusso operativo EGEMON">
+            <div class="console-top">
+              <p class="console-title">EGEASY runtime</p>
+              <p class="console-status">Governato</p>
+            </div>
+            <div class="pipeline">
+              <div class="pipe-row">
+                <span class="pipe-dot">01</span>
+                <div>
+                  <strong>Intento di business</strong>
+                  <p>L'esperto descrive obiettivo, vincoli, criteri e casi limite in linguaggio naturale.</p>
+                </div>
+              </div>
+              <div class="pipe-row">
+                <span class="pipe-dot">02</span>
+                <div>
+                  <strong>Conoscenza strutturata</strong>
+                  <p>La piattaforma separa calcolo, giudizio, fonti, responsabilità e controlli.</p>
+                </div>
+              </div>
+              <div class="pipe-row">
+                <span class="pipe-dot">03</span>
+                <div>
+                  <strong>Applicazione operativa</strong>
+                  <p>Il team riceve uno strumento tracciabile che produce risultato e forma durante l'uso.</p>
+                </div>
+              </div>
+            </div>
+            <div class="console-output">
+              <h3>Output pronto per il team</h3>
+              <div class="output-grid">
+                <div class="output-cell"><b>Risultato</b>procedura guidata</div>
+                <div class="output-cell"><b>Garanzia</b>quality gate</div>
+                <div class="output-cell"><b>Memoria</b>versioni e vincoli</div>
+                <div class="output-cell"><b>Formazione</b>criterio esplicito</div>
+              </div>
+              <p class="trace-strip">Ogni esecuzione conserva la storia di cosa è stato deciso, con quali regole e perché.</p>
+            </div>
+          </aside>
         </div>
       </div>
-    </div>
-    <a href="#scenari">Soluzioni</a>
-    <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
-  </div>
-</nav>
+    </section>
 
-<!-- HERO -->
-<section id="hero" class="hero-light">
-  <div class="hero-cosmos"></div>
-  <div class="hero-stars"></div>
-  <div class="hero-vignette"></div>
-  <div class="container">
+    <section id="egeasy" aria-labelledby="egeasy-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">La piattaforma proprietaria</span>
+          <h2 id="egeasy-title">EGEASY</h2>
+          <p class="egeasy-statement">EGEASY è la piattaforma di AI Cognitiva sviluppata da Egemon per facilitare la trasformazione del knowledge in applicazioni di Intelligenza Eseguibile: si parte da un intento di business descritto in linguaggio naturale e si arriva a uno strumento operativo, completo, governato e tracciabile, senza scrivere codice e senza essere esperti di intelligenza artificiale.</p>
+        </div>
 
-    <div class="hero-grid">
-      <h1 class="hero-title">
-        <em>AI Cognitiva</em><br>
-        Il Know-how diventa <em>risultato</em>.
-      </h1>
+        <div class="egeasy-layout">
+          <div class="copy-stack">
+            <p class="lead">È una fabbrica generalista, indifferente al settore, a disposizione dell'esperto che ne specializza il risultato descrivendo liberamente l'applicazione che ha in mente. EGEASY comprende l'intento, lo espande con interazioni successive con l'esperto, assorbe in proprio le complessità e crea l'intera applicazione curando la distinzione netta tra ciò che è calcolo e ciò che è giudizio.</p>
+            <p class="lead">Qui sta la differenza di EGEASY: si misura sulla soglia di responsabilità professionale, là dove un commercialista, un medico, un avvocato devono poter rispondere del proprio output. La garanzia non è uno strato aggiunto sopra: è parte stabile dell'architettura del sistema.</p>
+          </div>
+          <div class="operating-map" aria-label="Mappa operativa EGEASY">
+            <div class="map-step">
+              <span>Input</span>
+              <h3>Intento + conoscenza</h3>
+              <p>Obiettivo, documenti, regole, eccezioni, soglie e responsabilità professionale.</p>
+            </div>
+            <div class="map-step">
+              <span>Build</span>
+              <h3>Applicazione governata</h3>
+              <p>Distinzione stabile tra calcolo automatico, giudizio esperto e controllo qualità.</p>
+            </div>
+            <div class="map-step">
+              <span>Run</span>
+              <h3>Uso tracciabile</h3>
+              <p>Ogni esecuzione conserva configurazione, vincoli, versione e motivazione dell'output.</p>
+            </div>
+          </div>
+        </div>
 
-      <p class="hero-claim">
-        Trasformiamo il know-how di dominio in artefatti operativi, utilizzabili ovunque, con l'obiettivo che la qualit&agrave; del risultato dipenda dal processo, non dall'esperienza individuale.
-      </p>
-
-      <p class="hero-dual">
-        Ogni esecuzione &egrave; anche formazione.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#scenari" class="btn-primary">Vedi le soluzioni &rarr;</a>
-        <a href="#factory" class="btn-link">Come funziona</a>
+        <div class="process-strip" id="come-funziona" aria-label="Come funziona EGEASY">
+          <article class="process-step">
+            <span>01 Acquisizione</span>
+            <h3>L'esperto parla naturale</h3>
+            <p>Nessuna competenza tecnologica richiesta: obiettivi, regole e casi limite entrano come conoscenza strutturabile.</p>
+          </article>
+          <article class="process-step">
+            <span>02 Costruzione</span>
+            <h3>La piattaforma governa</h3>
+            <p>Calcolo, giudizio, fonti, controlli e responsabilità restano distinti fin dall'origine.</p>
+          </article>
+          <article class="process-step">
+            <span>03 Distribuzione</span>
+            <h3>Il team lavora meglio</h3>
+            <p>L'applicazione è accessibile agli operatori, produce risultato e forma mentre viene usata.</p>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <p class="hero-proof">
-        Al lavoro su: Crisi di impresa, Quality Document Control, Attestazioni SOA, Education
-      </p>
-    </div>
-  </div>
-</section>
+    <section id="scenari" class="alt" aria-labelledby="scenari-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Le prime applicazioni</span>
+          <h2 id="scenari-title">La stessa fabbrica. Settori diversi.</h2>
+        </div>
 
-<!-- ══════════ SEZIONE: COSA SONO I K-ART ══════════ -->
-<section id="kart" style="padding: 5rem 0; background: var(--bg);">
-  <div class="container">
-    <div class="s-label">Il nostro prodotto</div>
-    <h2 class="s-title">Cosa sono gli Artefatti (cognitivi)</h2>
-    <p class="s-desc" style="max-width:100%; margin-bottom: 2.5rem;">
-      Generati dalla nostra piattaforma di AI Cognitiva, sono la nuova forma di &laquo;applicazioni&raquo;
-      che comprendono il know-how degli esperti del dominio, gestiscono la fusione deterministico/cognitivo
-      per garantirne la corretta esecuzione e la necessaria conformit&agrave;, e lo rendono operativo per chiunque.
-    </p>
-    <p class="kart-manifesto">La democratizzazione della conoscenza e l'empowerment del personale.</p>
+        <div class="grid cols-2">
+          <article class="solution-card featured reserved">
+            <div>
+            <div class="solution-kicker">Q-DOC</div>
+            <h3>Quality Document Control</h3>
+            <div class="solution-meta"><span>Riservato</span><span>Documenti</span><span>Quality score</span><span>Banche</span></div>
+            <p class="solution-proof">Da pratica documentale a fascicolo istruibile al primo colpo.</p>
+            <p>Q-DOC eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
+            </div>
+            <a class="link" href="mailto:info@egemon.ai?subject=Quality%20Document%20Control">Parliamone</a>
+          </article>
 
-    <div class="kart-grid">
-      <div class="kart-block">
-        <div class="kart-num">01</div>
-        <h3 class="kart-title">Nasce dalla conoscenza reale</h3>
-        <p class="kart-desc">Un esperto di dominio trasferisce il proprio sapere attraverso
-          <span class="term" data-tooltip="La workstation EGEMON per destrutturare la conoscenza di dominio in unit&agrave; atomiche (BLURB) e configurare il Genoma di compliance.">EGEMON Forge</span>:
-          regole, eccezioni, soglie, criteri di valutazione. La piattaforma destruttura
-          e organizza tutto automaticamente in
-          <span class="term" data-tooltip="Building Logic Unit Resource Block &mdash; l'unit&agrave; atomica di conoscenza: contiene Rules (regole operative), Scores (pesi e soglie per cliente) e Data (fonti dati e validazione).">BLURB</span>,
-          le unit&agrave; atomiche di conoscenza.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">02</div>
-        <h3 class="kart-title">Opera come l'esperto</h3>
-        <p class="kart-desc">Il K-Art non &egrave; un assistente generico. Conosce ogni regola del dominio,
-          si adatta a chi lo usa &mdash; dal principiante all'esperto &mdash; e garantisce la conformit&agrave;
-          attraverso il
-          <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span>,
-          il DNA di compliance integrato in ogni output.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">03</div>
-        <h3 class="kart-title">Forma mentre esegue</h3>
-        <p class="kart-desc">&Egrave; il principio
-          <span class="term" data-tooltip="Ogni azione del K-Art &egrave; simultaneamente esecuzione e formazione: produce il risultato e spiega il perch&eacute;. L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.">DUAL-Mode</span>:
-          ogni azione &egrave; simultaneamente esecuzione e formazione.
-          Il K-Art produce il risultato e spiega perch&eacute;.
-          L'utente diventa pi&ugrave; capace, non pi&ugrave; dipendente.</p>
-      </div>
-      <div class="kart-block">
-        <div class="kart-num">04</div>
-        <h3 class="kart-title">Migliora nel tempo</h3>
-        <p class="kart-desc">Ogni interazione arricchisce la base di conoscenza.
-          Il K-Art evolve, si affina, anticipa i pattern ricorrenti.
-          &Egrave; l'<span class="term" data-tooltip="Capacit&agrave; del K-Art di evolvere autonomamente: ogni interazione arricchisce la Knowledge Base, chiudendo il ciclo Conoscenza &rarr; Esecuzione &rarr; Apprendimento.">Autopoiesi</span>
-          &mdash; il valore cresce automaticamente.</p>
-      </div>
-    </div>
-  </div>
-</section>
+          <article class="solution-card live">
+            <div class="solution-kicker">PRORA</div>
+            <h3>Crisi d'Impresa</h3>
+            <div class="solution-meta"><span>Live</span><span>CCII</span></div>
+            <p class="solution-proof">Da bilancio e questionario a Valutazione Iniziale pronta per la delibera.</p>
+            <p>PRORA è il programma EGEMON per l'adozione del Codice della Crisi d'Impresa e dell'Insolvenza (CCII), introdotto dal D.Lgs. 14/2019. La prima soluzione, Tutela Preventiva, guida il commercialista nella valutazione iniziale degli adeguati assetti ai sensi dell'art. 2086 c.c. Senza formazione preventiva.</p>
+            <a class="link" href="https://prora.egemon.ai" target="_blank" rel="noopener">Vai a PRORA</a>
+          </article>
 
-<style>
-  .kart-manifesto {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    background: linear-gradient(135deg, #9b8eff 0%, #5b52f0 40%, #c084fc 100%);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 3rem;
-  }
-  .kart-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .kart-block {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .kart-block:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
-  .kart-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.8rem;
-  }
-  .kart-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
-  }
-  .kart-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
-</style>
+          <article class="solution-card live">
+            <div class="solution-kicker">QWIKKEN</div>
+            <h3>Formazione Universitaria</h3>
+            <div class="solution-meta"><span>Live</span><span>Education</span></div>
+            <p class="solution-proof">Da piano di studi e materiali a tutoring adattivo, prova d'esame e valutazione.</p>
+            <p>QWIKKEN è l'applicazione sviluppata per supportare gli studenti universitari che non hanno la possibilità di avere un contatto diretto e costante con un docente per ognuno dei loro esami.</p>
+            <a class="link" href="https://qwikken.egemon.ai?welcome=true" target="_blank" rel="noopener">Accedi a QWIKKEN</a>
+          </article>
 
-<!-- ══════════ SEZIONE 2: SCENARI — Per chi, cosa risolviamo ══════════ -->
-<section id="scenari" style="padding: 5rem 0; background: var(--bg2);">
-  <div class="container">
-    <div class="s-label">I primi K-Art</div>
-    <h2 class="s-title">La stessa promessa.<br>Domini diversi.</h2>
-    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni K-Art nasce da un dominio specifico. L'esperto trasferisce il suo know-how,
-      il K-Art lo rende accessibile a tutti gli operatori del settore.
-    </p>
-    <div class="scenari-grid">
-      <div class="scenario-card">
-        <div class="scenario-icon">&#x1F4B3;</div>
-        <h3 class="scenario-title">Quality Document Control</h3>
-        <p class="scenario-highlight">K-Art Credit eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
-        <p class="scenario-result">Il K-Art Credit analizza la tipologia della pratica, stabilisce i documenti necessari, verifica che siano corretti, supervisiona le attivit&agrave; di completamento e fornisce un Quality Score a beneficio dell'Istituto prescelto.</p>
-        <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
-      </div>
-      <div class="scenario-card">
-        <div class="scenario-icon">&#x1F4CA;</div>
-        <h3 class="scenario-title">Crisi d'Impresa</h3>
-        <p class="scenario-highlight">PRORA &egrave; il programma EGEMON per l'adozione del Codice della Crisi d'Impresa e dell'Insolvenza (CCII), introdotto dal D.Lgs. 14/2019. La prima soluzione, Tutela Preventiva, guida il commercialista nella valutazione iniziale degli adeguati assetti ai sensi dell'art. 2086 c.c. Senza formazione preventiva.</p>
-        <p class="scenario-problem">PRORA legge il bilancio, calcola gli indicatori della crisi con i riferimenti CNDCEC, costruisce il questionario personalizzato sugli assetti organizzativi, amministrativi e contabili, e produce il documento di Valutazione Iniziale pronto per la delibera dell'organo amministrativo.</p>
-        <p class="scenario-result">Trasforma un adempimento complesso in un percorso guidato in pochi passi. &Egrave; la base per l'evoluzione verso la consulenza professionale continuativa dello Studio sulla salute finanziaria d'impresa.</p>
-        <a href="https://prora.egemon.ai" target="_blank" class="scenario-readmore">Vai a PRORA &rarr;</a>
-      </div>
-      <div class="scenario-card">
-        <div class="scenario-icon">&#x1F393;</div>
-        <h3 class="scenario-title">Formazione Universitaria</h3>
-        <p class="scenario-highlight">QWIKKEN &egrave; il K-Art sviluppato per supportare le centinaia di migliaia di studenti universitari che non hanno la possibilit&agrave; di avere un contatto diretto e costante con un docente per ognuno dei loro esami.</p>
-        <p class="scenario-problem">Il K-Art conosce il piano di studi, gestisce ogni tipo di documentazione disponibile sull'esame, insegna allo studente la materia adattandosi alle sue capacit&agrave; di apprendimento, risponde ai suoi quesiti e gli fornisce una &laquo;prova di esame&raquo; con relativa valutazione.</p>
-        <p class="scenario-result">Assiste nella redazione della tesi e nella successiva creazione di K-Art di &laquo;stage virtuale&raquo; redatti dalle Imprese per migliorare l'accessibilit&agrave; dei neo laureati al loro mondo del lavoro.</p>
-        <a href="https://qwikken.egemon.ai?welcome=true" target="_blank" class="scenario-readmore">Accedi a QWIKKEN &rarr;</a>
-      </div>
-      <div class="scenario-card">
-        <div class="scenario-icon">&#x1F3D7;</div>
-        <h3 class="scenario-title">Attestazioni SOA</h3>
-        <p class="scenario-highlight">K-Art SOA supporta l'intero processo di qualificazione delle imprese di costruzione, dalla raccolta documentale alla verifica dei requisiti fino all'emissione dell'attestazione. Senza formazione specifica per l'operatore.</p>
-        <p class="scenario-problem">Il K-Art SOA analizza la documentazione dell'impresa, verifica la conformit&agrave; ai requisiti delle categorie richieste, segnala anomalie e incompletezze, e guida l'operatore fino al completamento della pratica con un Quality Score di affidabilit&agrave;.</p>
-        <p class="scenario-highlight">&Egrave; disponibile anche la versione dedicata alla erogazione di servizi specializzati per l'impresa stessa: gestione gare, compliance cantieri, monitoraggio scadenze e personalizzazione per ogni esigenza.</p>
-        <a href="#" onclick="openReserved(event)" class="scenario-readmore">Parliamone &rarr;</a>
-      </div>
-      <div class="scenario-card scenario-card-cta">
-        <div class="scenario-icon">&#x1F310;</div>
-        <h3 class="scenario-title">Il tuo dominio</h3>
-        <p class="scenario-problem">Qualsiasi settore ad alta intensit&agrave; cognitiva: sanit&agrave;, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
-        <p class="scenario-result"><a href="mailto:info@egemon.ai" style="color:var(--accent2); text-decoration:none; font-weight:600;">Contattaci &rarr;</a></p>
-      </div>
-    </div>
-  </div>
-</section>
+          <article class="solution-card reserved">
+            <div class="solution-kicker">SOA</div>
+            <h3>Attestazioni SOA</h3>
+            <div class="solution-meta"><span>Riservato</span><span>Compliance</span></div>
+            <p class="solution-proof">Da documentazione impresa a percorso guidato di verifica requisiti.</p>
+            <p>App SOA supporta l'intero processo di qualificazione delle imprese di costruzione, dalla raccolta documentale alla verifica dei requisiti fino all'emissione dell'attestazione. Senza formazione specifica per l'operatore.</p>
+            <a class="link" href="mailto:info@egemon.ai?subject=Attestazioni%20SOA">Parliamone</a>
+          </article>
 
-<style>
-  .scenari-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  .scenario-card {
-    background: var(--surface); border: 2px solid rgba(155,142,255,0.25);
-    border-radius: 14px; padding: 2rem;
-    transition: transform .25s, box-shadow .25s, border-color .25s;
-    box-shadow: 0 2px 12px rgba(91,82,240,0.10);
-  }
-  .scenario-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(91,82,240,0.35), 0 0 0 1px rgba(155,142,255,0.3);
-    border-color: var(--accent);
-  }
-  .scenario-card:active {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 20px rgba(91,82,240,0.5), inset 0 0 20px rgba(91,82,240,0.08);
-    border-color: var(--accent2);
-  }
-  .scenario-card-cta {
-    border: 1px dashed rgba(155,142,255,0.3);
-    background: rgba(91,82,240,0.05);
-  }
-  .scenario-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-  .scenario-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 0.8rem;
-    letter-spacing: -0.02em; text-transform: uppercase;
-  }
-  .scenario-highlight {
-    font-size: 0.95rem; color: var(--text); line-height: 1.6; margin-bottom: 0.8rem; font-weight: 500;
-  }
-  .scenario-problem, .scenario-result {
-    font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.8rem;
-  }
-  .scenario-result {
-    padding-top: 0.8rem; border-top: 1px solid var(--border);
-    margin-bottom: 1rem;
-  }
-  .scenario-readmore {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: 0.5rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all .2s;
-  }
-  .scenario-readmore:hover {
-    background: #6b63f5;
-    transform: translateY(-1px);
-  }
-</style>
-
-<!-- ══════════ SEZIONE: IL CICLO COGNITIVO ══════════ -->
-<section id="ciclo" style="padding: 5rem 0; background: var(--bg2);">
-  <div class="container">
-    <div class="ciclo-grid">
-      <div class="ciclo-text">
-        <div class="s-label">Il Principio</div>
-        <h2 class="s-title">Il Ciclo Cognitivo<br>dell'Intelligenza Eseguibile</h2>
-        <p class="s-desc">
-          Democratizzare la conoscenza significa renderla utilizzabile
-          da chiunque, <span style="color: var(--accent2); font-weight: 600;">indipendentemente dalla competenza individuale.</span>
-        </p>
-        <p class="s-desc">
-          Questo richiede che il sapere dell'esperto venga trasferito
-          agli operatori in una forma che ciascuno possa usare,
-          in qualsiasi circostanza. I 5 Principi del Ciclo Cognitivo
-          governano questa trasformazione: un flusso continuo dove
-          ogni principio alimenta il successivo.
-        </p>
+          <article class="solution-card">
+            <div class="solution-kicker">AMBITO</div>
+            <h3>Il tuo settore</h3>
+            <div class="solution-meta"><span>Custom</span><span>Alta intensità cognitiva</span></div>
+            <p class="solution-proof">Quando il valore dipende da criteri, eccezioni, documenti e responsabilità.</p>
+            <p>Qualsiasi settore ad alta intensità cognitiva: sanità, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
+            <a class="link" href="mailto:info@egemon.ai?subject=Nuovo%20settore%20EGEMON">Contattaci</a>
+          </article>
+        </div>
       </div>
-      <div class="ciclo-image">
-        <img src="assets/ciclo-cognitivo-intelligenza-eseguibile (9).png" alt="Il Ciclo Cognitivo dell'Intelligenza Eseguibile" class="ciclo-img">
+    </section>
+
+    <section id="ciclo" aria-labelledby="ciclo-title">
+      <div class="wrap">
+        <div class="cycle-layout">
+          <div>
+            <span class="eyebrow">Il principio</span>
+            <h2 id="ciclo-title">Il Ciclo Cognitivo dell'Intelligenza Eseguibile</h2>
+            <p class="lead">Democratizzare la conoscenza significa renderla utilizzabile da chiunque, indipendentemente dalla competenza individuale. Questo richiede che il sapere dell'esperto venga trasferito agli operatori in una forma che ciascuno possa usare, in qualsiasi circostanza.</p>
+            <p class="lead" style="margin-top:1rem;">I 5 Principi del Ciclo Cognitivo governano questa trasformazione: un flusso continuo dove ogni principio alimenta il successivo.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ghost" href="ciclo-cognitivo.html">Approfondisci il ciclo</a>
+            </div>
+          </div>
+          <figure class="cycle-visual" aria-label="Diagramma dinamico del Ciclo Cognitivo dell'Intelligenza Eseguibile">
+            <div class="cycle-stage" aria-hidden="true">
+              <div class="cycle-orbit"></div>
+              <div class="cycle-core">
+                <div>
+                  <strong>Ciclo Cognitivo</strong>
+                  <span>5 principi in movimento</span>
+                </div>
+              </div>
+              <div class="cycle-node n1"><div><b>Conoscenza</b><small>Knowledge Base</small></div></div>
+              <div class="cycle-node n2"><div><b>Consapevolezza</b><small>Context</small></div></div>
+              <div class="cycle-node n3"><div><b>Esecuzione</b><small>Quality Gate</small></div></div>
+              <div class="cycle-node n4"><div><b>Formazione</b><small>Dual Mode</small></div></div>
+              <div class="cycle-node n5"><div><b>Autopoiesi</b><small>Evoluzione</small></div></div>
+            </div>
+            <figcaption class="cycle-caption">La conoscenza si trasforma in esecuzione, l'esecuzione forma, la formazione riporta valore al sistema.</figcaption>
+          </figure>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<style>
-  /* Section 2: Ciclo Cognitivo */
-  .ciclo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 4rem;
-    align-items: center;
-  }
-  .s-label {
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem;
-  }
-  .s-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2.4rem; font-weight: 800; line-height: 1.15;
-    letter-spacing: -0.02em; margin-bottom: 1.5rem; color: var(--text);
-  }
-  .s-desc {
-    font-size: 1.35rem; color: var(--text); line-height: 1.7;
-    margin-bottom: 1.4rem; max-width: 100%;
-  }
+    <section id="componenti" aria-labelledby="componenti-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">I 5 componenti</span>
+          <h2 id="componenti-title">Togli un componente e non hai un'applicazione EGEMON. Hai un problema.</h2>
+          <p class="lead">Ogni applicazione possiede tutti e 5 i componenti, sempre, in ciclo. È la garanzia EGEMON: nessun artefatto esce dalla piattaforma incompleto.</p>
+        </div>
 
-  /* Ciclo image — blend with section bg */
-  .ciclo-img {
-    width: 100%;
-    max-width: 620px;
-    height: auto;
-    display: block;
-    mix-blend-mode: lighten;
-  }
-  .ciclo-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
-
-<!-- ══════════ SEZIONE 3: LA PIATTAFORMA ══════════ -->
-<section id="piattaforma" style="padding: 5rem 0; background: var(--bg);">
-  <div class="container">
-    <div class="s-label">La Piattaforma</div>
-    <h2 class="s-title">Dall'esperto a tutti.<br>Automaticamente.</h2>
-    <p class="s-desc" style="max-width:100%;">
-      EGEMON orchestra l'intero ciclo: dall'acquisizione della conoscenza
-      dell'esperto di dominio fino alla distribuzione di un K-Art che opera
-      in totale autonomia. <span style="color: var(--accent2); font-weight: 600;">Chi lo usa non percepisce la complessit&agrave;
-      &mdash; percepisce solo il risultato.</span>
-    </p>
-
-    <div class="platform-grid">
-      <div class="platform-card">
-        <div class="platform-card-icon" style="color: var(--accent2);">01</div>
-        <h3 class="platform-card-title">Knowledge Acquisition</h3>
-        <p class="platform-card-desc">L'esperto di dominio lavora in linguaggio naturale.
-          Nessuna competenza tecnologica richiesta. La piattaforma destruttura
-          e organizza la conoscenza automaticamente.</p>
+        <div class="grid cols-4">
+          <article class="card">
+            <span class="sub">Knowledge Base</span>
+            <h3>Conoscenza</h3>
+            <p>È il cosa sa fare: regole, eccezioni, soglie e criteri di valutazione dell'ambito operativo.</p>
+            <span class="warn">Senza Conoscenza: chiacchiera ma non produce.</span>
+          </article>
+          <article class="card">
+            <span class="sub">Context & Genome Awareness</span>
+            <h3>Consapevolezza</h3>
+            <p>Applica la conoscenza a questo utente, in questa organizzazione, in questo momento, con questi vincoli.</p>
+            <span class="warn">Senza Consapevolezza: fa la cosa giusta nel contesto sbagliato.</span>
+          </article>
+          <article class="card">
+            <span class="sub">Quality Gate</span>
+            <h3>Esecuzione</h3>
+            <p>Ogni output passa verifiche di conformità, coerenza, completezza, vulnerabilità ed eccellenza.</p>
+            <span class="warn">Senza Quality Gate: output inaffidabili.</span>
+          </article>
+          <article class="card">
+            <span class="sub">Dual Mode</span>
+            <h3>Formazione</h3>
+            <p>Ogni atto è simultaneamente esecuzione e formazione: produce il risultato e spiega perché.</p>
+            <span class="warn">Senza Formazione: l'utente esegue senza capire.</span>
+          </article>
+          <article class="card">
+            <span class="sub">Evoluzione Continua</span>
+            <h3>Autopoiesi</h3>
+            <p>Ogni interazione riporta nuova conoscenza al sistema e migliora l'ambito operativo nel tempo.</p>
+            <span class="warn">Senza Autopoiesi: funziona oggi, invecchia domani.</span>
+          </article>
+        </div>
       </div>
-      <div class="platform-card">
-        <div class="platform-card-icon" style="color: var(--accent2);">02</div>
-        <h3 class="platform-card-title">Cognitive Processing</h3>
-        <p class="platform-card-desc">Il motore <span class="term" data-tooltip="Meta-Model Semantics &mdash; il kernel neuro-simbolico proprietario di EGEMON. Compila artefatti cognitivi just-in-time: analizza l'intent, assembla solo gli strumenti necessari, esegue e distrugge. Zero contaminazione tra contesti.">MMS</span> applica i 5 Principi, costruisce
-          il <span class="term" data-tooltip="Struttura gerarchica a 5 livelli (Assiomi, Enterprise, Applicazione, Preferenze, IP) che garantisce la compliance per architettura &mdash; non per filtro.">Genoma</span> di compliance e genera il K-Art con la struttura del
-          <span class="term" data-tooltip="L'interfaccia all'intelligenza eseguibile: un partner cognitivo che incarna l'expertise dell'organizzazione, si adatta all'utente e opera in 6 modalit&agrave; (Socratico, Tutor, Esaminatore, Sparring, Data, Quality Gate).">Cognitive Twin</span> integrata.</p>
+    </section>
+
+    <section id="non-e" class="alt" aria-labelledby="non-e-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">Chiarezza</span>
+          <h2 id="non-e-title">Cosa non è.</h2>
+        </div>
+
+        <div class="not-list">
+          <div class="not-item">
+            <b>Non è un chatbot.</b>
+            <span>Un chatbot risponde a domande. Un'applicazione EGEMON risolve problemi.</span>
+          </div>
+          <div class="not-item">
+            <b>Non è software con AI aggiunta.</b>
+            <span>Il software esegue procedure. EGEMON conosce l'ambito di lavoro, si adatta, forma, evolve.</span>
+          </div>
+          <div class="not-item">
+            <b>Non è un assistente virtuale.</b>
+            <span>L'assistente aspetta istruzioni. L'applicazione guida il percorso operativo.</span>
+          </div>
+          <div class="not-item">
+            <b>Non è un sostituto delle persone.</b>
+            <span>EGEMON valorizza le persone. Le rende più capaci, non più dipendenti.</span>
+          </div>
+        </div>
       </div>
-      <div class="platform-card">
-        <div class="platform-card-icon" style="color: var(--accent2);">03</div>
-        <h3 class="platform-card-title">Distribuzione</h3>
-        <p class="platform-card-desc">Il K-Art &egrave; immediatamente accessibile
-          a tutti gli operatori. Si adatta nel tempo, apprende dal contesto
-          e migliora autonomamente la propria efficacia.</p>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="wrap">
+        <h2 id="cta-title">Pronti a rendere accessibile la conoscenza del vostro settore?</h2>
+        <p>Partner tecnologici, esperti di area, vertici aziendali: parliamo di come EGEMON può trasformare il vostro know-how in intelligenza operativa per tutti.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:info@egemon.ai?subject=Contatto%20EGEMON">Contattaci</a>
+          <a class="btn btn-ghost" href="piattaforma.html">Accedi alla piattaforma</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="index.html" aria-label="EGEMON.ai home">
+            <img src="assets/egemon-logo.png" alt="">
+            <span class="brand-name">EGEMON<span>.ai</span></span>
+          </a>
+          <p style="margin-top:0.9rem; max-width:34ch;">Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
+          <p style="margin-top:0.9rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
+        </div>
+        <div>
+          <h4>Piattaforma</h4>
+          <a href="#egeasy">EGEASY</a>
+          <a href="#come-funziona">Come funziona</a>
+          <a href="ciclo-cognitivo.html">Il Ciclo Cognitivo</a>
+          <a href="principi.html">I Principi Fondanti</a>
+          <a href="piattaforma.html">La Piattaforma</a>
+        </div>
+        <div>
+          <h4>Soluzioni</h4>
+          <a href="#scenari">Le prime applicazioni</a>
+          <a href="https://prora.egemon.ai" target="_blank" rel="noopener">PRORA</a>
+          <a href="https://qwikken.egemon.ai?welcome=true" target="_blank" rel="noopener">QWIKKEN</a>
+          <a href="mailto:info@egemon.ai">Contattaci</a>
+        </div>
+        <div>
+          <h4>Legale</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="cookie.html">Cookie Policy</a>
+          <a href="terms.html">Termini di Servizio</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 EGEMON.ai - Tutti i diritti riservati</span>
+        <span>Powered by MMS Technology</span>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const mainMenu = document.getElementById("main-menu");
 
-<!-- ══════════ SEZIONE 4: I 5 COMPONENTI ══════════ -->
-<section id="componenti" style="padding: 5rem 0; background: var(--bg2);">
-  <div class="container">
-    <div class="s-label">I 5 Componenti</div>
-    <h2 class="s-title">Togli un componente e non hai un K-Art.<br>Hai un problema.</h2>
-    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni K-Art possiede tutti e 5 i componenti, sempre, in ciclo.
-      &Egrave; la garanzia EGEMON: nessun artefatto esce dalla piattaforma incompleto.
-    </p>
+    if (navToggle && mainMenu) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+        navToggle.setAttribute("aria-expanded", String(!isOpen));
+        navToggle.setAttribute("aria-label", isOpen ? "Apri menu" : "Chiudi menu");
+        mainMenu.classList.toggle("open", !isOpen);
+      });
 
-    <div class="componenti-grid">
-      <div class="comp-card">
-        <div class="comp-num">01</div>
-        <h3 class="comp-title">CONOSCENZA</h3>
-        <div class="comp-sub">Knowledge Base</div>
-        <p class="comp-desc">&Egrave; il <strong>cosa sa fare</strong> il K-Art. Conosce ogni regola,
-          ogni eccezione, ogni soglia, ogni criterio di valutazione del dominio.
-          <br><em>Senza Conoscenza: chiacchiera ma non produce.</em></p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-num">02</div>
-        <h3 class="comp-title">CONSAPEVOLEZZA</h3>
-        <div class="comp-sub">Context &amp; Genome Awareness</div>
-        <p class="comp-desc">Applica la conoscenza a <strong>questo utente, in questa organizzazione,
-          in questo momento</strong>, con questi vincoli. Si adatta al principiante e all'esperto.
-          <br><em>Senza Consapevolezza: fa la cosa giusta nel contesto sbagliato.</em></p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-num">03</div>
-        <h3 class="comp-title">ESECUZIONE</h3>
-        <div class="comp-sub">Quality Gate</div>
-        <p class="comp-desc">&Egrave; il <strong>come produce</strong>. Ogni output passa un <span class="term" data-tooltip="Verifica a 5 livelli prima di ogni output: Conformit&agrave; (rispetta le regole), Coerenza (logica interna), Completezza (nulla manca), Vulnerabilit&agrave; (rischi identificati), Eccellenza (best practice).">Quality Gate</span>
-          a 5 livelli: Conformit&agrave;, Coerenza, Completezza, Vulnerabilit&agrave;, Eccellenza.
-          <br><em>Senza Quality Gate: output inaffidabili, falsa sicurezza.</em></p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-num">04</div>
-        <h3 class="comp-title">FORMAZIONE</h3>
-        <div class="comp-sub">Dual Mode</div>
-        <p class="comp-desc">Ogni atto &egrave; simultaneamente <strong>esecuzione e formazione</strong>.
-          Produce il risultato e spiega perch&eacute;. Applica la regola e insegna il principio.
-          <br><em>Senza Formazione: l'utente esegue senza capire. Dipendenza totale.</em></p>
-      </div>
-      <div class="comp-card">
-        <div class="comp-num">05</div>
-        <h3 class="comp-title">AUTOPOIESI</h3>
-        <div class="comp-sub">Evoluzione Continua</div>
-        <p class="comp-desc">&Egrave; il <strong>come matura</strong>. Chiude il ciclo riportando a Conoscenza.
-          Il valore cresce nel tempo &mdash; automaticamente.
-          <br><em>Senza Autopoiesi: funziona il primo anno, obsoleto il secondo.</em></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SEZIONE 5: LA FACTORY ══════════ -->
-<section id="factory" style="padding: 5rem 0; background: var(--bg);">
-  <div class="container">
-    <div class="s-label">La Factory</div>
-    <h2 class="s-title">Tre modi per democratizzare<br>la conoscenza del tuo dominio.</h2>
-    <p class="s-desc" style="max-width:100%; margin-bottom: 3rem;">
-      Ogni K-Art nasce nella EGEMON Factory. A qualsiasi livello,
-      tutti e 5 i componenti sono sempre presenti. Qualsiasi dominio
-      con conoscenza strutturabile diventa un K-Art.
-    </p>
-
-    <div class="factory-grid">
-      <div class="factory-card">
-        <div class="factory-badge" style="background:rgba(34,197,94,0.15); color:var(--green);">CHIAVI IN MANO</div>
-        <h3 class="factory-title">Soluzione Completa</h3>
-        <p class="factory-desc">K-Art pronto all'uso. Conoscenza completa e validata,
-          Genoma preconfigurato, Quality Gate operativo, percorsi formativi integrati,
-          autopoiesi gestita da EGEMON.</p>
-        <div class="factory-detail">Colleghi i tuoi dati e sei operativo.</div>
-      </div>
-      <div class="factory-card">
-        <div class="factory-badge" style="background:rgba(234,179,8,0.15); color:var(--gold);">PERSONALIZZABILE</div>
-        <h3 class="factory-title">Mockup</h3>
-        <p class="factory-desc">Struttura progettata, da personalizzare. Conoscenza da adattare,
-          Genoma base da calibrare, Quality Gate da tarare, template formativi
-          da contestualizzare.</p>
-        <div class="factory-detail">Colleghi i tuoi dati e personalizzi.</div>
-      </div>
-      <div class="factory-card">
-        <div class="factory-badge" style="background:rgba(155,142,255,0.15); color:var(--accent2);">AUTONOMIA TOTALE</div>
-        <h3 class="factory-title">Workstation</h3>
-        <p class="factory-desc">Lo strumento per costruire i tuoi K-Art. La conoscenza
-          la costruisci tu, il Genoma lo progetti tu, il Quality Gate lo configuri tu.
-          La responsabilit&agrave; dell'evoluzione &egrave; tua.</p>
-        <div class="factory-detail">Colleghi i tuoi dati e costruisci.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SEZIONE 6: COSA NON È ══════════ -->
-<section id="non-e" style="padding: 5rem 0; background: var(--bg2);">
-  <div class="container">
-    <div class="s-label">Chiarezza</div>
-    <h2 class="s-title">Cosa un K-Art<br>NON &nbsp; &nbsp; &egrave;.</h2>
-
-    <div class="none-grid">
-      <div class="none-item">
-        <div class="none-no">Non &egrave; un chatbot.</div>
-        <div class="none-why">Un chatbot risponde a domande. Un K-Art risolve problemi.</div>
-      </div>
-      <div class="none-item">
-        <div class="none-no">Non &egrave; un software con AI.</div>
-        <div class="none-why">Il software esegue procedure. Il K-Art conosce il dominio, si adatta, forma, evolve.</div>
-      </div>
-      <div class="none-item">
-        <div class="none-no">Non &egrave; un assistente virtuale.</div>
-        <div class="none-why">L'assistente aspetta istruzioni. Il K-Art guida proattivamente.</div>
-      </div>
-      <div class="none-item">
-        <div class="none-no">Non &egrave; un sostituto delle persone.</div>
-        <div class="none-why">Il K-Art valorizza le persone. Le rende pi&ugrave; brave, non le rimpiazza.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SEZIONE 7: CTA ══════════ -->
-<section id="cta" style="padding: 5rem 0; background: var(--bg2); text-align: center;">
-  <div class="container">
-    <h2 class="s-title" style="margin-bottom: 1rem;">Pronti a rendere accessibile<br>la conoscenza del vostro dominio?</h2>
-    <p class="s-desc" style="max-width:600px; margin: 0 auto 2.5rem; text-align:center;">
-      Partner tecnologici, esperti di dominio, vertici aziendali &mdash;
-      parliamo di come EGEMON pu&ograve; trasformare il vostro know-how
-      in intelligenza operativa per tutti.
-    </p>
-    <div style="display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;">
-      <a href="mailto:info@egemon.ai" class="btn-primary">Contattaci &rarr;</a>
-      <a href="#" class="btn-ghost">Accedi alla piattaforma &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<style>
-  /* Platform cards */
-  .platform-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 2rem; margin-top: 3rem;
-  }
-  .platform-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .platform-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
-  .platform-card-icon {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 2rem; font-weight: 800; margin-bottom: 1rem;
-  }
-  .platform-card-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text);
-  }
-  .platform-card-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; }
-
-  /* 5 Componenti */
-  .componenti-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 1.2rem;
-  }
-  .comp-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.5rem;
-    transition: transform .2s;
-  }
-  .comp-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
-  .comp-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem; font-weight: 800; color: var(--accent2); margin-bottom: 0.6rem;
-    animation: glowPulse 3s ease infinite;
-  }
-  .comp-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem;
-  }
-  .comp-sub {
-    font-size: 0.75rem; color: var(--muted); margin-bottom: 0.8rem;
-    letter-spacing: 0.03em;
-  }
-  .comp-desc { font-size: 0.88rem; color: var(--text); line-height: 1.6; }
-  .comp-desc em { color: var(--muted); font-style: italic; }
-  .comp-desc strong { color: var(--text); }
-
-  /* Factory */
-  .factory-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-  .factory-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 2rem;
-    transition: transform .2s;
-  }
-  .factory-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(91,82,240,0.2); border-color: var(--accent); }
-  .factory-badge {
-    display: inline-block; font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.1em; padding: 0.25rem 0.7rem; border-radius: 6px;
-    margin-bottom: 1rem; text-transform: uppercase;
-  }
-  .factory-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 0.8rem;
-  }
-  .factory-desc { font-size: 0.95rem; color: var(--text); line-height: 1.65; margin-bottom: 1rem; }
-  .factory-detail {
-    font-size: 0.85rem; font-weight: 600; color: var(--accent2);
-    padding-top: 0.8rem; border-top: 1px solid var(--border);
-  }
-
-  /* Cosa NON è */
-  .none-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.5rem; margin-top: 2rem;
-  }
-  .none-item {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.8rem;
-  }
-  .none-no {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem;
-  }
-  .none-why { font-size: 0.95rem; color: var(--text); line-height: 1.6; }
-
-</style>
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer class="footer-full">
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.25rem;">
-        <img src="assets/egemon-logo.png" alt="Egemon" style="width:28px; height:28px; border-radius:6px; object-fit:contain;" />
-        <div class="footer-logo-text">EGEMON<span>.ai</span></div>
-      </div>
-      <p>Piattaforma di AI Cognitiva per rendere il know-how degli esperti accessibile a tutti.</p>
-      <p style="margin-top:0.5rem; font-size:0.78rem;">EGEMON srl<br>P.IVA 04140280985<br>info@egemon.ai</p>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Piattaforma</div>
-      <a href="#kart">Cosa sono i K-Art</a>
-      <a href="#ciclo">Il Ciclo Cognitivo</a>
-      <a href="principi.html">I Principi Fondanti</a>
-      <a href="piattaforma.html">La Piattaforma</a>
-      <a href="#factory">La Factory</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Soluzioni</div>
-      <a href="#scenari">I primi K-Art</a>
-      <a href="mailto:info@egemon.ai">Contattaci</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Legale</div>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="cookie.html">Cookie Policy</a>
-      <a href="terms.html">Termini di Servizio</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>&copy; 2026 EGEMON.ai &mdash; Tutti i diritti riservati</div>
-    <div>Powered by MMS Technology</div>
-  </div>
-</footer>
-
-<style>
-  .footer-logo-text {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem; font-weight: 700;
-    letter-spacing: 0.04em; color: var(--text);
-    text-transform: uppercase;
-  }
-  .footer-logo-text span { color: var(--accent2); font-style: italic; font-weight: 400; text-transform: lowercase; font-size: 0.8em; }
-  .footer-full {
-    padding: 4rem 5rem 2rem;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
-  }
-  .footer-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 3rem; margin-bottom: 3rem;
-  }
-  .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-top: 0.75rem; }
-  .footer-col-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.7rem; font-weight: 800;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--text); margin-bottom: 1rem;
-  }
-  .footer-col a {
-    display: block; font-size: 0.85rem; color: var(--muted);
-    text-decoration: none; margin-bottom: 0.5rem; transition: color .2s;
-  }
-  .footer-col a:hover { color: var(--accent2); }
-  .footer-bottom {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 1.5rem; border-top: 1px solid var(--border);
-    font-size: 0.75rem; color: var(--muted);
-    flex-wrap: wrap; gap: 0.5rem;
-  }
-</style>
-
-<!-- Particle starfield in Hero -->
-<style>
-  .particles {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none; z-index: 0; overflow: hidden;
-  }
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: #fff;
-  }
-  .p1 { width:4px; height:4px; top:12%; left:8%; animation: twinkle 4s ease infinite, float1 6s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
-  .p2 { width:3px; height:3px; top:25%; left:85%; animation: twinkle 5s ease infinite 0.5s, float2 7s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
-  .p3 { width:5px; height:5px; top:60%; left:92%; animation: twinkle 3.5s ease infinite 1s, float1 8s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
-  .p4 { width:3px; height:3px; top:75%; left:5%; animation: twinkle 6s ease infinite 0.3s, float2 5s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
-  .p5 { width:4px; height:4px; top:8%; left:45%; animation: twinkle 4.5s ease infinite 1.5s, float1 9s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
-  .p6 { width:3px; height:3px; top:40%; left:95%; animation: twinkle 5.5s ease infinite 2s; box-shadow: 0 0 5px rgba(255,255,255,0.3); }
-  .p7 { width:5px; height:5px; top:88%; left:70%; animation: twinkle 3s ease infinite 0.8s, float2 6s ease infinite; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
-  .p8 { width:3px; height:3px; top:55%; left:15%; animation: twinkle 7s ease infinite 1.2s, float1 7s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
-  .p9 { width:3px; height:3px; top:18%; left:72%; animation: twinkle 4s ease infinite 2.5s; box-shadow: 0 0 5px rgba(255,255,255,0.3); }
-  .p10 { width:4px; height:4px; top:45%; left:35%; animation: twinkle 5s ease infinite 0.7s, float2 8s ease infinite; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
-  .p11 { width:3px; height:3px; top:70%; left:55%; animation: twinkle 6s ease infinite 1.8s, float1 5s ease infinite; box-shadow: 0 0 5px rgba(255,255,255,0.4); }
-  .p12 { width:4px; height:4px; top:30%; left:22%; animation: twinkle 3.5s ease infinite 3s; background: rgba(192,132,252,0.8); box-shadow: 0 0 8px rgba(192,132,252,0.6); }
-</style>
-
-<script>
-// Inject particles into Hero
-const hero = document.getElementById('hero');
-const particlesDiv = document.createElement('div');
-particlesDiv.className = 'particles';
-for (let i = 1; i <= 12; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle p' + i;
-  particlesDiv.appendChild(p);
-}
-hero.insertBefore(particlesDiv, hero.firstChild);
-
-// Reveal on scroll — add 'reveal' class to all sections except hero
-document.querySelectorAll('section:not(#hero) .container > *').forEach(el => {
-  el.classList.add('reveal');
-});
-
-// Also reveal cards individually for stagger effect
-document.querySelectorAll('.scenario-card, .platform-card, .comp-card, .factory-card, .none-item').forEach((el, i) => {
-  el.classList.add('reveal');
-  el.style.transitionDelay = (i % 5) * 0.1 + 's';
-});
-
-// Intersection Observer
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+      mainMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.setAttribute("aria-label", "Apri menu");
+          mainMenu.classList.remove("open");
+        });
+      });
     }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Also reveal kart-block cards
-document.querySelectorAll('.kart-block').forEach((el, i) => {
-  el.classList.add('reveal');
-  el.style.transitionDelay = (i % 4) * 0.1 + 's';
-  observer.observe(el);
-});
-</script>
-
-<!-- Tooltip system -->
-<style>
-  .term {
-    color: var(--accent2);
-    border-bottom: 1px dotted var(--accent2);
-    cursor: help;
-    position: relative;
-  }
-  .tooltip {
-    position: absolute;
-    bottom: calc(100% + 10px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--surface);
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    padding: 0.8rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--text);
-    line-height: 1.5;
-    width: 380px;
-    box-shadow: 0 8px 30px rgba(91,82,240,0.3);
-    z-index: 200;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .tooltip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 6px solid transparent;
-    border-top-color: var(--accent);
-  }
-  .term:hover .tooltip,
-  .term.active .tooltip {
-    opacity: 1;
-    pointer-events: auto;
-  }
-</style>
-
-<script>
-// Create tooltips from data-tooltip attributes
-document.querySelectorAll('.term[data-tooltip]').forEach(term => {
-  const tip = document.createElement('span');
-  tip.className = 'tooltip';
-  tip.innerHTML = term.getAttribute('data-tooltip');
-  term.appendChild(tip);
-});
-
-// Mobile: toggle on tap
-document.querySelectorAll('.term').forEach(term => {
-  term.addEventListener('click', (e) => {
-    e.stopPropagation();
-    document.querySelectorAll('.term.active').forEach(t => {
-      if (t !== term) t.classList.remove('active');
-    });
-    term.classList.toggle('active');
-  });
-});
-document.addEventListener('click', () => {
-  document.querySelectorAll('.term.active').forEach(t => t.classList.remove('active'));
-});
-</script>
-
-<!-- Reserved Info Modal -->
-<div id="reserved-modal" class="reserved-overlay" onclick="closeReserved(event)">
-  <div class="reserved-card" onclick="event.stopPropagation()">
-    <div class="reserved-accent"></div>
-    <div class="reserved-body">
-      <div class="reserved-icon">&#x1F512;</div>
-      <h3 class="reserved-title">Informazioni Riservate</h3>
-      <p class="reserved-text">
-        Le informazioni relative ai K-Art che non dispongono di una propria
-        pagina nel sito sono considerate <strong>riservate</strong> e vengono fornite
-        su specifica richiesta.
-      </p>
-      <p class="reserved-text">
-        L'accesso &egrave; disponibile a seguito di una breve intervista online
-        con un nostro rappresentante.
-      </p>
-      <div class="reserved-actions">
-        <a href="mailto:info@egemon.ai" class="btn-primary">Richiedi un incontro &rarr;</a>
-        <button onclick="closeReserved(event)" class="reserved-close-btn">Chiudi</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<style>
-  .reserved-overlay {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(6,8,16,0.85);
-    backdrop-filter: blur(8px);
-    z-index: 500;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  .reserved-overlay.open {
-    display: flex;
-    opacity: 1;
-  }
-  .reserved-card {
-    background: var(--surface);
-    border: 1px solid rgba(155,142,255,0.25);
-    border-radius: 16px;
-    max-width: 520px;
-    width: 90%;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(91,82,240,0.3);
-  }
-  .reserved-accent {
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), #c084fc);
-  }
-  .reserved-body {
-    padding: 2.5rem;
-    text-align: center;
-  }
-  .reserved-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1.2rem;
-  }
-  .reserved-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.01em;
-  }
-  .reserved-text {
-    font-size: 1rem;
-    color: var(--soft);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-  .reserved-text strong {
-    color: var(--text);
-  }
-  .reserved-actions {
-    margin-top: 2rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .reserved-close-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 0.7rem 1.5rem;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .reserved-close-btn:hover {
-    border-color: var(--accent2);
-    color: var(--text);
-  }
-</style>
-
-<script>
-function toggleNav(button) {
-  const navLinks = document.getElementById('navLinks');
-  const isOpen = navLinks.classList.toggle('open');
-  button.classList.toggle('open', isOpen);
-  button.setAttribute('aria-expanded', String(isOpen));
-  button.setAttribute('aria-label', isOpen ? 'Chiudi menu' : 'Apri menu');
-}
-
-document.querySelectorAll('#navLinks a').forEach((link) => {
-  link.addEventListener('click', () => {
-    const navLinks = document.getElementById('navLinks');
-    const toggle = document.querySelector('.nav-toggle');
-    navLinks.classList.remove('open');
-    if (toggle) {
-      toggle.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Apri menu');
-    }
-  });
-});
-
-function openReserved(e) {
-  e.preventDefault();
-  const modal = document.getElementById('reserved-modal');
-  modal.style.display = 'flex';
-  requestAnimationFrame(() => modal.classList.add('open'));
-}
-function closeReserved(e) {
-  e.preventDefault();
-  const modal = document.getElementById('reserved-modal');
-  modal.classList.remove('open');
-  setTimeout(() => modal.style.display = 'none', 300);
-}
-</script>
-
+  </script>
 </body>
 </html>
