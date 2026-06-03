@@ -327,8 +327,8 @@
     }
 
     .hero {
-      min-height: clamp(680px, calc(100vh - 68px), 820px);
-      padding: 5.4rem 0 4.3rem;
+      min-height: clamp(660px, calc(100vh - 68px), 800px);
+      padding: 4.6rem 0 4rem;
       display: flex;
       align-items: center;
       border-bottom: 1px solid var(--line);
@@ -356,8 +356,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
-      gap: 4rem;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+      gap: clamp(3.6rem, 6vw, 5.6rem);
       align-items: center;
     }
 
@@ -390,8 +390,8 @@
 
     .hero h1 {
       max-width: 18ch;
-      margin-bottom: 1.45rem;
-      font-size: clamp(2.75rem, 5.2vw, 4.55rem);
+      margin-bottom: 1.25rem;
+      font-size: clamp(2.75rem, 4.65vw, 4.28rem);
     }
 
     .lead {
@@ -620,7 +620,7 @@
     }
 
     section {
-      padding: 5rem 0;
+      padding: 5.6rem 0;
     }
 
     section.alt {
@@ -1072,13 +1072,31 @@
 
     .cta {
       text-align: center;
-      background: linear-gradient(180deg, var(--bg), var(--bg-soft));
+      position: relative;
+      padding: 6.6rem 0 6.2rem;
+      background:
+        linear-gradient(90deg, transparent, rgba(148,132,255,0.08), transparent) top / 100% 1px no-repeat,
+        linear-gradient(180deg, var(--bg), var(--bg-soft));
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: min(620px, 80vw);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--violet), var(--accent), transparent);
+      transform: translateX(-50%);
+      opacity: 0.78;
+      pointer-events: none;
     }
 
     .cta h2 {
-      max-width: 22ch;
+      max-width: 24ch;
       margin: 0 auto 1.25rem;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(2.25rem, 4.2vw, 3.35rem);
     }
 
     .cta p {
