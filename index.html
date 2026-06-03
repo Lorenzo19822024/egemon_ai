@@ -242,12 +242,11 @@
     .view-switch {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 0.28rem 0.34rem 0.28rem 0.62rem;
+      border-radius: 8px;
+      padding: 0.52rem 0.75rem;
       background: rgba(255,255,255,0.025);
-      color: var(--ink-faint);
+      color: var(--violet);
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.09em;
@@ -262,52 +261,14 @@
       pointer-events: none;
     }
 
-    .mode-label {
-      transition: color 0.18s ease;
-    }
-
-    .view-switch .mode-slow {
-      color: var(--accent);
-    }
-
-    .switch-track {
-      position: relative;
-      width: 38px;
-      height: 22px;
-      border: 1px solid rgba(148,132,255,0.34);
-      border-radius: 999px;
-      background: rgba(14,15,18,0.78);
-    }
-
-    .switch-track::after {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: var(--accent);
-      transition: transform 0.18s ease, background 0.18s ease;
-    }
-
     .view-switch:hover,
     .view-switch:focus-within {
       color: var(--ink);
       border-color: rgba(148,132,255,0.46);
     }
 
-    body.view-essential .view-switch .mode-slow {
-      color: var(--ink-faint);
-    }
-
-    body.view-essential .view-switch .mode-fast {
-      color: var(--violet);
-    }
-
-    body.view-essential .switch-track::after {
-      transform: translateX(16px);
-      background: var(--violet);
+    body.view-essential .view-switch {
+      color: var(--accent);
     }
 
     .menu {
@@ -1787,11 +1748,9 @@
         <a href="ciclo-cognitivo.html">Ciclo Cognitivo</a>
         <a href="piattaforma.html">La Piattaforma</a>
         <a href="#scenari">Soluzioni</a>
-        <label class="view-switch" for="density-switch" title="Alterna versione slow e fast">
-          <span class="mode-label mode-slow">Slow</span>
+        <label class="view-switch" for="density-switch" title="Versione compatta">
           <input id="density-switch" type="checkbox" aria-label="Mostra versione fast">
-          <span class="switch-track" aria-hidden="true"></span>
-          <span class="mode-label mode-fast">Fast</span>
+          <span class="mode-label">Fast</span>
         </label>
         <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
       </nav>
@@ -2128,6 +2087,7 @@
     const navToggle = document.querySelector(".nav-toggle");
     const mainMenu = document.getElementById("main-menu");
     const densitySwitch = document.getElementById("density-switch");
+    const densityLabel = document.querySelector(".mode-label");
 
     if (densitySwitch) {
       document.querySelectorAll("[data-fast]").forEach((node) => {
@@ -2141,6 +2101,8 @@
           "aria-label",
           isFast ? "Mostra versione slow" : "Mostra versione fast"
         );
+        densitySwitch.closest(".view-switch").title = isFast ? "Versione completa" : "Versione compatta";
+        densityLabel.textContent = isFast ? "Slow" : "Fast";
 
         document.querySelectorAll("[data-fast]").forEach((node) => {
           node.textContent = isFast ? node.dataset.fast : node.dataset.slow;
