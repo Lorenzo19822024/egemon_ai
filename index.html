@@ -262,8 +262,12 @@
       pointer-events: none;
     }
 
-    .switch-text::before {
-      content: "Slow";
+    .mode-label {
+      transition: color 0.18s ease;
+    }
+
+    .view-switch .mode-slow {
+      color: var(--accent);
     }
 
     .switch-track {
@@ -293,8 +297,11 @@
       border-color: rgba(148,132,255,0.46);
     }
 
-    body.view-essential .switch-text::before {
-      content: "Fast";
+    body.view-essential .view-switch .mode-slow {
+      color: var(--ink-faint);
+    }
+
+    body.view-essential .view-switch .mode-fast {
       color: var(--violet);
     }
 
@@ -711,6 +718,10 @@
       margin-top: 1.7rem;
     }
 
+    body.view-essential .hero .btn-ghost {
+      display: none;
+    }
+
     body.view-essential .working-on {
       display: none;
     }
@@ -762,7 +773,8 @@
 
     body.view-essential .copy-stack .lead:nth-child(2),
     body.view-essential .operating-map,
-    body.view-essential .process-strip {
+    body.view-essential .process-strip,
+    body.view-essential footer a[href="#come-funziona"] {
       display: none;
     }
 
@@ -1776,9 +1788,10 @@
         <a href="piattaforma.html">La Piattaforma</a>
         <a href="#scenari">Soluzioni</a>
         <label class="view-switch" for="density-switch" title="Alterna versione slow e fast">
-          <span class="switch-text"></span>
+          <span class="mode-label mode-slow">Slow</span>
           <input id="density-switch" type="checkbox" aria-label="Mostra versione fast">
           <span class="switch-track" aria-hidden="true"></span>
+          <span class="mode-label mode-fast">Fast</span>
         </label>
         <a href="mailto:info@egemon.ai" class="nav-cta">Contattaci</a>
       </nav>
@@ -1795,7 +1808,7 @@
               <span class="tag">la nuova classe di intelligenza</span>
             </div>
             <h1 id="hero-title">Il sapere del miglior esperto. Nelle mani di <em>tutto il team</em>.</h1>
-            <p class="lead">Egemon trasforma il know-how di chi sa come si fa in uno strumento operativo che chiunque può usare per ottenere lo stesso risultato, e che forma le persone mentre lavorano.</p>
+            <p class="lead" data-fast="EGEMON porta la conoscenza dell'esperto dentro applicazioni operative: strumenti che guidano il lavoro, conservano il controllo e rendono la competenza utilizzabile dal team.">Egemon trasforma il know-how di chi sa come si fa in uno strumento operativo che chiunque può usare per ottenere lo stesso risultato, e che forma le persone mentre lavorano.</p>
             <p class="micro">Ogni esecuzione è anche formazione.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="#scenari">Vedi le soluzioni</a>
@@ -1851,12 +1864,12 @@
         <div class="sec-head">
           <span class="eyebrow">La piattaforma proprietaria</span>
           <h2 id="egeasy-title">EGEASY</h2>
-          <p class="egeasy-statement">EGEASY è la piattaforma di AI Cognitiva sviluppata da Egemon per facilitare la trasformazione del knowledge in applicazioni di Intelligenza Eseguibile: si parte da un intento di business descritto in linguaggio naturale e si arriva a uno strumento operativo, completo, governato e tracciabile, senza scrivere codice e senza essere esperti di intelligenza artificiale.</p>
+          <p class="egeasy-statement" data-fast="EGEASY è la fabbrica proprietaria di Intelligenza Eseguibile: dall'intento dell'esperto genera applicazioni complete, governate e tracciabili, senza scrivere codice.">EGEASY è la piattaforma di AI Cognitiva sviluppata da Egemon per facilitare la trasformazione del knowledge in applicazioni di Intelligenza Eseguibile: si parte da un intento di business descritto in linguaggio naturale e si arriva a uno strumento operativo, completo, governato e tracciabile, senza scrivere codice e senza essere esperti di intelligenza artificiale.</p>
         </div>
 
         <div class="egeasy-layout">
           <div class="copy-stack">
-            <p class="lead">È una fabbrica generalista, indifferente al settore, a disposizione dell'esperto che ne specializza il risultato descrivendo liberamente l'applicazione che ha in mente. EGEASY comprende l'intento, lo espande con interazioni successive con l'esperto, assorbe in proprio le complessità e crea l'intera applicazione curando la distinzione netta tra ciò che è calcolo e ciò che è giudizio.</p>
+            <p class="lead" data-fast="L'esperto descrive ciò che deve accadere. EGEASY organizza conoscenza, criteri, fonti e responsabilità, distinguendo ciò che è calcolo da ciò che è giudizio.">È una fabbrica generalista, indifferente al settore, a disposizione dell'esperto che ne specializza il risultato descrivendo liberamente l'applicazione che ha in mente. EGEASY comprende l'intento, lo espande con interazioni successive con l'esperto, assorbe in proprio le complessità e crea l'intera applicazione curando la distinzione netta tra ciò che è calcolo e ciò che è giudizio.</p>
             <p class="lead">Qui sta la differenza di EGEASY: si misura sulla soglia di responsabilità professionale, là dove un commercialista, un medico, un avvocato devono poter rispondere del proprio output. La garanzia non è uno strato aggiunto sopra: è parte stabile dell'architettura del sistema.</p>
           </div>
           <div class="operating-map" aria-label="Mappa operativa EGEASY">
@@ -1912,7 +1925,7 @@
             <h3>Quality Document Control</h3>
             <div class="solution-meta"><span>Riservato</span><span>Documenti</span><span>Quality score</span><span>Banche</span></div>
             <p class="solution-proof">Da pratica documentale a fascicolo istruibile al primo colpo.</p>
-            <p>Q-DOC eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
+            <p data-fast="Q-DOC presidia la qualità documentale prima che la pratica raggiunga la Banca: fascicoli più ordinati, controlli espliciti, meno rilavorazioni.">Q-DOC eroga un servizio a garanzia che ogni pratica che raggiunge la Banca sia formalmente perfetta, istruibile al primo colpo. Senza eccezioni.</p>
             </div>
             <a class="link" href="mailto:info@egemon.ai?subject=Quality%20Document%20Control">Parliamone</a>
           </article>
@@ -1922,7 +1935,7 @@
             <h3>Crisi d'Impresa</h3>
             <div class="solution-meta"><span>Live</span><span>CCII</span></div>
             <p class="solution-proof">Da bilancio e questionario a Valutazione Iniziale pronta per la delibera.</p>
-            <p>PRORA è il programma EGEMON per l'adozione del Codice della Crisi d'Impresa e dell'Insolvenza (CCII), introdotto dal D.Lgs. 14/2019. La prima soluzione, Tutela Preventiva, guida il commercialista nella valutazione iniziale degli adeguati assetti ai sensi dell'art. 2086 c.c. Senza formazione preventiva.</p>
+            <p data-fast="PRORA porta il metodo EGEMON nella Crisi d'Impresa: guida il commercialista nella valutazione iniziale degli adeguati assetti.">PRORA è il programma EGEMON per l'adozione del Codice della Crisi d'Impresa e dell'Insolvenza (CCII), introdotto dal D.Lgs. 14/2019. La prima soluzione, Tutela Preventiva, guida il commercialista nella valutazione iniziale degli adeguati assetti ai sensi dell'art. 2086 c.c. Senza formazione preventiva.</p>
             <a class="link" href="https://prora.egemon.ai" target="_blank" rel="noopener">Vai a PRORA</a>
           </article>
 
@@ -1931,7 +1944,7 @@
             <h3>Formazione Universitaria</h3>
             <div class="solution-meta"><span>Live</span><span>Education</span></div>
             <p class="solution-proof">Da piano di studi e materiali a tutoring adattivo, prova d'esame e valutazione.</p>
-            <p>QWIKKEN è l'applicazione sviluppata per supportare gli studenti universitari che non hanno la possibilità di avere un contatto diretto e costante con un docente per ognuno dei loro esami.</p>
+            <p data-fast="QWIKKEN applica l'Intelligenza Eseguibile alla formazione universitaria: tutoraggio, prova, valutazione e apprendimento guidato.">QWIKKEN è l'applicazione sviluppata per supportare gli studenti universitari che non hanno la possibilità di avere un contatto diretto e costante con un docente per ognuno dei loro esami.</p>
             <a class="link" href="https://qwikken.egemon.ai?welcome=true" target="_blank" rel="noopener">Accedi a QWIKKEN</a>
           </article>
 
@@ -1940,7 +1953,7 @@
             <h3>Attestazioni SOA</h3>
             <div class="solution-meta"><span>Riservato</span><span>Compliance</span></div>
             <p class="solution-proof">Da documentazione impresa a percorso guidato di verifica requisiti.</p>
-            <p>App SOA supporta l'intero processo di qualificazione delle imprese di costruzione, dalla raccolta documentale alla verifica dei requisiti fino all'emissione dell'attestazione. Senza formazione specifica per l'operatore.</p>
+            <p data-fast="SOA trasforma qualificazione, documenti e requisiti in un percorso operativo guidato per imprese e operatori.">App SOA supporta l'intero processo di qualificazione delle imprese di costruzione, dalla raccolta documentale alla verifica dei requisiti fino all'emissione dell'attestazione. Senza formazione specifica per l'operatore.</p>
             <a class="link" href="mailto:info@egemon.ai?subject=Attestazioni%20SOA">Parliamone</a>
           </article>
 
@@ -1949,7 +1962,7 @@
             <h3>Il tuo settore</h3>
             <div class="solution-meta"><span>Custom</span><span>Alta intensità cognitiva</span></div>
             <p class="solution-proof">Quando il valore dipende da criteri, eccezioni, documenti e responsabilità.</p>
-            <p>Qualsiasi settore ad alta intensità cognitiva: sanità, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
+            <p data-fast="Ogni processo ad alta intensità cognitiva può diventare applicazione: criteri, eccezioni, documenti e responsabilità restano governati.">Qualsiasi settore ad alta intensità cognitiva: sanità, legale, ingegneria, GDO, sicurezza sul lavoro.</p>
             <a class="link" href="mailto:info@egemon.ai?subject=Nuovo%20settore%20EGEMON">Contattaci</a>
           </article>
         </div>
@@ -1962,7 +1975,7 @@
           <div>
             <span class="eyebrow">Il principio</span>
             <h2 id="ciclo-title">Il Ciclo Cognitivo dell'Intelligenza Eseguibile</h2>
-            <p class="lead">Democratizzare la conoscenza significa renderla utilizzabile da chiunque, indipendentemente dalla competenza individuale. Questo richiede che il sapere dell'esperto venga trasferito agli operatori in una forma che ciascuno possa usare, in qualsiasi circostanza.</p>
+            <p class="lead" data-fast="Il Ciclo Cognitivo è il metodo con cui EGEMON rende il sapere dell'esperto eseguibile: conoscenza, consapevolezza, esecuzione, formazione e autopoiesi.">Democratizzare la conoscenza significa renderla utilizzabile da chiunque, indipendentemente dalla competenza individuale. Questo richiede che il sapere dell'esperto venga trasferito agli operatori in una forma che ciascuno possa usare, in qualsiasi circostanza.</p>
             <p class="lead" style="margin-top:1rem;">I 5 Principi del Ciclo Cognitivo governano questa trasformazione: un flusso continuo dove ogni principio alimenta il successivo.</p>
             <div class="hero-actions">
               <a class="btn btn-ghost" href="ciclo-cognitivo.html">Approfondisci il ciclo</a>
@@ -2117,6 +2130,10 @@
     const densitySwitch = document.getElementById("density-switch");
 
     if (densitySwitch) {
+      document.querySelectorAll("[data-fast]").forEach((node) => {
+        node.dataset.slow = node.textContent;
+      });
+
       const setDensity = (isFast) => {
         document.body.classList.toggle("view-essential", isFast);
         densitySwitch.checked = isFast;
@@ -2124,14 +2141,29 @@
           "aria-label",
           isFast ? "Mostra versione slow" : "Mostra versione fast"
         );
+
+        document.querySelectorAll("[data-fast]").forEach((node) => {
+          node.textContent = isFast ? node.dataset.fast : node.dataset.slow;
+        });
       };
 
-      setDensity(window.localStorage.getItem("egemon-density") === "fast");
+      let savedDensity = "slow";
+      try {
+        savedDensity = window.localStorage.getItem("egemon-density") || "slow";
+      } catch (error) {
+        savedDensity = "slow";
+      }
+
+      setDensity(savedDensity === "fast");
 
       densitySwitch.addEventListener("change", () => {
         const isFast = densitySwitch.checked;
         setDensity(isFast);
-        window.localStorage.setItem("egemon-density", isFast ? "fast" : "slow");
+        try {
+          window.localStorage.setItem("egemon-density", isFast ? "fast" : "slow");
+        } catch (error) {
+          // Preference persistence is optional; the visual switch still works.
+        }
       });
     }
 
