@@ -576,80 +576,22 @@
       min-height: 430px;
       display: grid;
       place-items: center;
-      opacity: 0;
-      animation: consoleLand 980ms cubic-bezier(0.2, 0.75, 0.18, 1) 330ms both;
     }
 
     .symbol-shell {
       position: relative;
       width: min(100%, 420px);
       aspect-ratio: 1;
-      border-radius: 50%;
+      border-radius: 8px;
       background:
-        radial-gradient(circle at 50% 50%, rgba(148,132,255,0.18), transparent 12%),
-        radial-gradient(circle at 50% 50%, rgba(201,162,75,0.12), transparent 34%),
-        radial-gradient(circle at 50% 50%, transparent 0 48%, rgba(148,132,255,0.14) 48.5% 49.5%, transparent 50%),
-        radial-gradient(circle at 50% 50%, transparent 0 68%, rgba(201,162,75,0.13) 68.5% 69.5%, transparent 70%);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+        radial-gradient(circle at 18% 16%, rgba(148,132,255,0.18), transparent 38%),
+        radial-gradient(circle at 76% 74%, rgba(201,162,75,0.14), transparent 42%),
+        linear-gradient(135deg, rgba(111,174,159,0.08), rgba(255,255,255,0.018) 46%, rgba(148,132,255,0.08));
+      border: 1px solid rgba(242,239,233,0.08);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.045);
+      opacity: 0.72;
+      filter: blur(0.2px);
     }
-
-    .symbol-shell::before,
-    .symbol-shell::after {
-      content: "";
-      position: absolute;
-      inset: 12%;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .symbol-shell::before {
-      background:
-        conic-gradient(from 8deg,
-          transparent 0 8deg,
-          rgba(148,132,255,0.7) 8deg 10deg,
-          transparent 10deg 58deg,
-          rgba(201,162,75,0.68) 58deg 60deg,
-          transparent 60deg 118deg,
-          rgba(111,174,159,0.52) 118deg 120deg,
-          transparent 120deg 178deg,
-          rgba(148,132,255,0.62) 178deg 180deg,
-          transparent 180deg 238deg,
-          rgba(201,162,75,0.5) 238deg 240deg,
-          transparent 240deg 302deg,
-          rgba(111,174,159,0.52) 302deg 304deg,
-          transparent 304deg 360deg);
-      mask-image: radial-gradient(circle, transparent 0 19%, #000 20% 63%, transparent 64%);
-      animation: cycleRotate 28s linear infinite;
-    }
-
-    .symbol-shell::after {
-      inset: 28%;
-      border: 1px solid rgba(242,239,233,0.12);
-      background:
-        radial-gradient(circle, rgba(242,239,233,0.08), transparent 58%),
-        linear-gradient(135deg, rgba(148,132,255,0.16), rgba(201,162,75,0.08));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-
-    .symbol-ray {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 2px;
-      height: 42%;
-      transform-origin: 50% 0;
-      background: linear-gradient(180deg, rgba(242,239,233,0.34), transparent);
-      opacity: 0.32;
-    }
-
-    .symbol-ray.r1 { transform: rotate(0deg); }
-    .symbol-ray.r2 { transform: rotate(45deg); }
-    .symbol-ray.r3 { transform: rotate(90deg); }
-    .symbol-ray.r4 { transform: rotate(135deg); }
-    .symbol-ray.r5 { transform: rotate(180deg); }
-    .symbol-ray.r6 { transform: rotate(225deg); }
-    .symbol-ray.r7 { transform: rotate(270deg); }
-    .symbol-ray.r8 { transform: rotate(315deg); }
 
     .product-console {
       display: none;
@@ -1950,16 +1892,7 @@
             <p class="working-on">Al lavoro su: <b>Crisi di impresa · Quality Document Control · Attestazioni SOA · Education</b></p>
           </div>
           <figure class="hero-symbol" aria-hidden="true">
-            <div class="symbol-shell">
-              <span class="symbol-ray r1"></span>
-              <span class="symbol-ray r2"></span>
-              <span class="symbol-ray r3"></span>
-              <span class="symbol-ray r4"></span>
-              <span class="symbol-ray r5"></span>
-              <span class="symbol-ray r6"></span>
-              <span class="symbol-ray r7"></span>
-              <span class="symbol-ray r8"></span>
-            </div>
+            <div class="symbol-shell"></div>
           </figure>
           <aside class="product-console" aria-label="Flusso operativo EGEMON">
             <div class="console-top">
